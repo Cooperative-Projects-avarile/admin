@@ -1,10 +1,9 @@
 import { useFormFields } from "@/common/hooks";
 import { Form, Modal } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useStore } from "../../services/pageStore";
-import useConfig from "../../useConfig";
 import { PageType } from "../../services/pageStore/model";
-import {pickBy} from 'lodash-es'
+import useConfig from "../../useConfig";
 
 const ModalForm: React.FC = () => {
 	const [form] = Form.useForm<PageType>();
@@ -63,8 +62,8 @@ const ModalForm: React.FC = () => {
 				onFieldsChange={(values, old) => {
 					// 当prime_id表单修改，并且修改新的值和旧的值不一样的时候，清空parent_id
 					if (
-						values[0].name == "prime_id" &&
-						prime_id.current != values[0].value
+						values[0].name === "prime_id" &&
+						prime_id.current !== values[0].value
 					) {
 						prime_id.current = values[0].value;
 						form.setFieldValue("parent_id", "");

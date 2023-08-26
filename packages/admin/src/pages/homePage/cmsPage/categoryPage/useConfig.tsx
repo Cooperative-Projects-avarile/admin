@@ -141,7 +141,7 @@ const useConfig = () => {
 						return primeIdValue
 							? store.dataList
 									.filter((item) => {
-										return item.prime_id == primeIdValue;
+										return item.prime_id === primeIdValue;
 									})
 									.map((item) => {
 										return {

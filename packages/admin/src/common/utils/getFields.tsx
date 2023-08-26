@@ -7,7 +7,7 @@ export const getFields = <T,>(
 ) => {
 	const { inputType, options, inputOptions = {} } = fieldConfig;
 	let FieldItem;
-	if (inputType == "Select") {
+	if (inputType === "Select") {
 		let optionsArr = [];
 		if (typeof options == "function") {
 			optionsArr = options({ formIns });
@@ -40,7 +40,7 @@ export const getFields = <T,>(
 		);
 	} else {
 		let InputItem;
-		if (inputType == "Switch") {
+		if (inputType === "Switch") {
 			InputItem = Switch;
 		} else {
 			InputItem = Input;

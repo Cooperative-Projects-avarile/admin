@@ -1,5 +1,3 @@
-import helloImg from "@/assets/imgs/dland.png";
-import { Image } from "antd";
 import Card from "./components/card";
 import styles from "./helloPage.module.scss";
 

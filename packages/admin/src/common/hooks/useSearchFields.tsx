@@ -29,7 +29,7 @@ const useSearchFields = <T,>(
 				InputItem = searchFromRender;
 			} else if (fieldConfig) {
 				if (formOptions?.rules) {
-					formOptions.rules.find((a: RuleObject) => {
+					formOptions.rules.forEach((a: RuleObject) => {
 						if (a.required) {
 							a.required = false;
 						}

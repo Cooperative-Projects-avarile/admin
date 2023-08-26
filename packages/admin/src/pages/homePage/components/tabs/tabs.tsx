@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./tabs.module.scss";
 
-export default () => {
+const TabsComp  = () => {
 	const [activeKey, setActiveKey] = useState("");
 	const [items, setItems] = useState([]);
 	const navigate = useNavigate();
@@ -52,3 +52,5 @@ export default () => {
 		/>
 	);
 };
+
+export default TabsComp

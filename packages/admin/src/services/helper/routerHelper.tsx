@@ -50,7 +50,6 @@ class RouterHelper {
 		routesStuctData: RoutesStructDataItem[],
 		prefix: string,
 	) => {
-		const { setRoutesConfigMap } = store.getModule("routerStore").actions;
 		routesStuctData.forEach((routeStructItem) => {
 			const { id, isMustShow } = routeStructItem;
 			// 如果有权限或者是必须显示的，或者是管理员
@@ -120,8 +119,6 @@ class RouterHelper {
 	};
 
 	getRoutePathByKey(key: string) {
-		let test = store.getModule("routerStore");
-		debugger;
 		return store.getModule("routerStore").state.routesConfigMap[key]?.path;
 	}
 	getRouteTitleByKey(key: string) {

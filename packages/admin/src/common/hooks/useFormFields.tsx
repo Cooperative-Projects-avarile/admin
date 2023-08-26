@@ -26,7 +26,7 @@ const useFormFields = <T,>(
 							key={`${index} ${nameItem}`}
 							orientation="left"
 						>
-							{index == 0 ? (
+							{index === 0 ? (
 								<h3>{nameItem}</h3>
 							) : (
 								<h5>{nameItem}</h5>
