@@ -7,11 +7,7 @@ import { PageType } from "./services/pageStore/model";
 import { useEffect } from "react";
 
 const useConfig = () => {
-	const {
-		setAddModalShowAct,
-		deleteAct,
-		queryAct,
-	} = useStore()[0];
+	const { setAddModalShowAct, deleteAct, queryAct } = useStore()[0];
 	const { dataList: opportunityList, queryAct: queryOpportunityListAct } =
 		useFlatInject("opportunityPageStore")[0];
 
@@ -22,7 +18,7 @@ const useConfig = () => {
 		if (!opportunityList?.length) {
 			queryOpportunityListAct();
 		}
-		if (!queryUserListAct?.length) {
+		if (!userList?.length) {
 			queryUserListAct();
 		}
 	}, []);
@@ -121,7 +117,7 @@ const useConfig = () => {
 			},
 		];
 		return value;
-	}, [ opportunityList, userList]);
+	}, [opportunityList, userList]);
 };
 
 export default useConfig;

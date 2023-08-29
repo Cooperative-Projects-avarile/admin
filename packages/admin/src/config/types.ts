@@ -15,6 +15,7 @@ export type RouteItem = RouteProps & {
 	component?: keyof typeof pageList; // 路由组件
 	page?: React.LazyExoticComponent<(props: unknown) => JSX.Element>;
 	actionPermissions?: (keyof typeof ACTION_DICT)[];
+	keepAlive?: boolean;
 };
 
 export type ROUTE_ID_KEY = keyof typeof ROUTE_NAME;

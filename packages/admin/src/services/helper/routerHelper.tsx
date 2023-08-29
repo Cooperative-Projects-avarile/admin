@@ -128,6 +128,13 @@ class RouterHelper {
 	getRouteIdByPath(path: string) {
 		return store.getModule("routerStore").state.routesConfigMap[path]?.id;
 	}
+	getKeepAliveRoutePath() {
+		return Object.values(ROUTE_INFO_CONFIG).filter((item)=>{
+				return item.keepAlive
+			}).map((item) => {
+				return item.id;
+			});
+	}
 	createDefaultRoutesConfig(defaultRouteKeys) {
 		return defaultRouteKeys.map((item: ROUTE_ID_KEY) => {
 			let routeItem = ROUTE_INFO_CONFIG[item];
@@ -158,6 +165,7 @@ class RouterHelper {
 	) {
 		const { type = "push", state } = options || {};
 		const path = this.getRoutePathByKey(id);
+		if(!path) return new Error("路由不存在")
 		if (type === "push") {
 			this.history.push(path, state);
 		} else {

@@ -1,35 +1,25 @@
-import Card from "./components/card";
+import { useFlatInject } from "@/common/hooks";
+import { useEffect } from "react";
+import ColumnChart from "./components/columnChart/columnChart";
 import styles from "./helloPage.module.scss";
 
 const HelloPage = (props) => {
+	const { queryOpportunityACT, queryPlatformACT } =
+		useFlatInject("helloPageStore")[0];
+
+	useEffect(() => {
+		queryOpportunityACT({
+			opportunity_ids: [],
+			order: {},
+		});
+		queryPlatformACT({
+			order: {},
+		});
+	}, []);
+
 	return (
 		<div className={styles.content}>
-			<div className={styles.title}>Moderate admin</div>
-			<div className={styles.infoBoard}>
-				<Card />
-				{/* <div
-          style={{
-            height: "100%",
-            width: "100%",
-            padding: "40px",
-            backgroundColor: "var(--color-fill-2)",
-            display: "flex",
-            justifyContent: "start",
-            color: "black",
-            alignItems: "center",
-          }}
-        >
-          <Image width={200} src={helloImg} />
-          <h3
-            style={{
-              fontWeight: "bold",
-              marginLeft: "50px",
-            }}
-          >
-            技术交流群，有问题就问，提供强有力的技术支持～～～
-          </h3>
-        </div> */}
-			</div>
+			<ColumnChart />
 		</div>
 	);
 };

@@ -1,24 +1,25 @@
-import { useInject } from "@/common/hooks";
+import { useFlatInject } from "@/common/hooks";
 import useLocationListen from "@/common/hooks/useLocationListen";
 import { routerHelper } from "@/services";
 import { Tabs } from "antd";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, type Location } from "react-router-dom";
 import styles from "./tabs.module.scss";
 
 const TabsComp  = () => {
-	const [activeKey, setActiveKey] = useState("");
-	const [items, setItems] = useState([]);
-	const navigate = useNavigate();
-	const [routerStore] = useInject("routerStore");
 	const {
-		state: { tabsHistory },
-		actions: { deleteTabHistory },
-	} = routerStore;
+		deleteTabHistoryAct,
+		setTableItemsAct,
+		setActiveTabKeyAct,
+		tabsHistory,
+		activeTabKey,
+		tabItems,
+	} = useFlatInject('appStore')[0];
+	const navi = useNavigate()
 	useEffect(() => {
 		const tabsHistoryArr = Object.values(tabsHistory);
-		setItems(
-			tabsHistoryArr.map((item: any) => {
+		setTableItemsAct(
+			tabsHistoryArr.map((item: Location) => {
 				const { pathname } = item;
 				const id = pathname.split("/").slice(-1)[0];
 				return {
@@ -29,11 +30,11 @@ const TabsComp  = () => {
 		);
 	}, [tabsHistory]);
 	useLocationListen((location) => {
-		setActiveKey(location.pathname);
+		setActiveTabKeyAct(location.pathname);
 	});
 	const onChange = (newActiveKey: string) => {
-		setActiveKey(newActiveKey);
-		navigate(newActiveKey);
+		setActiveTabKeyAct(newActiveKey);
+		navi(newActiveKey)
 	};
 
 	return (
@@ -41,12 +42,12 @@ const TabsComp  = () => {
 			className={styles.content}
 			type="editable-card"
 			onChange={onChange}
-			activeKey={activeKey}
-			items={items}
+			activeKey={activeTabKey}
+			items={tabItems}
 			hideAdd={true}
 			onEdit={(e, action) => {
 				if (action === "remove") {
-					deleteTabHistory(e as string);
+					deleteTabHistoryAct(e as string);
 				}
 			}}
 		/>

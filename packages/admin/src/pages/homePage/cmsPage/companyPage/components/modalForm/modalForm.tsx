@@ -2,7 +2,6 @@ import { useFlatInject, useFormFields } from "@/common/hooks";
 import { Form, Modal } from "antd";
 import { useEffect } from "react";
 import useConfig from "../../useConfig";
-;
 
 const ModalForm: React.FC = () => {
 	const [form] = Form.useForm();

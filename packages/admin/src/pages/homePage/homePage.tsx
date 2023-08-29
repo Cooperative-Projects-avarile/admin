@@ -2,10 +2,11 @@ import KeepAlive from "@/common/hocs/keepAlive";
 import themeProviderHoc from "@/common/hocs/themeHoc/themeHoc";
 import { initAllStores, useFlatInject } from "@/common/hooks";
 import useLocationListen from "@/common/hooks/useLocationListen";
+import { ROUTE_ID } from "@/config/routerConfig";
 import { routerHelper } from "@/services";
 import defaultTopPermission from "@/static/defaultTopPermission";
 import { Button, Layout, Menu, Modal } from "antd";
-import { useNavigate, type Location } from "react-router-dom";
+import { type Location } from "react-router-dom";
 import Breadcrumb from "./components/breadcrumb/breadcrumb";
 import Tabs from "./components/tabs/tabs";
 import styles from "./homePage.module.scss";
@@ -14,15 +15,14 @@ const { Header, Content, Sider } = Layout;
 
 const HomePage = () => {
 	const { updatePermissions } = useFlatInject("userInfoStore")[0];
-	const { addTabHistoryAction } = useFlatInject("routerStore")[0];
 	const {
 		menuData,
 		menuDefaultOpenKeys,
 		menuDefaultSelectedKeys,
+		addTabHistoryActionAct,
 		setMenuDefaultOpenKeysAct,
 		setMenuDefaultSelectedKeysAct,
 	} = useFlatInject("appStore")[0];
-	const navigate = useNavigate();
 
 	useLocationListen((location: Location) => {
 		const { pathname } = location;
@@ -35,7 +35,7 @@ const HomePage = () => {
 			selectedKeysTemp.length - 1,
 		);
 		setMenuDefaultOpenKeysAct(openKeysTemp.length ? openKeysTemp : []);
-		addTabHistoryAction(location);
+		addTabHistoryActionAct(location);
 	});
 	return (
 		<Layout className={styles.content}>
@@ -54,7 +54,7 @@ const HomePage = () => {
 									).then(() => {
 										initAllStores();
 										routerHelper.init();
-										navigate("/");
+										routerHelper.jumpTo(ROUTE_ID.loginPage);
 									});
 								}
 							},
@@ -76,12 +76,7 @@ const HomePage = () => {
 							style={{ height: "100%", borderRight: 0 }}
 							items={menuData}
 							onClick={({ key }) => {
-								const path =
-									routerHelper.getRoutePathByKey(key);
-									debugger
-								if (path) {
-									navigate(path);
-								}
+								routerHelper.jumpTo(key);
 							}}
 						/>
 					)}
@@ -106,11 +101,7 @@ const HomePage = () => {
 							}}
 						>
 							<KeepAlive
-								include={[
-									"/homePage/sysPage/userPage",
-									"/homePage/sysPage/rolePage",
-								]}
-								keys={[]}
+								include={routerHelper.getKeepAliveRoutePath()}
 							></KeepAlive>
 						</div>
 					</Content>

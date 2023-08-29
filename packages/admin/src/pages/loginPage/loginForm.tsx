@@ -2,26 +2,23 @@ import { useGreatAsync, useInject } from "@/common/hooks";
 import { ROUTE_ID } from "@/config/routerConfig";
 import { routerHelper } from "@/services";
 import { Button, Checkbox, Form, Input } from "antd";
-import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [userInfoStore] = useInject("userInfoStore");
   const {
     actions: { login },
   } = userInfoStore;
-  const { loading, run: loginG } = useGreatAsync(login, {
+  const {  run: loginG } = useGreatAsync(login, {
     auto: false,
     single: true,
   });
-  const navi = useNavigate()
   const onFinish = async (values: any) => {
     // 开发环境使用默认账号密码
     await loginG({
       userName: "avarile@gmail.com",
       password: "1q2w3e4r",
     });
-    let path = routerHelper.getRoutePathByKey(ROUTE_ID.helloPage)
-    navi(path)
+    routerHelper.jumpTo(ROUTE_ID.helloPage)
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -38,7 +35,6 @@ const LoginForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      {loading ? 1 : 0}
       <Form.Item
         label="用户名"
         name="name"

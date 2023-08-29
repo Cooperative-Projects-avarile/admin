@@ -1,7 +1,7 @@
 import { useFlatInject } from "@/common/hooks";
 import { Button, Table } from "antd";
 import { useEffect } from "react";
-import ModalForm from "./components/modalForm";
+import ModalForm from "./components/modalForm/modalForm";
 import SearchForm from "./components/searchForm/searchForm";
 import styles from "./style.module.scss";
 import useConfig from "./useConfig";

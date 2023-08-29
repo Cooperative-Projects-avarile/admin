@@ -9,13 +9,12 @@ const LoginPage = () => {
       <div className={styles.moderate}>
         <AnimateText
           texts={[
-            " Moderate admin react",
+            "Moderate admin react",
             "基于React18+AntdDesign5+Mobx+Vite+Ts开发",
           ]}
         ></AnimateText>
       </div>
       <div className={styles.loginPanel}>
-        {/* @ts-ignore */}
         <LoginCard>
           <LoginForm />
         </LoginCard>

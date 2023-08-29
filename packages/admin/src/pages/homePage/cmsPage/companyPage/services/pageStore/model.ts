@@ -1,4 +1,4 @@
-export interface CStoreState {
+export interface CompanyPageStoreState {
 	dataList: PageType[];
 	total: number;
 	pageSize: number;
