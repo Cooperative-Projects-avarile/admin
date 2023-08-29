@@ -1,6 +1,7 @@
 import state, { initState } from "./state";
 import actions from "./action";
 import watch from "./watch";
+import map from "./map";
 import { useFlatInject } from "@/common/hooks";
 
 const store = {
@@ -11,6 +12,7 @@ const store = {
 		...actions,
 		init: initState,
 	},
+	maps:map,
 	watch,
 };
 

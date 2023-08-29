@@ -49,20 +49,21 @@ const HomePage = () => {
 							content: "更新权限之后，需要重新登陆",
 							onOk: () => {
 								{
-									updatePermissions(
-										defaultTopPermission,
-									).then(() => {
-										initAllStores();
-										routerHelper.init();
-										routerHelper.jumpTo(ROUTE_ID.loginPage);
-									});
+									// updatePermissions(
+									// 	defaultTopPermission,
+									// ).then(() => {
+
+									// });
+									initAllStores();
+									routerHelper.init();
+									routerHelper.jumpTo(ROUTE_ID.loginPage);
 								}
 							},
 						});
 					}}
 					className={styles.resetBtn}
 				>
-					重置权限
+					退出
 				</Button>
 			</Header>
 			<Layout>

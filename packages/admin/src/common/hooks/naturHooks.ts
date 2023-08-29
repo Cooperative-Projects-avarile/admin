@@ -23,3 +23,4 @@ export const addStoreDync = <T extends StoreModule>(
 	return storeTemp.getModule(storeName);
 };
 export const createActions = NaturBaseFactory.actionsCreator;
+export const mapCreator = NaturBaseFactory.mapCreator;

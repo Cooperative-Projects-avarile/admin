@@ -9,9 +9,10 @@ export const initState = (): StoreState => {
 		total: 0,
 		isShowAddModal: false,
 		isUpdate: false,
-		recordData:null,
-		loading:false,
-		isDetail:false,
+		recordData: null,
+		loading: false,
+		isDetail: false,
+		currentTypeId: 0,
 	};
 };
 

@@ -3,7 +3,7 @@ import { normalizeNum } from "@/common/utils";
 import { Modal, Space } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType } from "./services/pageStore/model";
-const TYPE_ENUM = ["user", "company", "category", "opportunity", "empty"];
+export const TYPE_ENUM = ["user", "company", "category", "opportunity", "empty"];
 
 const useConfig = () => {
 	const {

@@ -2,13 +2,14 @@ import { useFlatInject } from "@/common/hooks";
 import { Column } from "@ant-design/plots";
 import { useEffect, useState } from "react";
 
-const ColumnChart = () => {
-	const { opportunityStatisticsData } = useFlatInject("helloPageStore")[0];
-
+const PlatformColumnChart = () => {
+	const { platformStatisticsDataNew } = useFlatInject("helloPageStore")[0];
 	const config = {
-		data:opportunityStatisticsData,
-		xField: "城市",
-		yField: "销售额",
+		data: platformStatisticsDataNew,
+		xField: "created_at",
+		yField: "value",
+		seriesField: "type",
+		isGroup: true,
 		xAxis: {
 			label: {
 				autoRotate: false,
@@ -23,4 +24,4 @@ const ColumnChart = () => {
 	return <Column {...config} />;
 };
 
-export default ColumnChart;
+export default PlatformColumnChart;

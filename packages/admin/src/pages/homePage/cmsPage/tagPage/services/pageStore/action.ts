@@ -5,6 +5,11 @@ import { QueryActParams } from "./model";
 import { pickBy } from "lodash-es";
 
 const actions = createActions(state)({
+	setcurrentTypeId: (currentTypeId: number) => {
+		return {
+			currentTypeId,
+		};
+	},
 	setIsDetailAct: (isDetail: boolean) => {
 		return {
 			isDetail,
@@ -38,7 +43,7 @@ const actions = createActions(state)({
 		(params:QueryActParams = {}) =>
 		async (naturApi) => {
 			if(params.page){
-				params.page = 1
+				params.page = 1;
 			}
 			naturApi.setState({
 				loading: true,

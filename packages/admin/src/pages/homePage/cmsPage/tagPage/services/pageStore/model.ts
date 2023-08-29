@@ -8,6 +8,7 @@ export interface StoreState {
 	recordData: unknown;
 	loading: boolean;
 	isDetail: boolean;
+    currentTypeId:number|string
 }
 
 export interface PageType {
