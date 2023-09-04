@@ -34,7 +34,7 @@ export const getInputNumerFormItemConfig = <T>(
 	};
 };
 
-export const FieldCreater = <T>(
+export const fieldCreater = <T>(
 	name: string,
 	options: MyColumnType<T> = {},
 ): MyColumnType<T> => {

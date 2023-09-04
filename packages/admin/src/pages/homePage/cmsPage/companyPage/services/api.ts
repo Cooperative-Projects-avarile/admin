@@ -28,8 +28,8 @@ function upadteApi(data) {
 }
 
 // 查
-function queryApi(data: any) {
-	return http.request({
+function queryApi<T>(data: any) {
+	return http.request<{},{count:number,data:T[]}>({
 		url: "/nestApi/company/query",
 		method: "POST",
 		data,

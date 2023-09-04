@@ -1,7 +1,7 @@
 import { useFlatInject, usePageConfig } from "@/common/hooks";
 import { MyColumnType } from "@/common/model/fieldsHooks";
 import {
-	FieldCreater,
+	fieldCreater,
 	getInputNumerFormItemConfig,
 } from "@/common/utils";
 import { Modal, Space } from "antd";
@@ -23,7 +23,7 @@ const useConfig = () => {
 	const { dataList: companyList } = useFlatInject("companyPageStore")[0];
 	return usePageConfig(() => {
 		let value: MyColumnType<PageType>[] = [
-			FieldCreater<PageType>("title"),
+			fieldCreater<PageType>("title"),
 			{
 				title: "status",
 				dataIndex: "status",
@@ -86,13 +86,13 @@ const useConfig = () => {
 					isSearch: true,
 				},
 			},
-			FieldCreater<PageType>("postcode"),
-			FieldCreater<PageType>("region"),
-			FieldCreater<PageType>("state"),
-			FieldCreater<PageType>("country"),
+			fieldCreater<PageType>("postcode"),
+			fieldCreater<PageType>("region"),
+			fieldCreater<PageType>("state"),
+			fieldCreater<PageType>("country"),
 			getInputNumerFormItemConfig<PageType>("marketPrice"),
 			getInputNumerFormItemConfig<PageType>("scalingPrice"),
-			FieldCreater<PageType>("scalingPriceDesc"),
+			fieldCreater<PageType>("scalingPriceDesc"),
 			getInputNumerFormItemConfig<PageType>("discount"),
 			{
 				title: "category_id",

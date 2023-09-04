@@ -1,5 +1,6 @@
 import { mapCreator } from "@/common/hooks";
 import state from "./state";
+import dayjs from "dayjs";
 const createMap = mapCreator(state);
 
 export default {
@@ -16,7 +17,7 @@ export default {
 					result.push({
 						type: key,
 						value: obj[key],
-						created_at: created_at,
+						created_at: dayjs(created_at).format("YYYY-MM-DD"),
 					});
 				}
 			});
@@ -47,7 +48,7 @@ export default {
 					result.push({
 						type: key,
 						value: obj[key],
-						created_at: created_at,
+						created_at: dayjs(created_at).format("YYYY-MM-DD"),
 					});
 				}
 			});

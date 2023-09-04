@@ -2,7 +2,7 @@ import { usePageConfig } from "@/common/hooks";
 import { Modal, Space } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType } from "./services/pageStore/model";
-import { FieldCreater } from "@/common/utils";
+import { fieldCreater } from "@/common/utils";
 
 const TYPE_ENUM = ["prime", "parent", "sub"];
 
@@ -19,8 +19,8 @@ const useConfig = () => {
 
 	return usePageConfig<PageType>(() => {
 		return [
-			FieldCreater("nick_name"),
-			FieldCreater("email", {
+			fieldCreater("nick_name"),
+			fieldCreater("email", {
 				render(value, record) {
 					return (
 						<a
@@ -32,40 +32,44 @@ const useConfig = () => {
 							{value}
 						</a>
 					);
-				}
+				},
 			}),
-			FieldCreater("first_name"),
-			FieldCreater("last_name"),
-			FieldCreater("password", {}),
-			FieldCreater("postcode"),
-			FieldCreater("mobile"),
-			FieldCreater("role"),
-			FieldCreater("stripe_customer_id", {
+			fieldCreater("first_name"),
+			fieldCreater("last_name"),
+			fieldCreater("password", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("stripe_session_id", {
+			fieldCreater("postcode"),
+			fieldCreater("mobile"),
+			fieldCreater("role"),
+			fieldCreater("stripe_customer_id", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("stripe_subscription_id", {
+			fieldCreater("stripe_session_id", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("hubspotId", {
+			fieldCreater("stripe_subscription_id", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("company_id", {
+			fieldCreater("hubspotId", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("id"),
+			fieldCreater("company_id", {
+				fieldConfig: {
+					scope: ["modal"],
+				},
+			}),
+			fieldCreater("id"),
 			{
 				title: "description",
 				dataIndex: "description",

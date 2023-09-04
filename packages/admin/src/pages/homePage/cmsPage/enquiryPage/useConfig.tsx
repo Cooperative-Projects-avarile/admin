@@ -1,6 +1,6 @@
 import { useFlatInject, usePageConfig } from "@/common/hooks";
 import { MyColumnType } from "@/common/model/fieldsHooks";
-import { FieldCreater } from "@/common/utils";
+import { fieldCreater } from "@/common/utils";
 import { Modal, Space } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType } from "./services/pageStore/model";
@@ -25,15 +25,15 @@ const useConfig = () => {
 
 	return usePageConfig(() => {
 		let value: MyColumnType<PageType>[] = [
-			FieldCreater("postcode", {
+			fieldCreater("postcode", {
 				fieldConfig: {
 					scope: ["modal"],
 				},
 			}),
-			FieldCreater("company"),
-			FieldCreater("title"),
-			FieldCreater("content"),
-			FieldCreater("email", {
+			fieldCreater("company"),
+			fieldCreater("title"),
+			fieldCreater("content"),
+			fieldCreater("email", {
 				fieldConfig: {
 					formOptions: {
 						rules: [
@@ -44,8 +44,8 @@ const useConfig = () => {
 					},
 				},
 			}),
-			FieldCreater("mobile"),
-			FieldCreater("user_id", {
+			fieldCreater("mobile"),
+			fieldCreater("user_id", {
 				fieldConfig: {
 					inputType: "Select",
 					options: () => {

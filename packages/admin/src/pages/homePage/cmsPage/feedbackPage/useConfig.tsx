@@ -1,6 +1,6 @@
 import { useFlatInject, usePageConfig } from "@/common/hooks";
 import { MyColumnType } from "@/common/model/fieldsHooks";
-import { FieldCreater, getInputNumerFormItemConfig } from "@/common/utils";
+import { fieldCreater, getInputNumerFormItemConfig } from "@/common/utils";
 import { Modal, Space } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType } from "./services/pageStore/model";
@@ -100,7 +100,7 @@ const useConfig = () => {
 			getInputNumerFormItemConfig("service"),
 			getInputNumerFormItemConfig("general"),
 			getInputNumerFormItemConfig("id", { scope: ["table", "search"] }),
-			FieldCreater("user_id", {
+			fieldCreater("user_id", {
 				fieldConfig: {
 					inputType: "Select",
 					options: () => {
@@ -114,7 +114,7 @@ const useConfig = () => {
 					},
 				},
 			}),
-			FieldCreater("opportunity_id", {
+			fieldCreater("opportunity_id", {
 				fieldConfig: {
 					inputType: "Select",
 					options: () => {
@@ -128,7 +128,7 @@ const useConfig = () => {
 					},
 				},
 			}),
-			FieldCreater("enquiry_id", {
+			fieldCreater("enquiry_id", {
 				fieldConfig: {
 					inputType: "Select",
 					options: () => {

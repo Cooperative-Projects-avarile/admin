@@ -1,7 +1,7 @@
 import { createActions } from "@/common/hooks";
 import { UUID } from "@/common/utils";
 import api from "../api";
-import { QueryActParams } from "./model";
+import { PageType, QueryActParams } from "./model";
 import state from "./state";
 import { pickBy } from "lodash-es";
 
@@ -45,21 +45,19 @@ const actions = createActions(state)({
 	queryAct:
 		(params: QueryActParams = {}) =>
 		async (naturApi) => {
-			if (params.page) {
-				params.page = 1;
-			}
 			naturApi.setState({
 				loading: true,
 			});
-			const res = await api.queryApi(params).finally(() => {
+			const res = await api.queryApi<PageType>(params).finally(() => {
 				naturApi.setState({
 					loading: false,
 				});
 			});
-			let dataList = res.data;
+			const { data: dataList, count } = res;
 			return {
 				pageNum: params.page,
 				dataList,
+				total: count,
 			};
 		},
 });

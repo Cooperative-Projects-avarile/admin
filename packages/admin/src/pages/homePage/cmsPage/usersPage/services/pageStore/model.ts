@@ -8,7 +8,8 @@ export interface StoreState {
 	recordData: unknown;
 	loading: boolean;
 	isDetail: boolean;
-	formVersion:string
+	formVersion:string;
+    pageSum:number;
 }
 
 export interface PageType {

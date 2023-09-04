@@ -12,7 +12,8 @@ export const initState = (): StoreState => {
 		recordData:null,
 		loading:false,
 		isDetail:false,
-		formVersion:"0"
+		formVersion:"0",
+		pageSum:0,
 	};
 };
 
