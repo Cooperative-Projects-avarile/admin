@@ -5,6 +5,7 @@ export const initState = (): StoreState => {
 	return {
 		opportunityStatisticsData: [],
 		platformStatisticsData: [],
+		generateColumnsDataByDate: [],
 		loading: false,
 	};
 };

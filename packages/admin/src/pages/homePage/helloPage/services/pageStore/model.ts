@@ -2,6 +2,7 @@ export interface StoreState {
 	loading: boolean;
 	platformStatisticsData: PlatformStatisticsEntity[];
 	opportunityStatisticsData: OpportunityStatisticsEntity[];
+	generateColumnsDataByDate: any[];
 }
 
 export interface PlatformStatisticsEntity {
