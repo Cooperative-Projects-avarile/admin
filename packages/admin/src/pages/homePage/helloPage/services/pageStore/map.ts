@@ -3,6 +3,7 @@ import state from "./state";
 import dayjs from "dayjs";
 const createMap = mapCreator(state);
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	opportunityStatisticsDataNew: createMap(
 		(s) => {
@@ -55,4 +56,12 @@ export default {
 			return result;
 		},
 	),
+	// generateColumnsDataByDate: createMap(
+	// 	(s) => { 
+	// 		return s.generateColumnsDataByDate;
+	// 	},
+	// 	(generateColumnsDataByDate) => { 
+	// 		const opportunity
+	// 	}
+	// )
 };

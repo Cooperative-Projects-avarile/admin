@@ -37,7 +37,7 @@ export const ROUTE_INFO_CONFIG: {
 	loginPage: {
 		id: "loginPage",
 		meta: {
-			title: "登录",
+			title: "Login",
 		},
 		component: "LoginPage",
 		path: "/login",
@@ -46,7 +46,7 @@ export const ROUTE_INFO_CONFIG: {
 	homePage: {
 		id: "homePage",
 		meta: {
-			title: "中心",
+			title: "Home",
 		},
 		path: "/",
 		component: "HomePage",
@@ -56,7 +56,7 @@ export const ROUTE_INFO_CONFIG: {
 	helloPage: {
 		id: "helloPage",
 		meta: {
-			title: "首页",
+			title: "Statistics Dashboard",
 		},
 		component: "HelloPage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -64,21 +64,21 @@ export const ROUTE_INFO_CONFIG: {
 	sysPage: {
 		id: "sysPage",
 		meta: {
-			title: "系统管理",
+			title: "System Management",
 		},
 		actionPermissions: ["ADD", "EDIT"],
 	},
 	cmsPage: {
 		id: "cmsPage",
 		meta: {
-			title: "内容管理",
+			title: "Content Management",
 		},
 		actionPermissions: ["ADD", "EDIT"],
 	},
 	userPage: {
 		id: "userPage",
 		meta: {
-			title: "用户管理",
+			title: "User Management",
 		},
 		actionPermissions: ["ADD", "EDIT"],
 		component: "UserPage",
@@ -86,7 +86,7 @@ export const ROUTE_INFO_CONFIG: {
 	rolePage: {
 		id: "rolePage",
 		meta: {
-			title: "角色管理",
+			title: "Role Management",
 		},
 		component: "RolePage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -94,7 +94,7 @@ export const ROUTE_INFO_CONFIG: {
 	articlePage: {
 		id: "articlePage",
 		meta: {
-			title: "文章管理",
+			title: "Blog Management",
 		},
 		component: "ArticlePage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -102,14 +102,14 @@ export const ROUTE_INFO_CONFIG: {
 	devPage: {
 		id: "devPage",
 		meta: {
-			title: "开发",
+			title: "Dev Page",
 		},
 		actionPermissions: ["ADD", "EDIT"],
 	},
 	pageDevPage: {
 		id: "pageDevPage",
 		meta: {
-			title: "路由管理",
+			title: "Router Management",
 		},
 		component: "PageDevPage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -117,7 +117,7 @@ export const ROUTE_INFO_CONFIG: {
 	permissionPage: {
 		id: "permissionPage",
 		meta: {
-			title: "permissionPage",
+			title: "Permission Management",
 		},
 		component: "PermissionPage",
 		isMenu: false,
@@ -126,7 +126,7 @@ export const ROUTE_INFO_CONFIG: {
 	storeDevPage: {
 		id: "storeDevPage",
 		meta: {
-			title: "仓库管理",
+			title: "Store Management",
 		},
 		component: "StoreDevPage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -134,7 +134,7 @@ export const ROUTE_INFO_CONFIG: {
 	apiDevPage: {
 		id: "apiDevPage",
 		meta: {
-			title: "api管理",
+			title: "API Management",
 		},
 		component: "ApiDevPage",
 		isMustShow: true,
@@ -143,7 +143,7 @@ export const ROUTE_INFO_CONFIG: {
 	companyPage: {
 		id: "companyPage",
 		meta: {
-			title: "companyPage",
+			title: "Company Management",
 		},
 		component: "companyPage",
 		isMustShow: true,
@@ -152,7 +152,7 @@ export const ROUTE_INFO_CONFIG: {
 	categoryPage: {
 		id: "categoryPage",
 		meta: {
-			title: "categoryPage",
+			title: "Category Management",
 		},
 		component: "CategoryPage",
 		isMustShow: true,
@@ -160,7 +160,7 @@ export const ROUTE_INFO_CONFIG: {
 	opportunityPage: {
 		id: "opportunityPage",
 		meta: {
-			title: "opportunityPage",
+			title: "Opportunity Management",
 		},
 		component: "OpportunityPage",
 		isMustShow: true,
@@ -168,7 +168,7 @@ export const ROUTE_INFO_CONFIG: {
 	tagPage: {
 		id: "tagPage",
 		meta: {
-			title: "tagPage",
+			title: "Opportunity Management",
 		},
 		component: "TagPage",
 		isMustShow: true,
@@ -176,7 +176,7 @@ export const ROUTE_INFO_CONFIG: {
 	enquiryPage: {
 		id: "enquiryPage",
 		meta: {
-			title: "enquiryPage",
+			title: "Enquiry Management",
 		},
 		component: "EnquiryPage",
 		isMustShow: true,
@@ -184,7 +184,7 @@ export const ROUTE_INFO_CONFIG: {
 	feedbackPage: {
 		id: "feedbackPage",
 		meta: {
-			title: "feedbackPage",
+			title: "Feedback Management",
 		},
 		component: "FeedbackPage",
 		isMustShow: true,
@@ -192,7 +192,7 @@ export const ROUTE_INFO_CONFIG: {
 	paymentPage: {
 		id: "paymentPage",
 		meta: {
-			title: "paymentPage",
+			title: "Payment Management",
 		},
 		component: "PaymentPage",
 		isMustShow: true,
@@ -200,7 +200,7 @@ export const ROUTE_INFO_CONFIG: {
 	usersPage: {
 		id: "usersPage",
 		meta: {
-			title: "usersPage",
+			title: "Users Management",
 		},
 		component: "UsersPage",
 		isMustShow: true,

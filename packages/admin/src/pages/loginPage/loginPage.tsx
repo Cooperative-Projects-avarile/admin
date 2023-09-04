@@ -9,7 +9,7 @@ const LoginPage = () => {
       <div className={styles.moderate}>
         <AnimateText
           texts={[
-            "Moderate admin react",
+            "Scaling Admin Console System",
             "基于React18+AntdDesign5+Mobx+Vite+Ts开发",
           ]}
         ></AnimateText>
