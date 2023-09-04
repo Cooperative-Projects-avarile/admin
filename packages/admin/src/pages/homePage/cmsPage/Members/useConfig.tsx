@@ -2,6 +2,7 @@ import { usePageConfig } from "@/common/hooks";
 import { Modal, Space } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType } from "./services/pageStore/model";
+import { FieldCreater } from "@/common/utils";
 
 const TYPE_ENUM = ["prime", "parent", "sub"];
 
@@ -18,27 +19,8 @@ const useConfig = () => {
 
 	return usePageConfig<PageType>(() => {
 		return [
-			{
-				title: "name",
-				dataIndex: "name",
-				key: "name",
-				fieldConfig: {
-					isSearch: true,
-					formOptions: {
-						label: "name",
-						name: "name",
-						rules: [
-							{
-								required: true,
-							},
-							{
-								type: "string",
-								min: 4,
-								max: 60,
-							},
-						],
-					},
-				},
+			FieldCreater("nick_name"),
+			FieldCreater("email", {
 				render(value, record) {
 					return (
 						<a
@@ -50,8 +32,40 @@ const useConfig = () => {
 							{value}
 						</a>
 					);
+				}
+			}),
+			FieldCreater("first_name"),
+			FieldCreater("last_name"),
+			// FieldCreater("password", {}),
+			FieldCreater("postcode"),
+			FieldCreater("mobile"),
+			FieldCreater("role"),
+			FieldCreater("stripe_customer_id", {
+				fieldConfig: {
+					scope: ["modal"],
 				},
-			},
+			}),
+			FieldCreater("stripe_session_id", {
+				fieldConfig: {
+					scope: ["modal"],
+				},
+			}),
+			FieldCreater("stripe_subscription_id", {
+				fieldConfig: {
+					scope: ["modal"],
+				},
+			}),
+			FieldCreater("hubspotId", {
+				fieldConfig: {
+					scope: ["modal"],
+				},
+			}),
+			FieldCreater("company_id", {
+				fieldConfig: {
+					scope: ["modal"],
+				},
+			}),
+			FieldCreater("id"),
 			{
 				title: "description",
 				dataIndex: "description",
@@ -94,74 +108,6 @@ const useConfig = () => {
 					},
 				},
 			},
-			{
-				title: "prime_id",
-				dataIndex: "prime_id",
-				key: "prime_id",
-				fieldConfig: {
-					isSearch: true,
-					inputType: "Select",
-					options: () => {
-						// 没有parent_id，筛选出来
-						return dataList
-							.filter((item) => {
-								return !item.parent_id;
-							})
-							.map((item) => {
-								return {
-									key: item.id,
-									value: item.id,
-									label: item.name,
-								};
-							});
-					},
-					formOptions: {
-						rules: [
-							{
-								type: "number",
-							},
-						],
-						label: "prime_id",
-						name: "prime_id",
-					},
-					inputOptions: {
-						allowClear: true,
-					},
-				},
-			},
-			{
-				title: "parent_id",
-				dataIndex: "parent_id",
-				key: "parent_id",
-				fieldConfig: {
-					isSearch: true,
-					inputType: "Select",
-					options: ({ formIns }) => {
-						let primeIdValue = formIns?.getFieldsValue()?.prime_id;
-						return primeIdValue
-							? store.dataList
-									.filter((item) => {
-										return item.prime_id === primeIdValue;
-									})
-									.map((item) => {
-										return {
-											key: item.id,
-											value: item.id,
-											label: item.name,
-										};
-									})
-							: [];
-					},
-					formOptions: {
-						label: "parent_id",
-						name: "parent_id",
-					},
-					inputOptions: {
-						allowClear: true,
-					},
-				},
-			},
-
 			{
 				title: "action",
 				key: "action",

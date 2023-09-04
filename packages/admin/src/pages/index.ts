@@ -34,31 +34,31 @@ const ApiDevPage = lazy(
 );
 
 ////companyPage
-const companyPage = lazy(() => import("./homePage/cmsPage/companyPage/companyPage"));
+const companyPage = lazy(() => import("./homePage/cmsPage/Partner/companyPage"));
 ////categoryPage
 const CategoryPage = lazy(
-  () => import("./homePage/cmsPage/categoryPage/categoryPage"),
+  () => import("./homePage/cmsPage/Category/categoryPage"),
 );
 ////opportunityPage
 const OpportunityPage = lazy(
-  () => import("./homePage/cmsPage/opportunityPage/opportunityPage"),
+  () => import("./homePage/cmsPage/Opportunities/opportunityPage"),
 );
 ////tagPage
-const TagPage = lazy(() => import("./homePage/cmsPage/tagPage/tagPage"));
+const TagPage = lazy(() => import("./homePage/cmsPage/Tags/tagPage"));
 ////enquiryPage
 const EnquiryPage = lazy(
-  () => import("./homePage/cmsPage/enquiryPage/enquiryPage"),
+  () => import("./homePage/cmsPage/Enquiries/enquiryPage"),
 );
 ////feedbackPage
 const FeedbackPage = lazy(
-  () => import("./homePage/cmsPage/feedbackPage/feedbackPage"),
+  () => import("./homePage/cmsPage/MemberFeedback/feedbackPage"),
 );
 ////paymentPage
 const PaymentPage = lazy(
-  () => import("./homePage/cmsPage/paymentPage/paymentPage"),
+  () => import("./homePage/cmsPage/Payments/paymentPage"),
 );
 ////usersPage 
-const UsersPage = lazy(() => import("./homePage/cmsPage/usersPage/usersPage"));
+const UsersPage = lazy(() => import("./homePage/cmsPage/Members/usersPage"));
 //MODERATE_AUTO_PAGE_LAZY_IMPORT:END
 export const pageList = {
   HomePage,
