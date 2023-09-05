@@ -7,11 +7,13 @@ import {
 let baseUrl = "/nestApi/statistics/query/";
 
 export interface QueryOpportunityParams {
+	created_at?: string[];
 	opportunity_ids: number[];
 	order?: { [key: string]: any };
 }
 
 export interface QueryPlatformParams {
+	created_at?: string[];
 	order?: { [key: string]: any };
 }
 
