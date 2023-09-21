@@ -15,8 +15,8 @@ const LoginForm = () => {
   const onFinish = async (values: any) => {
     // 开发环境使用默认账号密码
     await loginG({
-      userName: "avarile@gmail.com",
-      password: "1q2w3e4r",
+      userName: values.name,
+      password: values.password,
     });
     routerHelper.jumpTo(ROUTE_ID.helloPage)
   };
