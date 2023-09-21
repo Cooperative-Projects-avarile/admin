@@ -74,7 +74,7 @@ export const CardTemplate = (info: ICardTemplateProps) => {
           <Card
           hoverable
           loading={data.length === 0}
-          style={{ width: 270, margin: '0 10px' }}
+          style={{ flexGrow:1 }}
       >
       <Meta title={title} description={description} />
       {/* {info.title}: { data.length === 0 ? 'loading' : data[0].value } */}
