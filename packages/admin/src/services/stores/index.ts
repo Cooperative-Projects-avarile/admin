@@ -1,12 +1,13 @@
-import categoryPageStore from "@/pages/homePage/cmsPage/category/services/pageStore";
-import companyPageStore from "@/pages/homePage/cmsPage/partner/services/pageStore";
-import enquiryPageStore from "@/pages/homePage/cmsPage/enquiries/services/pageStore";
-import feedbackPageStore from "@/pages/homePage/cmsPage/memberFeedback/services/pageStore";
-import opportunityPageStore from "@/pages/homePage/cmsPage/opportunities/services/pageStore";
-import paymentPageStore from "@/pages/homePage/cmsPage/payments/services/pageStore";
-import tagPageStore from "@/pages/homePage/cmsPage/tags/services/pageStore";
-import usersPageStore from "@/pages/homePage/cmsPage/members/services/pageStore";
+import categoryPageStore from "@/pages/homePage/cmsPage/categoryPage/services/pageStore";
+import companyPageStore from "@/pages/homePage/cmsPage/partnerPage/services/pageStore";
+import enquiryPageStore from "@/pages/homePage/cmsPage/enquiryPage/services/pageStore";
+import feedbackPageStore from "@/pages/homePage/cmsPage/memberFeedbackPage/services/pageStore";
+import opportunityPageStore from "@/pages/homePage/cmsPage/opportunityPage/services/pageStore";
+import paymentPageStore from "@/pages/homePage/cmsPage/paymentPage/services/pageStore";
+import tagPageStore from "@/pages/homePage/cmsPage/tagPage/services/pageStore";
+import usersPageStore from "@/pages/homePage/cmsPage/memberPage/services/pageStore";
 import helloPageStore from "@/pages/homePage/helloPage/services/pageStore";
+import testAAAAAAPageStore from "@/pages/homePage/cmsPage/testAAAAAAPage/services/pageStore";
 import { createStore } from "natur";
 import { thunkMiddleware } from "natur-immer";
 import {
@@ -39,6 +40,7 @@ const stores = {
 	paymentPageStore,
 	usersPageStore,
 	helloPageStore,
+	testAAAAAAPageStore
 };
 // MODERATE_AUTO_STORES_1:END
 export const store = createStore(

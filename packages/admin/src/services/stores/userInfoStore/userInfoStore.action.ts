@@ -11,26 +11,22 @@ const Actions = {
 		async ({ setState }: ITP<UseInfoStoreState>) => {
 			// 第一步：登录获取token，并存储
 			const {
-				data: { token = "", permissions="[]", qiNiuToken='' },
+				data: { content },
 			} = await userInfoApi.login({
 				username: userName,
 				password,
 			});
 			// 第二步：根据token获取权限，并存储
 			const isAdmin = true;
-			console.log("set store token" + token);
-			let permissionsArr = JSON.parse(permissions);
+			console.log("set store token" + content);
 			setState({
-				permissions: permissionsArr,
-				qiniuToken: qiNiuToken,
 				userName,
 				password,
-				token: token,
+				token: content,
 				isAdmin: isAdmin,
 			});
-			sessionStorage.setItem("ACCESS_TOKEN", token);
-			sessionStorage.setItem("PERMISSIONS", permissions);
-			sessionStorage.setItem("QINIU_TOKEN", qiNiuToken);
+			debugger
+			sessionStorage.setItem("ACCESS_TOKEN", content);
 			sessionStorage.setItem("IS_ADMIN", isAdmin ? "1" : "0");
 		},
 	updatePermissions: async (value: PermissionItem[]) => {

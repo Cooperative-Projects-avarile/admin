@@ -6,9 +6,7 @@ interface LoginApiInput {
 }
 
 interface LoginApiOutput {
-	token: string;
-	permissions: string;
-	qiNiuToken: string;
+	content:string
 }
 
 // 更新权限

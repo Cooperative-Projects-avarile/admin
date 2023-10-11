@@ -3,8 +3,7 @@ import type { ROUTE_ID_KEY, RouteItem, RoutesStructDataItem } from "./types";
 
 // =============== 路由name和id ===============
 // MODERATE_AUTO_2:START
-export enum ROUTE_NAME {
-	homePage,
+export enum ROUTE_NAME {homePage,
 	loginPage,
 	helloPage,
 	cmsPage,
@@ -17,14 +16,15 @@ export enum ROUTE_NAME {
 	permissionPage,
 	storeDevPage,
 	apiDevPage,
-	companyPage,
 	categoryPage,
 	opportunityPage,
 	tagPage,
 	enquiryPage,
-	feedbackPage,
 	paymentPage,
-	usersPage,
+  partnerPage,
+  memberPage,
+  memberFeedbackPage,
+ testAAAAAAPage
 }
 // MODERATE_AUTO_2:END
 export const ROUTE_ID = enumToObject(ROUTE_NAME);
@@ -32,180 +32,188 @@ export const ROUTE_ID = enumToObject(ROUTE_NAME);
 // ROUTE_INFO_CONFIG，路由信息字典
 // MODERATE_AUTO_3:START
 export const ROUTE_INFO_CONFIG: {
-	[key in ROUTE_ID_KEY]: RouteItem;
+  [key in ROUTE_ID_KEY]: RouteItem;
 } = {
-	loginPage: {
-		id: "loginPage",
-		meta: {
-			title: "Login",
-		},
-		component: "LoginPage",
-		path: "/login",
-		isMustShow: true,
-	},
-	homePage: {
-		id: "homePage",
-		meta: {
-			title: "Home",
-		},
-		path: "/",
-		component: "HomePage",
-		isMustShow: true,
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	helloPage: {
-		id: "helloPage",
-		meta: {
-			title: "Statistics Dashboard",
-		},
-		component: "HelloPage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	sysPage: {
-		id: "sysPage",
-		meta: {
-			title: "System Management",
-		},
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	cmsPage: {
-		id: "cmsPage",
-		meta: {
-			title: "Content Management",
-		},
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	userPage: {
-		id: "userPage",
-		meta: {
-			title: "User Management",
-		},
-		actionPermissions: ["ADD", "EDIT"],
-		component: "UserPage",
-	},
-	rolePage: {
-		id: "rolePage",
-		meta: {
-			title: "Role Management",
-		},
-		component: "RolePage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	articlePage: {
-		id: "articlePage",
-		meta: {
-			title: "Blog Management",
-		},
-		component: "ArticlePage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	devPage: {
-		id: "devPage",
-		meta: {
-			title: "Dev Page",
-		},
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	pageDevPage: {
-		id: "pageDevPage",
-		meta: {
-			title: "Router Management",
-		},
-		component: "PageDevPage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	permissionPage: {
-		id: "permissionPage",
-		meta: {
-			title: "Permission Management",
-		},
-		component: "PermissionPage",
-		isMenu: false,
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	storeDevPage: {
-		id: "storeDevPage",
-		meta: {
-			title: "Store Management",
-		},
-		component: "StoreDevPage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	apiDevPage: {
-		id: "apiDevPage",
-		meta: {
-			title: "API Management",
-		},
-		component: "ApiDevPage",
-		isMustShow: true,
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	companyPage: {
-		id: "companyPage",
-		meta: {
-			title: "Company Management",
-		},
-		component: "companyPage",
-		isMustShow: true,
-		keepAlive: true,
-	},
-	categoryPage: {
-		id: "categoryPage",
-		meta: {
-			title: "Category Management",
-		},
-		component: "CategoryPage",
-		isMustShow: true,
-	},
-	opportunityPage: {
-		id: "opportunityPage",
-		meta: {
-			title: "Opportunity Management",
-		},
-		component: "OpportunityPage",
-		isMustShow: true,
-	},
-	tagPage: {
-		id: "tagPage",
-		meta: {
-			title: "Opportunity Management",
-		},
-		component: "TagPage",
-		isMustShow: true,
-	},
-	enquiryPage: {
-		id: "enquiryPage",
-		meta: {
-			title: "Enquiry Management",
-		},
-		component: "EnquiryPage",
-		isMustShow: true,
-	},
-	feedbackPage: {
-		id: "feedbackPage",
-		meta: {
-			title: "Feedback Management",
-		},
-		component: "FeedbackPage",
-		isMustShow: true,
-	},
-	paymentPage: {
-		id: "paymentPage",
-		meta: {
-			title: "Payment Management",
-		},
-		component: "PaymentPage",
-		isMustShow: true,
-	},
-	usersPage: {
-		id: "usersPage",
-		meta: {
-			title: "Users Management",
-		},
-		component: "UsersPage",
-		isMustShow: true,
-	},
-}; //MODERATE_AUTO_3:END
+  loginPage: {
+    id: "loginPage",
+    meta: {
+      title: "Login"
+    },
+    component: "LoginPage",
+    path: "/login",
+    isMustShow: true
+  },
+  homePage: {
+    id: "homePage",
+    meta: {
+      title: "Home"
+    },
+    path: "/",
+    component: "HomePage",
+    isMustShow: true,
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  helloPage: {
+    id: "helloPage",
+    meta: {
+      title: "Statistics Dashboard"
+    },
+    component: "HelloPage",
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  sysPage: {
+    id: "sysPage",
+    meta: {
+      title: "System Management"
+    },
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  cmsPage: {
+    id: "cmsPage",
+    meta: {
+      title: "Content Management"
+    },
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  userPage: {
+    id: "userPage",
+    meta: {
+      title: "User Management"
+    },
+    actionPermissions: ["ADD", "EDIT"],
+    component: "UserPage"
+  },
+  rolePage: {
+    id: "rolePage",
+    meta: {
+      title: "Role Management"
+    },
+    component: "RolePage",
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  articlePage: {
+    id: "articlePage",
+    meta: {
+      title: "Blog Management"
+    },
+    component: "ArticlePage",
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  devPage: {
+    id: "devPage",
+    meta: {
+      title: "Dev Page"
+    },
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  pageDevPage: {
+    id: "pageDevPage",
+    meta: {
+      title: "Router Management"
+    },
+    component: "PageDevPage",
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  permissionPage: {
+    id: "permissionPage",
+    meta: {
+      title: "Permission Management"
+    },
+    component: "PermissionPage",
+    isMenu: false,
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  storeDevPage: {
+    id: "storeDevPage",
+    meta: {
+      title: "Store Management"
+    },
+    component: "StoreDevPage",
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  apiDevPage: {
+    id: "apiDevPage",
+    meta: {
+      title: "API Management"
+    },
+    component: "ApiDevPage",
+    isMustShow: true,
+    actionPermissions: ["ADD", "EDIT"]
+  },
+  partnerPage: {
+    id: "partnerPage",
+    meta: {
+      title: "Company Management"
+    },
+    component: "PartnerPage",
+    isMustShow: true,
+    keepAlive: true
+  },
+  categoryPage: {
+    id: "categoryPage",
+    meta: {
+      title: "Category Management"
+    },
+    component: "CategoryPage",
+    isMustShow: true
+  },
+  opportunityPage: {
+    id: "opportunityPage",
+    meta: {
+      title: "Opportunity Management"
+    },
+    component: "OpportunityPage",
+    isMustShow: true
+  },
+  tagPage: {
+    id: "tagPage",
+    meta: {
+      title: "Opportunity Management"
+    },
+    component: "TagPage",
+    isMustShow: true
+  },
+  enquiryPage: {
+    id: "enquiryPage",
+    meta: {
+      title: "Enquiry Management"
+    },
+    component: "EnquiryPage",
+    isMustShow: true
+  },
+  memberFeedbackPage: {
+    id: "memberFeedbackPage",
+    meta: {
+      title: "Feedback Management"
+    },
+    component: "MemberFeedbackPage",
+    isMustShow: true
+  },
+  paymentPage: {
+    id: "paymentPage",
+    meta: {
+      title: "Payment Management"
+    },
+    component: "PaymentPage",
+    isMustShow: true
+  },
+  memberPage: {
+    id: "memberPage",
+    meta: {
+      title: "Users Management"
+    },
+    component: "MemberPage",
+    isMustShow: true
+  },
+  testAAAAAAPage: {
+    id: "testAAAAAAPage",
+    meta: {
+      title: "testAAAAAAPage"
+    },
+    component: "TestAAAAAAPage",
+    isMustShow: true
+  }
+}//MODERATE_AUTO_3:END
 // =============== 路由结构数据 ===============
 // MODERATE_AUTO:START 
 export const ROUTE_STRUCT_CONFIG: RoutesStructDataItem[] = [{
@@ -215,19 +223,21 @@ export const ROUTE_STRUCT_CONFIG: RoutesStructDataItem[] = [{
     children: [{
       id: ROUTE_ID.categoryPage
     }, {
-      id: ROUTE_ID.companyPage
-    }, {
       id: ROUTE_ID.enquiryPage
     }, {
-      id: ROUTE_ID.feedbackPage
+      id: ROUTE_ID.memberFeedbackPage
+    }, {
+      id: ROUTE_ID.memberPage
     }, {
       id: ROUTE_ID.opportunityPage
+    }, {
+      id: ROUTE_ID.partnerPage
     }, {
       id: ROUTE_ID.paymentPage
     }, {
       id: ROUTE_ID.tagPage
     }, {
-      id: ROUTE_ID.usersPage
+      id: ROUTE_ID.testAAAAAAPage
     }]
   }, {
     id: ROUTE_ID.devPage,
