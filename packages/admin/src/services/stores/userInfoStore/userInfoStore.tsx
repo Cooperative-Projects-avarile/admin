@@ -8,7 +8,7 @@ import type { UseInfoStoreState } from "./userInfoStore.model";
 // 写成函数，方便初始化
 export const initState = (): UseInfoStoreState => {
 	let permissions: string[] =
-		JSON.parse(sessionStorage.getItem("PERMISSIONS")) || null;
+		JSON.parse(sessionStorage.getItem("PERMISSIONS")) || [];
 
 	return {
 		permissions,
