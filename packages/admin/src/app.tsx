@@ -23,7 +23,7 @@ const App = () => {
 		} else {
 			routerHelper.jumpTo(ROUTE_ID.loginPage);
 		}
-	}, [token]);
+	}, []);
 
 	return (
 		<Routes>
