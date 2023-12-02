@@ -3,8 +3,6 @@ import { Form, Modal } from "antd";
 import { useEffect } from "react";
 import { useStore } from "../../services/pageStore";
 import useConfig from "../../useConfig";
-;
-
 const ModalForm: React.FC = () => {
 	const [form] = Form.useForm();
 	const {
@@ -14,9 +12,10 @@ const ModalForm: React.FC = () => {
 		queryAct,
 		recordData,
 		isShowAddModal,
-		isDetail
+		isDetail,
 	} = useStore()[0];
 	const { formList } = useConfig();
+	debugger
 	const FormFields = useFormFields(formList, {
 		formIns: form,
 		isJustShow: isDetail,
@@ -27,9 +26,11 @@ const ModalForm: React.FC = () => {
 			form.setFieldsValue(recordData);
 		}
 	}, [recordData]);
-	let extraOptions  =isDetail?{
-		footer:[]
-	}:{}
+	let extraOptions = isDetail
+		? {
+				footer: [],
+		  }
+		: {};
 	return (
 		<Modal
 			open={isShowAddModal}
@@ -53,11 +54,7 @@ const ModalForm: React.FC = () => {
 					});
 			}}
 		>
-			<Form
-				form={form}
-			>
-				{FormFields}
-			</Form>
+			<Form form={form}>{FormFields}</Form>
 		</Modal>
 	);
 };

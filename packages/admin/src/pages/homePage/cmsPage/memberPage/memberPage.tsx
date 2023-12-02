@@ -15,6 +15,7 @@ const UsersPage = () => {
 		dataList,
 		queryAct,
 		setAddModalShowAct,
+		setIsDetailAct,
 	} = useStore()[0];
 
 	const { columns } = useConfig();

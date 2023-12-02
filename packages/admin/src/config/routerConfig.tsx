@@ -6,7 +6,7 @@ import type { ROUTE_ID_KEY, RouteItem, RoutesStructDataItem } from "./types";
 export enum ROUTE_NAME {homePage,
 	loginPage,
 	helloPage,
-	cmsPage,
+	cmsPage, 
 	sysPage,
 	rolePage,
 	userPage,
@@ -21,10 +21,13 @@ export enum ROUTE_NAME {homePage,
 	tagPage,
 	enquiryPage,
 	paymentPage,
-  partnerPage,
-  memberPage,
-  memberFeedbackPage,
- testAAAAAAPage
+	partnerPage,
+	memberPage,
+	memberFeedbackPage,
+  commentPage,
+ dealPage,
+ connectionPage,
+ notifyPage
 }
 // MODERATE_AUTO_2:END
 export const ROUTE_ID = enumToObject(ROUTE_NAME);
@@ -205,12 +208,36 @@ export const ROUTE_INFO_CONFIG: {
     component: "MemberPage",
     isMustShow: true
   },
-  testAAAAAAPage: {
-    id: "testAAAAAAPage",
+  commentPage: {
+    id: "commentPage",
     meta: {
-      title: "testAAAAAAPage"
+      title: "Comment Management"
     },
-    component: "TestAAAAAAPage",
+    component: "CommentPage",
+    isMustShow: true
+  },
+  dealPage: {
+    id: "dealPage",
+    meta: {
+      title: "Deal Management"
+    },
+    component: "DealPage",
+    isMustShow: true
+  },
+  connectionPage: {
+    id: "connectionPage",
+    meta: {
+      title: "Connection Management"
+    },
+    component: "ConnectionPage",
+    isMustShow: true
+  },
+  notifyPage: {
+    id: "notifyPage",
+    meta: {
+      title: "Notification Management"
+    },
+    component: "NotifyPage",
     isMustShow: true
   }
 }//MODERATE_AUTO_3:END
@@ -223,11 +250,19 @@ export const ROUTE_STRUCT_CONFIG: RoutesStructDataItem[] = [{
     children: [{
       id: ROUTE_ID.categoryPage
     }, {
+      id: ROUTE_ID.commentPage
+    }, {
+      id: ROUTE_ID.connectionPage
+    }, {
+      id: ROUTE_ID.dealPage
+    }, {
       id: ROUTE_ID.enquiryPage
     }, {
       id: ROUTE_ID.memberFeedbackPage
     }, {
       id: ROUTE_ID.memberPage
+    }, {
+      id: ROUTE_ID.notifyPage
     }, {
       id: ROUTE_ID.opportunityPage
     }, {
@@ -236,8 +271,6 @@ export const ROUTE_STRUCT_CONFIG: RoutesStructDataItem[] = [{
       id: ROUTE_ID.paymentPage
     }, {
       id: ROUTE_ID.tagPage
-    }, {
-      id: ROUTE_ID.testAAAAAAPage
     }]
   }, {
     id: ROUTE_ID.devPage,

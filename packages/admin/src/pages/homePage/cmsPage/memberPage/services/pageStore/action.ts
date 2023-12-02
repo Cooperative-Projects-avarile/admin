@@ -15,16 +15,15 @@ const actions = createActions(state)({
 			pageNum,
 		};
 	},
-	setAddModalShowAct: (isShowAddModal: boolean, recordData = null) => {
-		let extra = !isShowAddModal
-			? {
-					isDetail: false,
-			  }
-			: {};
+	setAddModalShowAct: (
+		isShowAddModal: boolean,
+		isDetail = false,
+		recordData = null,
+	) => {
 		return {
+			isDetail,
 			recordData,
 			isShowAddModal,
-			...extra,
 		};
 	},
 	addAct: async (params) => {
@@ -47,7 +46,7 @@ const actions = createActions(state)({
 					loading: false,
 				});
 			});
-			const { data: dataList, count } = res;
+			const { content: dataList, count } = res.data;
 			return {
 				pageNum: params.page,
 				dataList,

@@ -32,7 +32,7 @@ _http.interceptors.response.use(
 			routerHelper.jumpTo(ROUTE_ID.loginPage);
 			throw new HttpError(data.message, Number(err.code));
 		} else {
-			message.info(data.message||"network error");
+			message.info(data.message || "network error");
 			throw new HttpError(data.message, Number(err.code || err.status));
 		}
 	},

@@ -30,7 +30,7 @@ function upadteApi(data) {
 
 // 查
 function queryApi<T>(data: any) {
-	return http.request<{},{count:number,data:T[]}>({
+	return http.request<{count:number,content:T[]}>({
 		url: baseUrl + "find/admin",
 		method: "POST",
 		data,

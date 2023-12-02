@@ -52,7 +52,7 @@ const actions = createActions(state)({
 					loading: false,
 				});
 			});
-			const { data: dataList, count } = res;
+			const { content: dataList, count } = res.data;
 			return {
 				pageNum: params.page,
 				dataList,

@@ -60,9 +60,17 @@ const PaymentPage = lazy(
   () => import("./homePage/cmsPage/paymentPage/paymentPage"),
 );
 ////usersPage
-const MemberPage = lazy(() => import("./homePage/cmsPage/memberPage/memberPage"));
-////testAAAAAAPage 
-const TestAAAAAAPage = lazy(() => import("./homePage/cmsPage/testAAAAAAPage/testAAAAAAPage"));
+const MemberPage = lazy(
+  () => import("./homePage/cmsPage/memberPage/memberPage"),
+);
+////commentPage 
+const CommentPage = lazy(() => import("./homePage/cmsPage/commentPage/commentPage"));
+////dealPage 
+const DealPage = lazy(() => import("./homePage/cmsPage/dealPage/dealPage"));
+////connectionPage 
+const ConnectionPage = lazy(() => import("./homePage/cmsPage/connectionPage/connectionPage"));
+////notifyPage 
+const NotifyPage = lazy(() => import("./homePage/cmsPage/notifyPage/notifyPage"));
 //MODERATE_AUTO_PAGE_LAZY_IMPORT:END
 export const pageList = {
   HomePage,
@@ -83,5 +91,8 @@ export const pageList = {
   MemberFeedbackPage,
   PaymentPage,
   MemberPage,
-  TestAAAAAAPage
+  CommentPage,
+  DealPage,
+  ConnectionPage,
+  NotifyPage
 };

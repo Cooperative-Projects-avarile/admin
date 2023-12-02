@@ -19,27 +19,25 @@ const useConfig = () => {
 
 	return usePageConfig<PageType>(() => {
 		return [
-			fieldCreater("nick_name"),
-			fieldCreater("email", {
+			{
+				...fieldCreater("email"),
 				render(value, record) {
+					// FIXME: click this and then click `edit`, the form will be disabled
 					return (
 						<a
 							onClick={() => {
-								setIsDetailAct(true);
-								setAddModalShowAct(true, record);
+								setAddModalShowAct(true, true, record);
 							}}
 						>
 							{value}
 						</a>
 					);
 				},
-			}),
+			},
+			fieldCreater("nick_name"),
 			fieldCreater("first_name"),
 			fieldCreater("last_name"),
 			// FieldCreater("password", {}),
-			fieldCreater("postcode"),
-			fieldCreater("mobile"),
-			fieldCreater("role"),
 			fieldCreater("stripe_customer_id", {
 				fieldConfig: {
 					scope: ["modal"],
@@ -48,11 +46,6 @@ const useConfig = () => {
 			fieldCreater("postcode"),
 			fieldCreater("mobile"),
 			fieldCreater("role"),
-			fieldCreater("stripe_customer_id", {
-				fieldConfig: {
-					scope: ["modal"],
-				},
-			}),
 			fieldCreater("stripe_session_id", {
 				fieldConfig: {
 					scope: ["modal"],
@@ -123,7 +116,7 @@ const useConfig = () => {
 					<Space size="middle">
 						<a
 							onClick={() => {
-								setAddModalShowAct(true, record);
+								setAddModalShowAct(true, false, record);
 							}}
 						>
 							edit

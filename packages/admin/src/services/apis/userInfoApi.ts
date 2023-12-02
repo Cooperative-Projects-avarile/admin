@@ -6,7 +6,9 @@ interface LoginApiInput {
 }
 
 interface LoginApiOutput {
-	content:string
+	content: {
+		token: string;
+	};
 }
 
 // 更新权限
@@ -14,17 +16,17 @@ export function updatePermissions(data: string[]) {
 	return http.request({
 		url: "/javaApi/user/auth/updatePermissions",
 		method: "POST",
-		data:{
-			permission:JSON.stringify(data)
+		data: {
+			permission: JSON.stringify(data),
 		},
 	});
 }
 
 function login(params: LoginApiInput) {
 	let temp = {
-		email:params.username,
-		password:params.password
-	}
+		email: params.username,
+		password: params.password,
+	};
 	return http.request<LoginApiOutput>({
 		url: "/nestApi/auth/login/local",
 		method: "POST",

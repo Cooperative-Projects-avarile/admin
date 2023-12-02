@@ -1,4 +1,5 @@
 import { http } from "@/common/http";
+import { ResponseType } from "@/common/http/overrideHttpType";
 
 let baseUrl = "/nestApi/user/";
 // 增
@@ -30,7 +31,7 @@ function upadteApi(data) {
 
 // 查
 function queryApi<T>(data: any) {
-	return http.request<{},{count:number,data:T[]}>({
+	return http.request<{},ResponseType<{count:number,content:T[]}>>({
 		url: baseUrl + "query",
 		method: "POST",
 		data,

@@ -12,7 +12,7 @@ const AdvancedSearchForm = () => {
 	const SearchFields = useSearchFields(searchList, {
 		count,
 	});
-	debugger
+	
 	const [form] = Form.useForm();
 	const { queryAct, pageSize } = useStore()[0];
 	const onFinish = (values: any) => {
