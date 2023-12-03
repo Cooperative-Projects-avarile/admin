@@ -16,13 +16,15 @@ const actions = createActions(state)({
 		};
 	},
 	setAddModalShowAct: (isShowAddModal: boolean, recordData = null) => {
-		let extra = !isShowAddModal?{
-			isDetail:false
-		}:{}
+		let extra = !isShowAddModal
+			? {
+					isDetail: false,
+			  }
+			: {};
 		return {
 			recordData,
 			isShowAddModal,
-			...extra
+			...extra,
 		};
 	},
 	addAct: async (params) => {
@@ -35,7 +37,7 @@ const actions = createActions(state)({
 		await api.upadteApi(pickBy(params));
 	},
 	queryAct:
-		(params:QueryActParams = {}) =>
+		(params: QueryActParams = {}) =>
 		async (naturApi) => {
 			naturApi.setState({
 				loading: true,
@@ -47,9 +49,9 @@ const actions = createActions(state)({
 			});
 			const { content: dataList, count } = res.data;
 			return {
-				pageNum:params.page,
+				pageNum: params.page,
 				dataList,
-				total:count
+				total: count,
 			};
 		},
 });

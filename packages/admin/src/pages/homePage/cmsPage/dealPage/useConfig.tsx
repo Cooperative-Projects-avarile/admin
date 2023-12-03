@@ -1,6 +1,6 @@
 import { usePageConfig } from "@/common/hooks";
 import { fieldCreater } from "@/common/utils";
-import { Descriptions, Form, FormInstance, Input, Modal, Space } from "antd";
+import { Descriptions, Form, FormInstance, Input, Modal, Space, notification } from "antd";
 import { useStore } from "./services/pageStore";
 import { PageType, Status, TypeEnum } from "./services/pageStore/model";
 
@@ -172,58 +172,63 @@ const useConfig = () => {
 				key: "action",
 				render: (_, record) => (
 					<Space size="middle">
-						<a
-							onClick={async () => {
-								await approveAct({
-									id: record.id,
-									title: record.title,
-								});
-								await queryAct();
-							}}
-						>
-							approve
-						</a>
-						<a
-							onClick={async () => {
-								// await rejectAct({
-								// 	id: record.id,
-								// 	reject_reason: record.title,
-								// });
-								// await queryAct();
-
-								let resolver = { form: null } as {
-									form: FormInstance;
-								};
-
-								Modal.confirm({
-									title: "reject reason",
-									content: (
-										<RejectReasonModal
-											resolver={resolver}
-										/>
-									),
-									icon: null,
-									async onOk(...args) {
-										await resolver.form.validateFields();
-
-										const x = {
+						{record.is_draft &&
+							record.is_submitted &&
+							!record.is_approved && (
+								<a
+									onClick={async () => {
+										await approveAct({
 											id: record.id,
-											reject_reason:
-												resolver.form.getFieldValue(
-													"reject_reason",
-												),
+											title: record.title,
+										});
+										await queryAct();
+										notification.info({
+											message: "success!",
+										});
+									}}
+								>
+									approve
+								</a>
+							)}
+						{record.is_draft &&
+							record.is_submitted &&
+							!record.is_approved && (
+								<a
+									onClick={async () => {
+										let resolver = { form: null } as {
+											form: FormInstance;
 										};
 
-										console.log(x);
+										Modal.confirm({
+											title: "reject reason",
+											content: (
+												<RejectReasonModal
+													resolver={resolver}
+												/>
+											),
+											icon: null,
+											async onOk(...args) {
+												await resolver.form.validateFields();
 
-										await rejectAct(x);
-										await queryAct();
-									},
-								});
-							}}
-						>
-							reject
-						</a>
+												const x = {
+													id: record.id,
+													reject_reason:
+														resolver.form.getFieldValue(
+															"reject_reason",
+														),
+												};
+
+												console.log(x);
+
+												await rejectAct(x);
+												await queryAct();
+											},
+										});
+									}}
+								>
+									reject
+								</a>
+							)}
 					</Space>
 				),
 			},

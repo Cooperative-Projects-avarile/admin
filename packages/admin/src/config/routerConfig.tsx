@@ -198,7 +198,7 @@ export const ROUTE_INFO_CONFIG: {
       title: "Payment Management"
     },
     component: "PaymentPage",
-    isMustShow: true
+    isMenu:false
   },
   memberPage: {
     id: "memberPage",
