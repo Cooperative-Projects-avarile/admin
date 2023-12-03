@@ -17,7 +17,6 @@ const App: React.FC = () => {
 		fetch("https://www.mocky.io/v2/5cc8019d300000980a055e76", {
 			method: "POST",
 			body: formData,
-			
 		})
 			.then((res) => res.json())
 			.then(() => {
@@ -34,19 +33,19 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		const file = fileList[0];
-		if(!file) return
+		if (!file) return;
 		let data = {
 			id: 11,
 			file_size: file.size,
 			content_type: file.type,
 			file_name: "123123",
 		};
-		fetch("/nestApi/company/upload/logo", {
+		fetch("/api/company/upload/logo", {
 			method: "POST",
 			body: JSON.stringify(data),
-			headers:{
-				'Authorization':"bearer 76e7df82-a111-47aa-bf50-dfca396f7b73"
-			}
+			headers: {
+				Authorization: "bearer 76e7df82-a111-47aa-bf50-dfca396f7b73",
+			},
 		})
 			.then((res) => res.json())
 			.then(() => {

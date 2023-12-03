@@ -41,7 +41,7 @@ const App: React.FC = () => {
 			content_type: file.type,
 			file_name: "123123",
 		};
-		fetch("/nestApi/company/upload/logo", {
+		fetch("/api/company/upload/logo", {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers:{
