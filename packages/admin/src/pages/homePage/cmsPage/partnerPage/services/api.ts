@@ -29,7 +29,7 @@ function upadteApi(data) {
 
 // 查
 function queryApi<T>(data: any) {
-	return http.request<{}, { count: number, data: T[] }>({
+	return http.request<{count: number, content: T[]}>({
 		url: "/api/company/query",
 		method: "POST",
 		data,
