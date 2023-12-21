@@ -28,7 +28,7 @@ function login(params: LoginApiInput) {
 		password: params.password,
 	};
 	return http.request<LoginApiOutput>({
-		url: "/api/auth/login/local",
+		url: "/nestApi/auth/login/local",
 		method: "POST",
 		data: temp,
 	});

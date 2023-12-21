@@ -14,7 +14,6 @@ const DealPage = () => {
 		total,
 		dataList,
 		queryAct,
-		setAddModalShowAct,
 	} = useStore()[0];
 
 	const { columns } = useConfig();

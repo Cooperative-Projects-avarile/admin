@@ -65,6 +65,7 @@ const useConfig = () => {
 					inputType: "Switch",
 
 					formOptions: {
+						valuePropName: "checked",
 						label: "is_read",
 						name: "is_read",
 						initialValue: false,
@@ -138,6 +139,13 @@ const useConfig = () => {
 				key: "action",
 				render: (_, record) => (
 					<Space size="middle">
+						<a
+							onClick={() => {
+								setAddModalShowAct(true, record);
+							}}
+						>
+							edit
+						</a>
 						<a
 							onClick={() => {
 								Modal.confirm({

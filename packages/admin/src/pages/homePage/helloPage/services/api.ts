@@ -4,7 +4,7 @@ import {
 	PlatformStatisticsEntity,
 } from "./pageStore/model";
 
-let baseUrl = "/api/statistics/query/";
+let baseUrl = "/nestApi/statistics/query/";
 
 export interface QueryOpportunityParams {
 	created_at?: string[];

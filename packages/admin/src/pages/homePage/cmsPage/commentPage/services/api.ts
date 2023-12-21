@@ -1,7 +1,7 @@
 import { http } from "@/common/http";
 import { ResponseType } from "@/common/http/overrideHttpType";
 
-let baseUrl = "/api/comment/";
+let baseUrl = "/nestApi/comment/";
 // 增
 function addApi(data) {
 	return http.request({

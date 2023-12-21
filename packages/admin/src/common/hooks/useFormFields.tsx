@@ -43,10 +43,12 @@ const useFormFields = <T,>(
 			fieldConfig.inputOptions = cloneDeep(
 				fieldConfig.inputOptions || {},
 			);
-			if (isJustShow) {
-				fieldConfig.inputOptions.disabled = true;
-			} else {
-				fieldConfig.inputOptions.disabled = false;
+			if (!("disabled" in fieldConfig.inputOptions)) {
+				if (isJustShow) {
+					fieldConfig.inputOptions.disabled = true;
+				} else {
+					fieldConfig.inputOptions.disabled = false;
+				}
 			}
 			InputItem = getFields<T>(fieldConfig, formIns);
 		}
