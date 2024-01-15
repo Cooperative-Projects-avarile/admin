@@ -18,9 +18,9 @@ module.exports = function (app) {
 		},
 		"/nestApi": {
 			// target: "http://111.229.110.163:3001/",
-			target: "https://test.scaling.com.au",
+			target: "https://admin.scaling.com.au",
 			// target: "http://localhost:3001",
-			// target: "http://13.211.212.227:9090/",
+			// target: "http://13.211.212.227:9090/",Ï
 			changeOrigin: true,
 			pathRewrite: {
 				"^/nestApi": "/api",
