@@ -22,11 +22,11 @@ const Actions = {
 			setState({
 				userName,
 				password,
-				token: content.token,
+				token: content,
 				isAdmin: isAdmin,
 			});
-			;
-			sessionStorage.setItem("ACCESS_TOKEN", content.token);
+			debugger;
+			sessionStorage.setItem("ACCESS_TOKEN", content);
 			sessionStorage.setItem("IS_ADMIN", isAdmin ? "1" : "0");
 		},
 	updatePermissions: async (value: PermissionItem[]) => {

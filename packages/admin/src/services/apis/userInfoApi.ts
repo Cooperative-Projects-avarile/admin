@@ -6,9 +6,7 @@ interface LoginApiInput {
 }
 
 interface LoginApiOutput {
-	content: {
-		token: string;
-	};
+	content: string;
 }
 
 // 更新权限
