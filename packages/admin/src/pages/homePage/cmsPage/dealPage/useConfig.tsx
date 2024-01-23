@@ -30,7 +30,7 @@ const RejectReasonModal = ({
 				rules={[{ required: true }]}
 				initialValue={""}
 			>
-				<Input />
+				<Input.TextArea rows={12} />
 			</Form.Item>
 		</Form>
 	);
@@ -452,15 +452,15 @@ export const useFromConfig = () => {
 			// business_model
 			...(recordData?.components?.highlights
 				? getHighlights(recordData.components.highlights, [
-						"components",
-						"highlights",
-				  ])
+					"components",
+					"highlights",
+				])
 				: []),
 			...(recordData?.components?.pics
 				? getHighlights(recordData.components.pics, [
-						"components",
-						"pics",
-				  ])
+					"components",
+					"pics",
+				])
 				: []),
 			...(recordData?.components?.faq
 				? getFaq(recordData.components.faq, ["components", "faq"])
