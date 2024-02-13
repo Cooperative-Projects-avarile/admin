@@ -1,7 +1,7 @@
 import { http } from "@/common/http";
 import { ResponseType } from "@/common/http/overrideHttpType";
 
-let baseUrl = "/nestApi/comment/";
+let baseUrl = "/api/comment/";
 // 增
 function addApi(data) {
 	return http.request({
@@ -40,7 +40,7 @@ function queryApi<T>(data: any) {
 		}
 	});
 
-	return http.request<{},ResponseType<{count:number,content:T[]}>>({
+	return http.request<{}, ResponseType<{ count: number, content: T[] }>>({
 		url: baseUrl + "query",
 		method: "POST",
 		data: _data

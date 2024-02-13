@@ -1,6 +1,6 @@
 import { http } from "@/common/http";
 
-let baseUrl = "/nestApi/enquiry/";
+let baseUrl = "/api/enquiry/";
 // 增
 function addApi(data) {
 	return http.request({

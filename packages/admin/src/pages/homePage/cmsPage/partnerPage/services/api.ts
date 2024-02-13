@@ -3,7 +3,7 @@ import { http } from "@/common/http";
 // 增
 function addApi(data) {
 	return http.request({
-		url: "/nestApi/company/create",
+		url: "/api/company/create",
 		method: "POST",
 		data,
 	});
@@ -12,7 +12,7 @@ function addApi(data) {
 // 删
 function deleteApi(data) {
 	return http.request({
-		url: "/nestApi/company/delete",
+		url: "/api/company/delete",
 		method: "POST",
 		data,
 	});
@@ -21,7 +21,7 @@ function deleteApi(data) {
 // 改
 function upadteApi(data) {
 	return http.request({
-		url: "/nestApi/company/update",
+		url: "/api/company/update",
 		method: "POST",
 		data,
 	});
@@ -30,7 +30,7 @@ function upadteApi(data) {
 // 查
 function queryApi<T>(data: any) {
 	return http.request<{ count: number; content: T[] }>({
-		url: "/nestApi/company/query",
+		url: "/api/company/query",
 		method: "POST",
 		data,
 	});

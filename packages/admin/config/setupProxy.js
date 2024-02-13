@@ -16,11 +16,11 @@ module.exports = function (app) {
 				"^/api": "",
 			},
 		},
-		"/nestApi": {
+		"/api": {
 			target: "https://live-admin.scaling.com.au",
 			changeOrigin: true,
 			pathRewrite: {
-				"^/nestApi": "/api",
+				"^/api": "/api",
 			},
 		},
 	};
