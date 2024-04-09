@@ -1,5 +1,4 @@
 import {
-	Descriptions,
 	Form,
 	FormInstance,
 	Input,
@@ -7,7 +6,7 @@ import {
 	Space,
 	Switch,
 	Typography,
-	notification,
+	notification
 } from "antd";
 import { useEffect } from "react";
 import PdfPreview from "src/common/components/pdfPreview";
@@ -25,10 +24,6 @@ import {
 	IDealFaqComponent,
 	IDealTeamMember,
 } from "src/types/deal";
-const formItemLayout = {
-	labelCol: { span: 5 },
-	wrapperCol: { span: 8, offset: 1 },
-};
 const RejectReasonModal = ({
 	resolver,
 }: {
