@@ -41,11 +41,9 @@ const useConfig = () => {
 
 	const {
 		setAddModalShowAct,
-		deleteAct,
 		queryAct,
 		approveAct,
 		rejectAct,
-		setIsDetailAct,
 		dataList,
 		recordData,
 		formVersion,

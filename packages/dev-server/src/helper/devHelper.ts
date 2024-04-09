@@ -179,7 +179,7 @@ class devHelper {
 		const newStoreDeclaration = `import ${name} from "./${name}/${name}";\n`;
 		let newCode = input.replace(regex, `${newStoreDeclaration}$&`);
 		const matches = this.getStoreList(name);
-		let newStroes = matches
+		let newStores = matches
 			.filter((item) => {
 				return item;
 			})
@@ -187,7 +187,7 @@ class devHelper {
 				return `  ${item}`;
 			})
 			.join(",\n");
-		const str = "\nconst stores = {\n" + newStroes + "\n};\n";
+		const str = "\nconst stores = {\n" + newStores + "\n};\n";
 		newCode = newCode.replace(matchStores[1], str);
 		fs.writeFileSync(pathHelper.webStoresIndexPath, newCode);
 	};
@@ -212,7 +212,15 @@ class devHelper {
 	};
 
 	// 创建页面
-	toBuildPage = (pagePath: string, pageName: string) => {
+	toBuildPage = ({
+		pagePath,
+		pageName,
+		isOutlet,
+	}: {
+		pagePath: string;
+		pageName: string;
+		isOutlet: boolean;
+	}) => {
 		let sourcePath = path.resolve(__dirname, "../templates/template1");
 		let filePath = path.resolve(
 			pathHelper.webPagesPath,
@@ -229,9 +237,7 @@ class devHelper {
 				),
 				{ strict: true },
 			);
-			let fileName = fileItem.fileName
-				? fileItem.fileName
-				: `${pageName}.${fileItem.type}`;
+			let fileName = `${pageName}.${fileItem.type}`;
 			// 将pageName的首字母大写
 			this.writeFile(
 				filePath + fileItem.path,
@@ -240,6 +246,7 @@ class devHelper {
 					...fileItem,
 					pageName: pageName.replace(/^\S/, (s) => s.toUpperCase()),
 					name: pageName + extraName,
+					isOutlet: isOutlet,
 				}),
 			);
 		}
