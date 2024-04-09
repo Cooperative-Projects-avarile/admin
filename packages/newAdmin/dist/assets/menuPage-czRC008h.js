@@ -1,0 +1,1 @@
+import{j as e}from"./index-CHx3oPAQ.js";const n="_container_18572_1",t={container:n},s=()=>e.jsx("div",{className:t.content,children:"MenuPage welcome! TODO 菜单管理 把若依的菜单完整集成过来，不改其规则，原滋原味的适配"});export{s as default};
