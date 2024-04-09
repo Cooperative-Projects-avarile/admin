@@ -6,19 +6,29 @@ import {
 	Modal,
 	Space,
 	Switch,
+	Typography,
 	notification,
 } from "antd";
 import { useEffect } from "react";
+import PdfPreview from "src/common/components/pdfPreview";
 import { usePageConfig } from "src/common/hooks";
-import { fieldCreater } from "src/common/utils";
+import { MyColumnType, fieldCreater } from "src/common/utils";
 import { useFlat } from "src/reduxService";
 import {
 	PageType,
 	Status,
 	TypeEnum,
 } from "src/reduxService/stores/dealStore/model";
-import { DealType } from "src/types/deal";
-
+import {
+	DealEntity,
+	DealType,
+	IDealFaqComponent,
+	IDealTeamMember,
+} from "src/types/deal";
+const formItemLayout = {
+	labelCol: { span: 5 },
+	wrapperCol: { span: 8, offset: 1 },
+};
 const RejectReasonModal = ({
 	resolver,
 }: {
@@ -41,6 +51,7 @@ const RejectReasonModal = ({
 		</Form>
 	);
 };
+
 const getHighlights = (list: string[], name: string[]) => {
 	return list.map((_, index) => {
 		let nameArr = [...name, index];
@@ -56,6 +67,157 @@ const getHighlights = (list: string[], name: string[]) => {
 			},
 		};
 	});
+};
+
+const getAttachments = (list: string[], name: string[]) => {
+	return list.map<MyColumnType<DealEntity>>((item, index) => {
+		let nameArr = [...name, index];
+		return {
+			title: nameArr.join("-"),
+			dataIndex: index,
+			key: nameArr.join("-"),
+			fieldConfig: {
+				render() {
+					return (
+						<a
+							onClick={() => {
+								let url = item.replace(
+									"https://d2k5mqgnyo4nix.cloudfront.net",
+									"/doc",
+								);
+								Modal.confirm({
+									width: "950px",
+									style: {
+										position: "relative",
+									},
+									content: <PdfPreview pdfUrl={url} />,
+								});
+							}}
+						>
+							{item}
+						</a>
+					);
+				},
+				formOptions: {
+					label: nameArr.join("-"),
+					name: nameArr,
+				},
+			},
+		};
+	});
+};
+
+const getTeams = (list: IDealTeamMember[], name: string[]) => {
+	let result: any[] = [];
+	list.forEach((item, index) => {
+		let nameArr = [...name, index];
+		let name1 = [...nameArr, "name"];
+		let name2 = [...nameArr, "title"];
+		let name3 = [...nameArr, "image"];
+		result.push({
+			title: name1.join("-"),
+			dataIndex: "name",
+			key: name1.join("-"),
+			fieldConfig: {
+				formOptions: {
+					label: name1.join("-"),
+					name: name1,
+				},
+			},
+		});
+		result.push({
+			title: name2.join("-"),
+			dataIndex: "title",
+			key: name2.join("-"),
+			fieldConfig: {
+				formOptions: {
+					label: name2.join("-"),
+					name: name2,
+				},
+			},
+		});
+		result.push({
+			title: name3.join("-"),
+			dataIndex: "image",
+			key: name3.join("-"),
+			fieldConfig: {
+				render() {
+					return (
+						<Form.Item label={nameArr.join("-")}>
+							<Typography>{item.image}</Typography>
+							<img
+								width={"30%"}
+								src={item.image}
+								alt={item.image}
+							/>
+						</Form.Item>
+					);
+				},
+				formOptions: {
+					label: name3.join("-"),
+					name: name3,
+				},
+			},
+		});
+	});
+	return result;
+};
+const getPics = (list: string[], name: string[]) => {
+	return list.map<MyColumnType<DealEntity>>((item, index) => {
+		let nameArr = [...name, index];
+		return {
+			title: nameArr.join("-"),
+			dataIndex: index,
+			key: nameArr.join("-"),
+			fieldConfig: {
+				render() {
+					return (
+						<Form.Item label={nameArr.join("-")}>
+							<Typography>{item}</Typography>
+							<img width={"30%"} src={item} alt={item} />
+						</Form.Item>
+					);
+				},
+				formOptions: {
+					label: nameArr.join("-"),
+					name: nameArr,
+				},
+			},
+		};
+	});
+};
+
+const getFaqs = (list: IDealFaqComponent[], name: string[]) => {
+	let result: any[] = [];
+	debugger;
+	list.forEach((item, index) => {
+		let nameArr = [...name, index];
+		let name1 = [...nameArr, "question"];
+		let name2 = [...nameArr, "answer"];
+		result.push({
+			title: name1.join("-"),
+			dataIndex: "question",
+			key: name1.join("-"),
+			fieldConfig: {
+				formOptions: {
+					label: name1.join("-"),
+					name: name1,
+				},
+			},
+		});
+		result.push({
+			title: name2.join("-"),
+			dataIndex: "answer",
+			key: name2.join("-"),
+			fieldConfig: {
+				formOptions: {
+					label: name2.join("-"),
+					name: name2,
+				},
+			},
+		});
+	});
+	return result;
 };
 const useConfig = () => {
 	const {
@@ -355,29 +517,10 @@ const useConfig = () => {
 				render: (_, record) => (
 					<a
 						onClick={() => {
-							Modal.confirm({
-								icon: null,
-								width: 800,
-								content: (
-									<Descriptions
-										title="deal detail"
-										column={2}
-									>
-										{Object.entries(record).map(
-											([key, value]) => (
-												<Descriptions.Item
-													key={key}
-													label={key}
-												>
-													{value &&
-													typeof value == "object"
-														? JSON.stringify(value)
-														: value || ""}
-												</Descriptions.Item>
-											),
-										)}
-									</Descriptions>
-								),
+							setIsAddModalShow({
+								isShowAddModal: true,
+								recordData: record,
+								isDetail: true,
 							});
 						}}
 					>
@@ -386,11 +529,17 @@ const useConfig = () => {
 				),
 			},
 			{
-        title:'overview',
+				title: "overview",
 				isSearch: true,
 				dataIndex: "overview",
 				key: "overview",
 				fieldConfig: {
+					type: "TextArea",
+					inputAttrConfig: {
+						autoSize: {
+							minRows: 3,
+						},
+					},
 					formOptions: {
 						initialValue: recordData?.overview,
 						rules: [
@@ -424,7 +573,31 @@ const useConfig = () => {
 				},
 			},
 			...askData,
+			{
+				title: "logo",
+				dataIndex: "logo",
+				key: "logo",
+				fieldConfig: {
+					render() {
+						return (
+							<Form.Item label="logo">
+								<Typography>{recordData?.logo}</Typography>
+								<img
+									width={"50%"}
+									src={recordData?.logo}
+									alt={recordData?.logo}
+								/>
+							</Form.Item>
+						);
+					},
+					formOptions: {
+						label: recordData?.logo,
+						name: recordData?.logo,
+					},
+				},
+			},
 			...getHighlights(recordData?.highlights || [], ["highlights"]),
+			...getPics(recordData?.pics || [], ["pics"]),
 			{
 				title: "is_submitted",
 				dataIndex: "is_submitted",
@@ -432,7 +605,10 @@ const useConfig = () => {
 				fieldConfig: {
 					type: "Switch",
 					isSearch: false,
-					scope: ["table"],
+					scope: ["table", "modal"],
+					formOptions: {
+						label: "is_submitted",
+					},
 				},
 				render: (value) => {
 					return <Switch checked={value}></Switch>;
@@ -445,7 +621,10 @@ const useConfig = () => {
 				fieldConfig: {
 					type: "Switch",
 					isSearch: false,
-					scope: ["table"],
+					scope: ["table", "modal"],
+					formOptions: {
+						label: "is_draft",
+					},
 				},
 				render: (value) => {
 					return <Switch checked={value}></Switch>;
@@ -458,7 +637,10 @@ const useConfig = () => {
 				fieldConfig: {
 					type: "Switch",
 					isSearch: false,
-					scope: ["table"],
+					scope: ["table", "modal"],
+					formOptions: {
+						label: "is_approved",
+					},
 				},
 				render: (value) => {
 					return <Switch checked={value}></Switch>;
@@ -469,6 +651,7 @@ const useConfig = () => {
 				dataIndex: "official_deal_id",
 				key: "official_deal_id",
 				fieldConfig: {
+					scope: [],
 					isSearch: false,
 					formOptions: {
 						label: "official_deal_id",
@@ -526,9 +709,175 @@ const useConfig = () => {
 				dataIndex: "reject_reason",
 				key: "reject_reason",
 				fieldConfig: {
-					scope: ["table"],
+					type: "TextArea",
+					scope: ["table", "modal"],
+					formOptions: {
+						label: "reject_reason",
+					},
 				},
 			},
+			{
+				title: "components.business_name",
+				dataIndex: "components.business_name",
+				key: "components.business_name",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "business_name",
+						name: ["components", "business_name"],
+					},
+				},
+			},
+			{
+				title: "components.business_website",
+				dataIndex: "components.business_website",
+				key: "components.business_website",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "business_website",
+						name: ["components", "business_website"],
+					},
+				},
+			},
+			{
+				title: "components.problem_to_be_solved",
+				dataIndex: "components.problem_to_be_solved",
+				key: "components.problem_to_be_solved",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "problem_to_be_solved",
+						name: ["components", "problem_to_be_solved"],
+					},
+				},
+			},
+			{
+				title: "components.solution",
+				dataIndex: "components.solution",
+				key: "components.solution",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "solution",
+						name: ["components", "solution"],
+					},
+				},
+			},
+			{
+				title: "components.achivement",
+				dataIndex: "components.achivement",
+				key: "components.achivement",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "achivement",
+						name: ["components", "achivement"],
+					},
+				},
+			},
+			{
+				title: "components.business_model",
+				dataIndex: "components.business_model",
+				key: "components.business_model",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "business_model",
+						name: ["components", "business_model"],
+					},
+				},
+			},
+			{
+				title: "components.funding",
+				dataIndex: "components.funding",
+				key: "components.funding",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "funding",
+						name: ["components", "funding"],
+					},
+				},
+			},
+			{
+				title: "market.target_market",
+				dataIndex: "market.target_market",
+				key: "market.target_market",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "target_market",
+						name: ["market", "target_market"],
+					},
+				},
+			},
+			{
+				title: "market.opportunity_description",
+				dataIndex: "market.opportunity_description",
+				key: "market.opportunity_description",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "opportunity_description",
+						name: ["market", "opportunity_description"],
+					},
+				},
+			},
+			{
+				title: "market.enviroment",
+				dataIndex: "market.enviroment",
+				key: "market.enviroment",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "enviroment",
+						name: ["market", "enviroment"],
+					},
+				},
+			},
+			{
+				title: "documents_social.linkedin",
+				dataIndex: "documents_social.linkedin",
+				key: "documents_social.linkedin",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "linkedin",
+						name: ["documents_social", "linkedin"],
+					},
+				},
+			},
+			{
+				title: "documents_social.facebook",
+				dataIndex: "documents_social.facebook",
+				key: "documents_social.facebook",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "facebook",
+						name: ["documents_social", "facebook"],
+					},
+				},
+			},
+			{
+				title: "documents_social.attachments",
+				dataIndex: "documents_social.attachments",
+				key: "documents_social.attachments",
+				fieldConfig: {
+					type: "TextArea",
+					formOptions: {
+						label: "instagram",
+						name: ["documents_social", "instagram"],
+					},
+				},
+			},
+			...getAttachments(recordData?.documents_social?.attachments || [], [
+				"documents_social",
+				"attachments",
+			]),
+			...getTeams(recordData?.teams || [], ["teams"]),
+			...getFaqs(recordData?.faq || [], ["faq"]),
 			{
 				title: "action",
 				key: "action",

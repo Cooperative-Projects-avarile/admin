@@ -20,8 +20,11 @@ const useFormFields = <T,>(
 			if (Array.isArray(name)) {
 				let nameArr = name.slice(0, -1);
 				nameArr.forEach((nameItem, index) => {
-					if (!recordKeyObj[nameItem]) {
-						recordKeyObj[nameItem] = true;
+					if (!recordKeyObj[name[0]]?.[nameItem]) {
+						if (!recordKeyObj[name[0]]) {
+							recordKeyObj[name[0]] = {};
+						}
+						recordKeyObj[name[0]][nameItem] = true;
 						temp.push(
 							<Divider
 								key={`${index} ${nameItem}`}

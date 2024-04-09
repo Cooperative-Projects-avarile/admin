@@ -26,7 +26,6 @@ const ModalForm: React.FC = () => {
 		formIns: form,
 		isJustShow: isDetail,
 	});
-	;
 	useEffect(() => {
 		if (recordData) {
 			form.setFieldsValue(recordData);
@@ -39,6 +38,7 @@ const ModalForm: React.FC = () => {
 		: {};
 	return (
 		<Modal
+			width={"60vw"}
 			open={isShowAddModal}
 			title={recordData ? "Update" : "Add"}
 			{...extraOptions}

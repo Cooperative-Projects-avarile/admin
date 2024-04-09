@@ -35,12 +35,18 @@ const slice = createSliceCustom({
 		setIsAddModalShow: (
 			state,
 			{
-				payload: { isShowAddModal, recordData },
-			}: PayloadAction<{ isShowAddModal: boolean; recordData?: any }>,
+				payload: { isShowAddModal, recordData, isDetail },
+			}: PayloadAction<{
+				isShowAddModal: boolean;
+				recordData?: any;
+				isDetail?: boolean;
+			}>,
 		) => {
 			state.recordData = recordData;
 			state.isShowAddModal = isShowAddModal;
-			!isShowAddModal && (state.isDetail = false);
+			!isShowAddModal
+				? (state.isDetail = false)
+				: (state.isDetail = !!isDetail);
 		},
 	},
 });

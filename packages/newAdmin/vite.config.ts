@@ -20,6 +20,11 @@ export default defineConfig({
 				target: "https://admin.scaling.com.au",
 				changeOrigin: true, // 允许跨域
 			},
+			"/doc": {
+				target: "https://d2k5mqgnyo4nix.cloudfront.net",
+				changeOrigin: true, // 允许跨域
+				rewrite: (path) => path.replace(/^\/doc/, ""),
+			},
 			// "/api": {
 			//   target: "http://localhost:8681",
 			//   changeOrigin: true, // 允许跨域

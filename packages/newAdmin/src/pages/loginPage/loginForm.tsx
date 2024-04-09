@@ -1,5 +1,5 @@
-import { Button, Form, Input, message } from "antd";
-import { Fragment, useEffect, useState } from "react";
+import { Button, Form, Input } from "antd";
+import { Fragment } from "react";
 import { useGreatAsync } from "src/common/hooks";
 import storageHelper from "src/common/utils/storageHelper";
 import { useFlat } from "src/reduxService";
@@ -9,23 +9,11 @@ import { useFlat } from "src/reduxService";
  */
 const LoginForm = () => {
 	const [form] = Form.useForm();
-	let { loginNest, btnTime, setBtnTime, setBtnCon, getLoginCodeAct } =
-		useFlat("authStore");
-	// const [isShow, setIsShow] = useState<boolean>(false);
-	const [timer, setTimer] = useState<ReturnType<typeof setInterval>>();
+	let { loginNest } = useFlat("authStore");
 	const { fn: loginG } = useGreatAsync(loginNest, {
 		auto: false,
 		single: true,
 	});
-	useEffect(() => {
-		getVerifCode();
-		//图片滑块验证==获取图片地址
-		// getImageUrlAct();
-		//验证码倒计时刷新时，应保证继续倒计时
-		if (btnTime > 0 && btnTime < 60) {
-			startTimer();
-		}
-	}, []);
 
 	const onFinish = async (values: any) => {
 		// 开发环境使用默认账号密码
@@ -34,7 +22,6 @@ const LoginForm = () => {
 			password: values.password,
 			captchaVerification: values.code,
 		}).then(() => {
-			clearInterval(timer);
 			storageHelper.setItem("BTN_CON", "点击获取验证码");
 			storageHelper.setItem("BTN_TIME", 60);
 		});
@@ -42,30 +29,6 @@ const LoginForm = () => {
 
 	const onFinishFailed = (errorInfo: any) => {
 		console.log("Failed:", errorInfo);
-	};
-	const getVerifCode = () => {
-		getLoginCodeAct().then(() => {
-			message.success("验证码发送成功");
-		});
-	};
-	//开启定时器
-	const startTimer = () => {
-		setTimer(
-			setInterval(() => {
-				if (btnTime <= 0) {
-					restBtn();
-				} else {
-					setBtnTime(btnTime--);
-					setBtnCon(btnTime + "s后重新获取验证码");
-				}
-			}, 1000),
-		);
-	};
-	//重置获取验证码信息
-	const restBtn = () => {
-		clearInterval(timer);
-		setBtnTime(60);
-		setBtnCon("点击获取验证码");
 	};
 
 	return (
