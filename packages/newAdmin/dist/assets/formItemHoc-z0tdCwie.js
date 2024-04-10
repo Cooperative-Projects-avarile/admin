@@ -1,1 +1,0 @@
-import{j as r}from"./index-CHx3oPAQ.js";import{F as i}from"./index-3c9RWdXx.js";const a=({Comp:e=()=>r.jsx("div",{}),rules:t,isForm:s=!0,children:m,...o})=>{let x={...o};return r.jsx(r.Fragment,{children:s?r.jsx(i.Item,{rules:t||[{required:!0,message:"不可为空!"}],...x,children:m}):r.jsx(e,{})})};export{a as F};

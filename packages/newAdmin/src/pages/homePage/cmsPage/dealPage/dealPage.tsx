@@ -31,7 +31,6 @@ const DealPage = () => {
 				rowKey={(record) => {
 					return record.id;
 				}}
-				loading={loading}
 				pagination={{
 					pageSize,
 					current: pageNum,

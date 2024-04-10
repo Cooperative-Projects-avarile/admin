@@ -1,6 +1,5 @@
 import { Button, Form, Input } from "antd";
 import { Fragment } from "react";
-import { useGreatAsync } from "src/common/hooks";
 import storageHelper from "src/common/utils/storageHelper";
 import { useFlat } from "src/reduxService";
 /**
@@ -10,14 +9,10 @@ import { useFlat } from "src/reduxService";
 const LoginForm = () => {
 	const [form] = Form.useForm();
 	let { loginNest } = useFlat("authStore");
-	const { fn: loginG } = useGreatAsync(loginNest, {
-		auto: false,
-		single: true,
-	});
 
 	const onFinish = async (values: any) => {
 		// 开发环境使用默认账号密码
-		loginG({
+		loginNest({
 			username: values.name,
 			password: values.password,
 			captchaVerification: values.code,

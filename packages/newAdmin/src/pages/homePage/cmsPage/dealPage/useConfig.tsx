@@ -6,7 +6,7 @@ import {
 	Space,
 	Switch,
 	Typography,
-	notification
+	notification,
 } from "antd";
 import { useEffect } from "react";
 import PdfPreview from "src/common/components/pdfPreview";
