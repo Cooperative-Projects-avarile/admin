@@ -7,7 +7,7 @@ import useConfig from "./useConfig";
 import { useFlat } from "src/reduxService";
 
 const DealPage = () => {
-	const { pageNum, pageSize, loading, total, dataList, queryAct } =
+	const { pageNum, pageSize, total, dataList, queryAct } =
 		useFlat("dealStore");
 
 	const { columns } = useConfig();
@@ -36,7 +36,6 @@ const DealPage = () => {
 					current: pageNum,
 					total,
 					onChange(page, pageSize) {
-						console.log(page, pageSize);
 						handlePageChange(page, pageSize);
 					},
 				}}

@@ -184,8 +184,7 @@ const getPics = (list: string[], name: string[]) => {
 
 const getFaqs = (list: IDealFaqComponent[], name: string[]) => {
 	let result: any[] = [];
-	debugger;
-	list.forEach((item, index) => {
+	list.forEach((_, index) => {
 		let nameArr = [...name, index];
 		let name1 = [...nameArr, "question"];
 		let name2 = [...nameArr, "answer"];
@@ -876,76 +875,78 @@ const useConfig = () => {
 			{
 				title: "action",
 				key: "action",
-				render: (_, record) => (
-					<Space size="middle">
-						<a
-							onClick={async () => {
-								setIsAddModalShow({
-									isShowAddModal: true,
-									recordData: record,
-								});
-							}}
-						>
-							edit
-						</a>
-						{record.is_draft &&
-							record.is_submitted &&
-							!record.is_approved && (
-								<a
-									onClick={async () => {
-										await approveAct({
-											id: record.id,
-											title: record.title,
-										});
-										await queryAct();
-										notification.info({
-											message: "success!",
-										});
-									}}
-								>
-									approve
-								</a>
-							)}
-						{record.is_draft &&
-							record.is_submitted &&
-							!record.is_approved && (
-								<a
-									onClick={async () => {
-										//@ts-ignore
-										let resolver = { form: null } as {
-											form: FormInstance;
-										};
+				render: (_, record) => {
+					return (
+						<Space size="middle">
+							<a
+								onClick={async () => {
+									setIsAddModalShow({
+										isShowAddModal: true,
+										recordData: record,
+									});
+								}}
+							>
+								edit
+							</a>
+							{record.is_draft &&
+								record.is_submitted &&
+								!record.is_approved && (
+									<a
+										onClick={async () => {
+											await approveAct({
+												id: record.id,
+												title: record.title,
+											});
+											await queryAct();
+											notification.info({
+												message: "success!",
+											});
+										}}
+									>
+										approve
+									</a>
+								)}
+							{record.is_draft &&
+								record.is_submitted &&
+								!record.is_approved && (
+									<a
+										onClick={async () => {
+											//@ts-ignore
+											let resolver = { form: null } as {
+												form: FormInstance;
+											};
 
-										Modal.confirm({
-											title: "reject reason",
-											content: (
-												<RejectReasonModal
-													resolver={resolver}
-												/>
-											),
-											icon: null,
-											async onOk() {
-												await resolver.form.validateFields();
+											Modal.confirm({
+												title: "reject reason",
+												content: (
+													<RejectReasonModal
+														resolver={resolver}
+													/>
+												),
+												icon: null,
+												async onOk() {
+													await resolver.form.validateFields();
 
-												const x = {
-													id: record.id,
-													reject_reason:
-														resolver.form.getFieldValue(
-															"reject_reason",
-														),
-												};
+													const x = {
+														id: record.id,
+														reject_reason:
+															resolver.form.getFieldValue(
+																"reject_reason",
+															),
+													};
 
-												await rejectAct(x);
-												await queryAct();
-											},
-										});
-									}}
-								>
-									reject
-								</a>
-							)}
-					</Space>
-				),
+													await rejectAct(x);
+													await queryAct();
+												},
+											});
+										}}
+									>
+										reject
+									</a>
+								)}
+						</Space>
+					);
+				},
 			},
 		];
 	}, [dataList, formVersion, recordData]);
