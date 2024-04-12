@@ -20,7 +20,7 @@ export default defineConfig({
 		port: 8032,
 		proxy: {
 			"/api": {
-				target: "https://live-admin.scaling.com.au",
+				target: "https://admin.scaling.com.au",
 				changeOrigin: true, // 允许跨域
 			},
 			"/doc": {
