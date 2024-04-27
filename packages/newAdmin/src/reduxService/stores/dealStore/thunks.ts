@@ -35,12 +35,18 @@ const thunks = createThunks(names.dealStore, {
 	},
 	queryAct: async (params: QueryActParams, api) => {
 		dp("dealStore", "setLoading", true);
-		const res = await httpApi.queryApi<PageType>(params).finally(() => {
-			dp("dealStore", "setLoading", false);
-		});
+		const res = await httpApi
+			.queryApi<PageType>({
+				page: api.getState().dealStore.pageNum || 1,
+				page_size: api.getState().dealStore.pageSize,
+				...params,
+			})
+			.finally(() => {
+				dp("dealStore", "setLoading", false);
+			});
 		const { content: dataList, count } = res.data;
 		dp("dealStore", "setState", {
-			pageNum: params.page || api.getState().dealStore.pageNum || 1,
+			pageNum: params?.page || api.getState().dealStore.pageNum || 1,
 			dataList,
 			total: count,
 		});

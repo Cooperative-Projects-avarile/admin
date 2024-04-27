@@ -9,7 +9,7 @@ import { useFlat } from "src/reduxService";
 const DealPage = () => {
 	const { pageNum, pageSize, total, dataList, queryAct } =
 		useFlat("dealStore");
-
+	debugger;
 	const { columns } = useConfig();
 
 	useEffect(() => {
