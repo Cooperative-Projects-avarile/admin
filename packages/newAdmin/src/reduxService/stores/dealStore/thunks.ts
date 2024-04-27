@@ -33,14 +33,14 @@ const thunks = createThunks(names.dealStore, {
 	rejectAct: async (params: { id: number; reject_reason: string }) => {
 		await httpApi.rejectApi(params);
 	},
-	queryAct: async (params: QueryActParams) => {
+	queryAct: async (params: QueryActParams, api) => {
 		dp("dealStore", "setLoading", true);
 		const res = await httpApi.queryApi<PageType>(params).finally(() => {
 			dp("dealStore", "setLoading", false);
 		});
 		const { content: dataList, count } = res.data;
 		dp("dealStore", "setState", {
-			pageNum: params.page || 1,
+			pageNum: params.page || api.getState().dealStore.pageNum || 1,
 			dataList,
 			total: count,
 		});

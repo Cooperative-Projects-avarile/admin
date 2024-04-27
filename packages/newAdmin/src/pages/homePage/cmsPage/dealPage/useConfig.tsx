@@ -898,7 +898,6 @@ const useConfig = () => {
 												title: record.title,
 											});
 											await queryAct();
-											debugger;
 											notification.info({
 												message: "success!",
 											});
