@@ -102,7 +102,7 @@ const Card = ({
 				hoverBoundingRect!.y - clientOffset!?.y < 30
 			) {
 				let routeId = id.split("/").slice(-1)[0];
-				if (!routesMap.HelloPage.path!.includes(routeId)) {
+				if (!routesMap.HelloPage.path!?.includes(routeId)) {
 					if (item.data.location?.pathname) {
 						AppHelper.addWinbox({
 							content: AppHelper.getKeepAliveComponentById({
