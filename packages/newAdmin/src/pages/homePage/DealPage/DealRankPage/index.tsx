@@ -68,15 +68,20 @@ const DealRankPage = () => {
 					setIsShowSort(false);
 				}}
 				destroyOnClose
-				onOk={() => {
+				onOk={async () => {
+					const arr: Promise<any>[] = [];
 					selectedList.forEach((item, index) => {
 						if (item) {
-							rankListAct({
-								deal_id: Number(item),
-								order: index,
-							});
+							arr.push(
+								rankListAct({
+									deal_id: Number(item),
+									order: index,
+								}),
+							);
 						}
 					});
+					await Promise.all(arr);
+					handlePageChange(1, pageSize);
 					setIsShowSort(false);
 				}}
 				open={isShowSort}
