@@ -40,6 +40,10 @@ const thunks = createThunks(names.dealStore, {
 			.queryApi<DealEntity>({
 				page: api.getState().dealStore.pageData.pageNum || 1,
 				page_size: api.getState().dealStore.pageData.pageSize,
+				status: "pending",
+				is_submitted: true,
+				is_approved: false,
+				is_draft: true,
 				...params,
 			})
 			.finally(() => {
