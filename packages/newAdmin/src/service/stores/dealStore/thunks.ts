@@ -57,6 +57,10 @@ const thunks = createThunks(names.dealStore, {
 			.queryApi<DealEntity>({
 				page: api.getState().dealStore.approvalPageData.pageNum || 1,
 				page_size: api.getState().dealStore.approvalPageData.pageSize,
+				status: "pending",
+				is_submitted: true,
+				is_approved: false,
+				is_draft: true,
 				...params,
 			})
 			.finally(() => {
@@ -97,9 +101,15 @@ const thunks = createThunks(names.dealStore, {
 	},
 	querySearchListAct: async () => {
 		dp("dealStore", "setLoading", true);
-		const res = await httpApi.queryApi<DealEntity>({}).finally(() => {
-			dp("dealStore", "setLoading", false);
-		});
+		const res = await httpApi
+			.queryApi<DealEntity>({
+				is_approved: true,
+				is_draft: false,
+				status: "active",
+			})
+			.finally(() => {
+				dp("dealStore", "setLoading", false);
+			});
 		dp("dealStore", "setSearchList", res.data.content);
 	},
 });
