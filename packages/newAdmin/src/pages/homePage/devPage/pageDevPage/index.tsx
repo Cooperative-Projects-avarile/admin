@@ -1,15 +1,14 @@
-import { useGreatAsync } from "src/common/hooks";
-import { Checkbox, Space, Table } from "antd";
+import { Checkbox, Input, Pagination, Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useEffect } from "react";
-import ModalForm from "./components/modalForm/modalForm";
-import styles from "./index.module.scss";
-import { useFlat } from "src/reduxService";
+import { useTranslation } from "react-i18next";
+import { useFlat } from "src/service";
 import {
 	AdcompanyPageParams,
 	PageType,
-} from "src/reduxService/stores/devStore/model";
-import { useTranslation } from "react-i18next";
+} from "src/service/stores/devStore/model";
+import ModalForm from "./components/modalForm/modalForm";
+import styles from "./index.module.scss";
 
 const columns: ColumnsType<PageType> = [
 	{
@@ -48,16 +47,11 @@ const PageDevPage = () => {
 		fetchPageListAct,
 		addPageListAct,
 	} = useFlat("devStore");
+
 	const { t } = useTranslation(["dev"]);
-	const { loading: loading1, fn: createArticleListG } = useGreatAsync(
-		fetchPageListAct,
-		{
-			auto: true,
-			debounceTime: 1000,
-		},
-	);
+
 	const handlePageChange = async () => {
-		await createArticleListG();
+		await fetchPageListAct();
 	};
 
 	const handleUpload = (values: AdcompanyPageParams) => {
@@ -70,6 +64,7 @@ const PageDevPage = () => {
 
 	return (
 		<div className={styles.content}>
+			<Input></Input>
 			<div className={styles.operate_board}>
 				<ModalForm
 					btnLabel={t`dev.addRouter`}
@@ -80,17 +75,25 @@ const PageDevPage = () => {
 				rowKey={(record) => {
 					return record.id;
 				}}
-				loading={loading1}
-				pagination={{
-					pageSize,
-					current: pageNum,
-					total,
-					onChange() {
-						handlePageChange();
-					},
-				}}
+				pagination={false}
 				columns={columns}
 				dataSource={pageList || []}
+				footer={() => (
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "flex-end",
+						}}
+					>
+						<Pagination
+							{...{
+								pageSize,
+								current: pageNum,
+								total,
+							}}
+						></Pagination>
+					</div>
+				)}
 			/>
 		</div>
 	);

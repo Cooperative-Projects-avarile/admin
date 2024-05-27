@@ -35,7 +35,12 @@ _http.interceptors.response.use(
 	(response) => {
 		const { data = {} } = response;
 		const { code, msg } = data;
-		if (Number(code) !== 0 && Number(code) !== 200 && Number(code) !== 1) {
+		if (
+			code &&
+			Number(code) !== 0 &&
+			Number(code) !== 200 &&
+			Number(code) !== 1
+		) {
 			message.warning(msg);
 			return handleError({
 				code,
@@ -45,6 +50,7 @@ _http.interceptors.response.use(
 		return response.data;
 	},
 	(_) => {
+		message.error(_.response.data?.message || "error");
 		handleError({
 			code: "",
 			message: "",

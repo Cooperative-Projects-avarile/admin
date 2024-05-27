@@ -1,13 +1,19 @@
 import { Button, Result } from "antd";
 import React from "react";
-import { ROUTE_ID } from "src/config/routerConfig";
-import { useFlat } from "src/reduxService";
-import { RouterHelper } from "src/reduxService/helper";
+import { useFlat } from "src/service";
+import { RouterHelper } from "src/service/helper";
+import { ROUTE_ID } from "src/router/name";
 
 const ErrPage: React.FC = () => {
 	const { routesPermissions } = useFlat("authStore");
 	return (
-		<>
+		<div
+			style={{
+				width: "100%",
+				height: "100%",
+				alignContent: "center",
+			}}
+		>
 			{routesPermissions && (
 				<Result
 					status="404"
@@ -25,7 +31,7 @@ const ErrPage: React.FC = () => {
 					}
 				/>
 			)}
-		</>
+		</div>
 	);
 };
 export default ErrPage;

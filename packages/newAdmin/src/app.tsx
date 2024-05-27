@@ -1,15 +1,23 @@
 import { Routes } from "react-router-dom";
-import { useFlat } from "./reduxService";
-import { RouterHelper } from "./reduxService/helper";
+import { OptionsDrawer, OptionsFloatBtn } from "./components";
+import { useFlat } from "./service";
+import { RouterHelper } from "src/service";
 const App = () => {
-	const { routesConfig } = useFlat("routerStore");
-
+	const { routesTree } = useFlat("routerStore");
 	return (
-		<Routes>
-			{routesConfig?.map((item) => {
-				return RouterHelper.toRenderRouteLoop(item);
-			})}
-		</Routes>
+		<>
+			<Routes>
+				{routesTree.map((item) => {
+					return RouterHelper.toRenderRouteLoop(item);
+				})}
+			</Routes>
+			{process.env.NODE_ENV == "development" && (
+				<>
+					<OptionsFloatBtn />
+					<OptionsDrawer />
+				</>
+			)}
+		</>
 	);
 };
 

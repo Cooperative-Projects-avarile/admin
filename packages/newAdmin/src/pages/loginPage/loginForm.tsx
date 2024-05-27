@@ -1,7 +1,7 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { Fragment } from "react";
 import storageHelper from "src/common/utils/storageHelper";
-import { useFlat } from "src/reduxService";
+import { useFlat } from "src/service";
 /**
  * 被注释掉的是滑块拼图验证功能 暂时保留
  * @returns
@@ -9,21 +9,20 @@ import { useFlat } from "src/reduxService";
 const LoginForm = () => {
 	const [form] = Form.useForm();
 	let { loginNest } = useFlat("authStore");
-	// const { fn: loginG } = useGreatAsync(loginNest, {
-	// 	auto: false,
-	// 	single: true,
-	// });
-
 	const onFinish = async (values: any) => {
 		// 开发环境使用默认账号密码
 		loginNest({
 			username: values.name,
 			password: values.password,
 			captchaVerification: values.code,
-		}).then(() => {
-			storageHelper.setItem("BTN_CON", "点击获取验证码");
-			storageHelper.setItem("BTN_TIME", 60);
-		});
+		})
+			.then(() => {
+				storageHelper.setItem("BTN_CON", "点击获取验证码");
+				storageHelper.setItem("BTN_TIME", 60);
+			})
+			.catch(() => {
+				return message.error("error");
+			});
 	};
 
 	const onFinishFailed = (errorInfo: any) => {

@@ -1,8 +1,7 @@
 import { Divider, FormInstance } from "antd";
 import { cloneDeep } from "lodash-es";
 import { Fragment } from "react";
-import { MyColumnType } from "src/common/model/fieldsHooks";
-import { getField } from "src/common/utils";
+import { MyColumnType, getField } from "src/common/utils";
 
 const useFormFields = <T,>(
 	formList: MyColumnType<T>[],
@@ -15,16 +14,25 @@ const useFormFields = <T,>(
 		.map((item) => {
 			const { fieldConfig = {}, dataIndex } = item;
 			const { formRender, formOptions } = fieldConfig! || {};
+			if (!formOptions) {
+				fieldConfig.formOptions = {
+					label: dataIndex as string,
+					name: dataIndex as string,
+				};
+			}
+			if (fieldConfig.formOptions && !fieldConfig.formOptions?.label) {
+				fieldConfig.formOptions.label = dataIndex as string;
+			}
+			if (fieldConfig.formOptions && !fieldConfig.formOptions?.name) {
+				fieldConfig.formOptions.name = dataIndex as string;
+			}
 			const { name } = formOptions! || { name: dataIndex };
 			let temp: any = [];
 			if (Array.isArray(name)) {
 				let nameArr = name.slice(0, -1);
 				nameArr.forEach((nameItem, index) => {
-					if (!recordKeyObj[name[0]]?.[nameItem]) {
-						if (!recordKeyObj[name[0]]) {
-							recordKeyObj[name[0]] = {};
-						}
-						recordKeyObj[name[0]][nameItem] = true;
+					if (!recordKeyObj[nameItem]) {
+						recordKeyObj[nameItem] = true;
 						temp.push(
 							<Divider
 								key={`${index} ${nameItem}`}
@@ -54,7 +62,7 @@ const useFormFields = <T,>(
 						fieldConfig.inputAttrConfig.disabled = false;
 					}
 				}
-				InputItem = getField<T>(fieldConfig, formIns);
+				InputItem = getField<T>({ fieldConfig, formIns });
 			}
 			return (
 				<Fragment key={item.key || String(item.dataIndex)}>
