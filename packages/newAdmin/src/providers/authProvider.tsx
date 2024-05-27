@@ -16,7 +16,7 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
 			);
 			// 判断是否是登录页
 			if (location.pathname === loginPath) {
-				RouterHelper.jumpTo(ROUTE_ID.HelloPage);
+				RouterHelper.jumpTo(ROUTE_ID.DealListPage);
 			}
 		} else {
 			RouterHelper.jumpTo(ROUTE_ID.LoginPage);

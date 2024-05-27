@@ -39,7 +39,7 @@ const initialState = (): StoreState => {
 		mdContent: "",
 		winBoxList: [],
 		settingData: settingData as Setting,
-		language: storageHelper.getItem("LANGUAGE") || "zh",
+		language: storageHelper.getItem("LANGUAGE") || "en",
 		winPosTemp: {
 			x: 0,
 			y: 0,

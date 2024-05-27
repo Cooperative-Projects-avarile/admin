@@ -19,14 +19,13 @@ export const ROUTE_CONFIG_MAP: {
 		path: "/",
 	},
 	HelloPage: {
-id: "HelloPage",
+		id: "HelloPage",
 		meta: {
 			title: "app:HelloPageTile",
 			icon: "FundProjectionScreenOutlined",
 		},
 		component: "HelloPage",
 		actionPermissions: ["ADD", "EDIT"],
-		isNoAuth: true,
 		index: true,
 		keepAlive: true,
 	},
