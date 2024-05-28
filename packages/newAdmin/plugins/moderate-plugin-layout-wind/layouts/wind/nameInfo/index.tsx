@@ -15,7 +15,7 @@ const NameInfo = () => {
 				color: antdThemeToken.token.colorText,
 			}}
 		>
-			{isCollapsedMenu ? "Admin" : "Moderate Admin"}
+			{isCollapsedMenu ? "Admin" : "Scaling Admin"}
 		</div>
 	);
 };

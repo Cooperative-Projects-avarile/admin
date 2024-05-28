@@ -50,7 +50,7 @@ const SliderMenu = () => {
 					color: antdThemeToken.token.colorText,
 				}}
 			>
-				{isCollapsedMenu ? "Admin" : "Moderate Admin"}
+				{isCollapsedMenu ? "Admin" : "Scaling Admin"}
 			</div>
 			{menuData.length > 0 &&
 				menuDefaultOpenKeys &&
