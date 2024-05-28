@@ -32,7 +32,7 @@ export const Rain = ({ children, ...rest }: React.PropsWithChildren) => {
 					<MainContent>{children}</MainContent>
 				</Layout>
 			</Content>
-			<Footer style={{ textAlign: "center" }}>闲D岛🏝️</Footer>
+			<Footer style={{ textAlign: "center" }}>Scalling</Footer>
 		</Layout>
 	);
 };

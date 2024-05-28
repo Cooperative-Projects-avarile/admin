@@ -1,4 +1,4 @@
-import { Switch } from "antd";
+import { Space, Switch } from "antd";
 import { useEffect, useMemo } from "react";
 import { MyColumnType, fieldCreater } from "src/common/utils";
 import { useFlat } from "src/service";
@@ -204,6 +204,26 @@ const useConfig = () => {
 				},
 				render: (value) => {
 					return <Switch checked={value}></Switch>;
+				},
+			},
+			{
+				title: "action",
+				key: "action",
+				render: (_, record) => {
+					return (
+						<Space size="middle">
+							<a
+								onClick={async () => {
+									setIsAddModalShow({
+										isShowAddModal: true,
+										recordData: record,
+									});
+								}}
+							>
+								edit
+							</a>
+						</Space>
+					);
 				},
 			},
 		];
