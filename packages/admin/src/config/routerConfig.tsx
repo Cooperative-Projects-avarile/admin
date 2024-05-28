@@ -62,7 +62,8 @@ export const ROUTE_INFO_CONFIG: {
       title: "Statistics Dashboard"
     },
     component: "HelloPage",
-    actionPermissions: ["ADD", "EDIT"]
+    actionPermissions: ["ADD", "EDIT"],
+    isMenu:false
   },
   sysPage: {
     id: "sysPage",
