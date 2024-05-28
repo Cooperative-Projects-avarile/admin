@@ -188,26 +188,7 @@ const NavTabs = () => {
 											}}
 											trigger={["contextMenu"]}
 										>
-											<div
-												style={{
-													textAlign: "center",
-												}}
-											>
-												<Card
-													winboxUrlRef={winboxUrlRef}
-													onEnd={() => {
-														setDragId(undefined);
-													}}
-													index={targetIndex}
-													id={node.key}
-													data={tabItems[targetIndex]}
-													{...node.props}
-													key={node.key}
-													moveCard={onDragEnd}
-												>
-													{node}
-												</Card>
-											</div>
+											
 										</Dropdown>
 									);
 								}}
