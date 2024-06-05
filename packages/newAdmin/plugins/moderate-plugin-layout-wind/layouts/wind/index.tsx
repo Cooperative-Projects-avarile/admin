@@ -46,7 +46,7 @@ export const Wind = ({ children }: React.PropsWithChildren) => {
 			<Footer
 				style={{ textAlign: "center", height: "30px", padding: "10px" }}
 			>
-				闲D岛🏝️
+				Scaling Admin
 			</Footer>
 		</div>
 	);
