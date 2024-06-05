@@ -57,22 +57,24 @@ export const WinBoxProvider = ({ children }: React.PropsWithChildren) => {
 				}}
 			>
 				{children}
-				{winBoxList.map((item) => {
-					const Comp = GlobalVar.service
-						.get("winBoxContent")
-						?.get(item.id) as ReactElement;
-					return (
-						<WinBoxCustom
-							id={item.id}
-							handleClose={handleClose}
-							winBoxMapRef={winBoxMapRef}
-							key={item.id}
-							type={item.type}
-						>
-							{Comp}
-						</WinBoxCustom>
-					);
-				})}
+				<div id="winboxWrapper" style={{ zIndex: 1000 }}>
+					{winBoxList.map((item) => {
+						const Comp = GlobalVar.service
+							.get("winBoxContent")
+							?.get(item.id) as ReactElement;
+						return (
+							<WinBoxCustom
+								id={item.id}
+								handleClose={handleClose}
+								winBoxMapRef={winBoxMapRef}
+								key={item.id}
+								type={item.type}
+							>
+								{Comp}
+							</WinBoxCustom>
+						);
+					})}
+				</div>
 			</WinBoxContext.Provider>
 		</>
 	);

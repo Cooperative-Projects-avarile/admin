@@ -14,14 +14,13 @@ import {
 	Space,
 	theme as antdTheme,
 } from "antd";
+import { useTranslation } from "react-i18next";
 import themeHoc from "src/common/hocs/themeHoc/themeHoc";
 import storageHelper from "src/common/utils/storageHelper";
 import CustomBreadcrumb from "src/components/customBreadcrumb";
-import { ROUTE_ID } from "src/router/name";
-import { RouterHelper, useFlat, useResetRedux } from "src/service";
-import styles from "./index.module.scss";
+import { useFlat } from "src/service";
 import { ThemeColor } from "src/service/stores/appStore/slice";
-import { useTranslation } from "react-i18next";
+import styles from "./index.module.scss";
 
 const CustomDropdownButton = themeHoc(Dropdown.Button, {});
 
@@ -47,7 +46,6 @@ const NavHeader = () => {
 		setLanguage,
 		language,
 	} = useFlat("appStore");
-	const resetAllStores = useResetRedux();
 	const antdThemeToken = antdTheme.useToken();
 	const { t, i18n } = useTranslation();
 	const items = [
@@ -74,7 +72,6 @@ const NavHeader = () => {
 				display: "flex",
 				alignItems: "center",
 				position: "relative",
-				paddingLeft: "60px",
 			}}
 		>
 			<Button
@@ -160,11 +157,8 @@ const NavHeader = () => {
 							title: "确定么？",
 							content: "更新权限之后，需要重新登陆",
 							onOk: () => {
-								{
-									resetAllStores();
-									storageHelper.clear();
-									RouterHelper.jumpTo(ROUTE_ID.LoginPage);
-								}
+								storageHelper.clear();
+								window.location.href = "/";
 							},
 						});
 					}}

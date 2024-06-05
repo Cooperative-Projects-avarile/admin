@@ -2,6 +2,7 @@ import { Routes } from "react-router-dom";
 // import { OptionsDrawer, OptionsFloatBtn } from "./components";
 import { useFlat } from "./service";
 import { RouterHelper } from "src/service";
+import { OptionsDrawer, OptionsFloatBtn } from "./components";
 const App = () => {
 	const { routesTree } = useFlat("routerStore");
 	return (
@@ -11,12 +12,12 @@ const App = () => {
 					return RouterHelper.toRenderRouteLoop(item);
 				})}
 			</Routes>
-			{/* {process.env.NODE_ENV == "development" && (
+			{process.env.NODE_ENV == "development" && (
 				<>
 					<OptionsFloatBtn />
 					<OptionsDrawer />
 				</>
-			)} */}
+			)}
 		</>
 	);
 };

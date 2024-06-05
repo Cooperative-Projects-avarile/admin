@@ -25,6 +25,17 @@ export type TreeSelectItem = {
 	title: string;
 	children?: TreeSelectItem[];
 };
+const bindHistoryEvent = function (type: "pushState" | "replaceState") {
+	const historyEvent = history[type];
+	return function (...arg: any) {
+		const newEvent = historyEvent.apply(history, arg); //执行history函数
+		const e = new Event(type);
+		window.dispatchEvent(e);
+		return newEvent;
+	};
+};
+history.pushState = bindHistoryEvent("pushState");
+history.replaceState = bindHistoryEvent("replaceState");
 
 export class RouterHelper {
 	static createClientRoutesConfig() {
@@ -59,6 +70,9 @@ export class RouterHelper {
 	}) => {
 		routesStructData.forEach((routeStructItem) => {
 			const { id } = routeStructItem;
+			if (!(id in routesConfigMap)) {
+				return;
+			}
 			const { depends, path: pathE, index } = routesConfigMap[id];
 			// 如果有权限或者是必须显示的，或者是管理员
 			if (
@@ -94,6 +108,7 @@ export class RouterHelper {
 						routesConfigMap,
 						parentId: id,
 					});
+					routesConfigMap[id].children = routesConfig.children;
 				}
 			}
 		});
@@ -138,6 +153,7 @@ export class RouterHelper {
 				parentId: ROUTE_ID.HomePage,
 			}),
 		});
+		routesConfigMap.HomePage.children = routesTreeData[targetId].children;
 		routesTreeData =
 			routesTreeData.filter((item) => {
 				return ROUTE_STRUCT_CONFIG.some((item2) => {
@@ -200,8 +216,10 @@ export class RouterHelper {
 
 	static getRouteTitleByKey(key: ROUTE_ID_KEY) {
 		const routerStore = store.getState().routerStore;
-		return routerStore.routesMap[upFirstcharacter(key) as ROUTE_ID_KEY]
-			?.meta?.title;
+		let value =
+			routerStore.routesMap[key as ROUTE_ID_KEY] ||
+			routerStore.routesMap[upFirstcharacter(key) as ROUTE_ID_KEY];
+		return value?.meta?.title;
 	}
 
 	static judeKeepAliveByPath(path: string) {

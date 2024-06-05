@@ -31,14 +31,19 @@ const initialState = (): StoreState => {
 		menuData: menuData,
 		tabItems: storageHelper.getItem("TABS_HISTORY") || [],
 		activeTabKey: "",
-		isThemeAuto: storageHelper.getItem("IS_THEME_AUTO"),
+		isThemeAuto:
+			storageHelper.getItem("IS_THEME_AUTO") == "1" ? true : false,
 		currentTheme: storageHelper.getItem("THEME") || ThemeColor.light,
 		isShowOptionsDrawer: false,
 		isCollapsedMenu: false,
 		isShowMdDrawer: false,
 		mdContent: "",
 		winBoxList: [],
-		settingData: settingData as Setting,
+		settingData:
+			process.env.NODE_ENV === "production" &&
+			storageHelper.getItem("SETTING", "local")
+				? storageHelper.getItem("SETTING", "local")
+				: (settingData as Setting),
 		language: storageHelper.getItem("LANGUAGE") || "en",
 		winPosTemp: {
 			x: 0,
@@ -46,6 +51,7 @@ const initialState = (): StoreState => {
 		},
 		winBoxTitleTemp: "",
 		refreshKey: [],
+		isLoading: sessionStorage.getItem("IS_PLUGIN_INSTALLING") == "1",
 	};
 };
 
@@ -131,9 +137,11 @@ const appSlice = createSliceCustom({
 		},
 		setSettingData(state, { payload }: PayloadAction<Setting>) {
 			state.settingData = payload;
+			storageHelper.setItem("SETTING", payload, "local");
 		},
 		setIsThemeAuto(state, { payload }: PayloadAction<boolean>) {
 			state.isThemeAuto = payload;
+			storageHelper.setItem("IS_THEME_AUTO", payload ? 1 : 0, "local");
 		},
 		setLanguage(state, { payload }: PayloadAction<string>) {
 			state.language = payload;
@@ -141,6 +149,9 @@ const appSlice = createSliceCustom({
 		},
 		setRefreshKey(state, { payload }: PayloadAction<string[]>) {
 			state.refreshKey = payload;
+		},
+		setIsLoading(state, { payload }: PayloadAction<boolean>) {
+			state.isLoading = payload;
 		},
 	},
 });

@@ -283,7 +283,9 @@ export enum TypeEnum {
 	StartupPitch = "startup_pitch",
 }
 
-export interface RankApiParams {
+export type RankItem = {
 	deal_id: number;
 	order: number;
-}
+}[];
+
+export type RankApiParams = RankItem[];
