@@ -16,10 +16,10 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
 			);
 			// 判断是否是登录页
 			if (location.pathname === loginPath) {
-				RouterHelper.jumpTo(ROUTE_ID.HomePage);
+				RouterHelper.jumpTo(ROUTE_ID.UserPage);
 			}
 		} else {
-			// RouterHelper.jumpTo(ROUTE_ID.LoginPage);
+			RouterHelper.jumpTo(ROUTE_ID.LoginPage);
 		}
 	}, [token]);
 

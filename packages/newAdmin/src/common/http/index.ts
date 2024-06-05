@@ -26,8 +26,8 @@ const handleError = ({
 	message: string;
 }) => {
 	if (Number(code) === 401) {
-		// storageHelper.clear();
-		// window.location.href = "/";
+		storageHelper.clear();
+		window.location.href = "/";
 		throw new HttpError(message, Number(code));
 	}
 };

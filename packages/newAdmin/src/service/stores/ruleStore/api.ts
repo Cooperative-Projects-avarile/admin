@@ -7,7 +7,7 @@ import {
 	RuleCarrier,
 } from "./model";
 
-const baseUrl = "/admin-api/usercenter/cpd-rule/";
+const baseUrl = "/api/usercenter/cpd-rule/";
 
 // 增
 function createApi(data: Rule) {

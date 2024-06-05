@@ -1,7 +1,9 @@
+import { dland } from "plugins/moderate-plugin-theme-dland/theme/dland";
 //>>>THEME_INPORT_SIGN<<<//
 
 export const pluginThemeMap = {
-  //>>>THEME_SIGN<<<//
+	dland,
+	//>>>THEME_SIGN<<<//
 };
 
 export default pluginThemeMap;

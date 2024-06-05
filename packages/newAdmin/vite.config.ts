@@ -72,18 +72,14 @@ export default defineConfig({
 				rewrite: (path) => path.replace(/^\/res/, ""),
 			},
 			"/api": {
-				// target: "https://admin.scaling.com.au",
-				target: "http://localhost:4002",
+				target: "https://admin.scaling.com.au",
+				// target: "http://localhost:4002",
 				changeOrigin: true, // 允许跨域
 			},
 			"/devApi": {
 				target: "http://localhost:8681",
 				changeOrigin: true, // 允许跨域
 				rewrite: (path) => path.replace(/^\/devApi/, ""),
-			},
-			"/admin-api": {
-				target: "http://127.0.0.1:48080",
-				changeOrigin: true, // 允许跨域
 			},
 		},
 	},

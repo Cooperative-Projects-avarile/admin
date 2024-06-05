@@ -26,7 +26,7 @@ export const ROUTE_CONFIG_MAP: {
 		},
 		component: "HelloPage",
 		actionPermissions: ["ADD", "EDIT"],
-		index: true,
+
 		keepAlive: true,
 	},
 	SysPage: {
@@ -53,6 +53,7 @@ export const ROUTE_CONFIG_MAP: {
 		actionPermissions: ["ADD", "EDIT"],
 		component: "UserPage",
 		isNoAuth: true,
+		index: true,
 	},
 	RolePage: {
 		id: "RolePage",
