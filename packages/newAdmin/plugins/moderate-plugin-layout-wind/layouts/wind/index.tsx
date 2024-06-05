@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 import MainContent from "./mainContent";
 import NavHeader from "./navHeader";
 import SliderMenu from "./sliderMenu";
+import { useFlat } from "src/service";
 const { Content, Footer } = Layout;
 export const Wind = ({
 	children,
@@ -12,7 +13,8 @@ export const Wind = ({
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
-
+	const { settingData } = useFlat("appStore");
+	const { projectName } = settingData;
 	return (
 		<Layout {...rest} className={styles.content}>
 			<NavHeader></NavHeader>
@@ -29,7 +31,7 @@ export const Wind = ({
 					<MainContent isDark={isDark}>{children}</MainContent>
 				</Layout>
 			</Content>
-			<Footer style={{ textAlign: "center" }}>闲D岛🏝️</Footer>
+			<Footer style={{ textAlign: "center" }}>{projectName}</Footer>
 		</Layout>
 	);
 };

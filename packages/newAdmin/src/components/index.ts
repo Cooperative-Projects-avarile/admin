@@ -9,6 +9,7 @@ export { default as AnimateText } from "./animateText/animateText";
 export { default as OptionsDrawer } from "./optionsDrawer";
 export { default as OptionsFloatBtn } from "./optionsFloatBtn";
 //--->>>布局相关<<<---//
+export { default as NameInfo } from "./nameInfo";
 // 面包屑
 export { default as Bread } from "./customBreadcrumb";
 // 导航tabs

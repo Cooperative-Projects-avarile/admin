@@ -14,9 +14,9 @@ import storageHelper from "src/common/utils/storageHelper";
 import { ROUTE_ID } from "src/router/name";
 import { RouterHelper, useFlat, useResetRedux } from "src/service";
 import { ThemeColor } from "src/service/stores/appStore/slice";
-import NameInfo from "../nameInfo";
 import styles from "./index.module.scss";
 import CustomBreadcrumb from "src/components/customBreadcrumb";
+import { NameInfo } from "src/components";
 
 const CustomDropdownButton = themeHoc(Dropdown.Button, {});
 
