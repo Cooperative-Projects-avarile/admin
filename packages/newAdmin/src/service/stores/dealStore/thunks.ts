@@ -97,6 +97,7 @@ const thunks = createThunks(names.dealStore, {
 		});
 	},
 	rankListAct: async (params: RankApiParams) => {
+		console.log("params", params);
 		httpApi.rankApi(params);
 	},
 	querySearchListAct: async () => {

@@ -8,6 +8,12 @@ export interface IBaseModel {
 	deleted_at: string;
 }
 
+export interface IDealMarket {
+	target_market: string;
+	opportunity_description: string;
+	enviroment: string;
+}
+
 export enum DealStatus {
 	PENDING = "pending",
 	DRAFTING = "drafting",
@@ -141,6 +147,8 @@ export interface DealEntity extends IBaseModel {
 	// optional fields (step 9)
 	components: IDealComponentList;
 
+	market: IDealMarket;
+
 	teams: Array<IDealTeamMember>;
 
 	documents_social: IDealMedia;
@@ -150,6 +158,14 @@ export interface DealEntity extends IBaseModel {
 
 	// additional fields
 	expire_at: Date;
+
+	approved_at: Date;
+
+	is_first_approval: Boolean;
+
+	last_revision: Date;
+
+	current_version: number;
 
 	// search related
 	rating: number;

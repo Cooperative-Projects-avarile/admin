@@ -59,6 +59,8 @@ function rejectApi(data: { id: number; reject_reason: string }) {
 }
 
 function rankApi(data: RankApiParams) {
+	console.log("data", data);
+	
 	return http.request({
 		url: baseUrl + "ranking",
 		method: "POST",
