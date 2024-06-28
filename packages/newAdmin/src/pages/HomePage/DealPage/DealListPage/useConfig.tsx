@@ -227,6 +227,7 @@ const useConfig = (form?: FormInstance) => {
 		];
 	}
 	if (recordData?.type == DealType.PARTNERSHIPS) {
+		debugger
 		askData = [
 			{
 				dataIndex: "ask.partnerships.partners",
@@ -234,7 +235,8 @@ const useConfig = (form?: FormInstance) => {
 					type: "MultipleOne",
 					scope: ["modal"],
 					formOptions: {
-						initialValue: recordData?.ask?.partnerships?.partners,
+						initialValue:
+							recordData?.ask?.partnerships?.partners || [],
 						childRule: [
 							{
 								required: true,
