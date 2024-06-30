@@ -49,6 +49,7 @@ const useConfig = (form?: FormInstance) => {
 		rejectAct,
 		recordData,
 		formVersion,
+		revokeAct,
 		pageData,
 	} = useFlat("dealStore");
 	const { dataList } = pageData;
@@ -227,7 +228,7 @@ const useConfig = (form?: FormInstance) => {
 		];
 	}
 	if (recordData?.type == DealType.PARTNERSHIPS) {
-		debugger
+		debugger;
 		askData = [
 			{
 				dataIndex: "ask.partnerships.partners",
@@ -1070,6 +1071,20 @@ const useConfig = (form?: FormInstance) => {
 								}}
 							>
 								edit
+							</a>
+							<a
+								onClick={async () => {
+									Modal.confirm({
+										content: "Are you sure?",
+										onOk() {
+											revokeAct({
+												id: record.id,
+											});
+										},
+									});
+								}}
+							>
+								revoke
 							</a>
 							{record.is_draft &&
 								record.is_submitted &&

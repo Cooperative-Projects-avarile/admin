@@ -13,7 +13,7 @@ import type {
 import { pageList } from "@/pages";
 import { store } from "@/services";
 import { UserOutlined } from "@ant-design/icons";
-import { ItemType } from "antd/es/menu/hooks/useItems";
+import { ItemType } from "antd/es/menu/interface";
 import { BrowserHistory } from "history";
 import { cloneDeep } from "lodash-es";
 import { Suspense, createElement } from "react";
@@ -129,9 +129,11 @@ class RouterHelper {
 		return store.getModule("routerStore").state.routesConfigMap[path]?.id;
 	}
 	getKeepAliveRoutePath() {
-		return Object.values(ROUTE_INFO_CONFIG).filter((item)=>{
-				return item.keepAlive
-			}).map((item) => {
+		return Object.values(ROUTE_INFO_CONFIG)
+			.filter((item) => {
+				return item.keepAlive;
+			})
+			.map((item) => {
 				return item.id;
 			});
 	}
@@ -165,7 +167,7 @@ class RouterHelper {
 	) {
 		const { type = "push", state } = options || {};
 		const path = this.getRoutePathByKey(id);
-		if(!path) return new Error("路由不存在")
+		if (!path) return new Error("路由不存在");
 		if (type === "push") {
 			this.history.push(path, state);
 		} else {

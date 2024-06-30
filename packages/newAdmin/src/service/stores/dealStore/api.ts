@@ -50,6 +50,14 @@ function approveApi(data: { id: number; title: string }) {
 	});
 }
 
+function revokeApi(data: { id: number }) {
+	return http.request({
+		url: baseUrl + "revoke-deal",
+		method: "POST",
+		data,
+	});
+}
+
 function rejectApi(data: { id: number; reject_reason: string }) {
 	return http.request({
 		url: baseUrl + "reject-deal",
@@ -60,7 +68,7 @@ function rejectApi(data: { id: number; reject_reason: string }) {
 
 function rankApi(data: RankApiParams) {
 	console.log("data", data);
-	
+
 	return http.request({
 		url: baseUrl + "ranking",
 		method: "POST",
@@ -76,6 +84,7 @@ const devApi = {
 	approveApi,
 	rejectApi,
 	rankApi,
+	revokeApi,
 };
 
 export default devApi;
