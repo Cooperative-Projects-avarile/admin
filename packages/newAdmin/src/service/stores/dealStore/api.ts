@@ -52,7 +52,7 @@ function approveApi(data: { id: number; title: string }) {
 
 function revokeApi(data: { id: number }) {
 	return http.request({
-		url: baseUrl + "revoke-deal",
+		url: baseUrl + "revoke",
 		method: "POST",
 		data,
 	});

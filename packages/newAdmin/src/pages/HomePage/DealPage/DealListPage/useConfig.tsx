@@ -1076,9 +1076,13 @@ const useConfig = (form?: FormInstance) => {
 								onClick={async () => {
 									Modal.confirm({
 										content: "Are you sure?",
-										onOk() {
-											revokeAct({
+										async onOk() {
+											await revokeAct({
 												id: record.id,
+											});
+											await queryDealListAct();
+											notification.info({
+												message: "revoke done!",
 											});
 										},
 									});
