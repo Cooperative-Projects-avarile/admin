@@ -49,6 +49,7 @@ const useConfig = (form?: FormInstance) => {
 		rejectAct,
 		recordData,
 		formVersion,
+		revokeAct,
 		pageData,
 	} = useFlat("dealStore");
 	const { dataList } = pageData;
@@ -227,6 +228,7 @@ const useConfig = (form?: FormInstance) => {
 		];
 	}
 	if (recordData?.type == DealType.PARTNERSHIPS) {
+		debugger;
 		askData = [
 			{
 				dataIndex: "ask.partnerships.partners",
@@ -234,7 +236,8 @@ const useConfig = (form?: FormInstance) => {
 					type: "MultipleOne",
 					scope: ["modal"],
 					formOptions: {
-						initialValue: recordData?.ask?.partnerships?.partners,
+						initialValue:
+							recordData?.ask?.partnerships?.partners || [],
 						childRule: [
 							{
 								required: true,
@@ -1068,6 +1071,24 @@ const useConfig = (form?: FormInstance) => {
 								}}
 							>
 								edit
+							</a>
+							<a
+								onClick={async () => {
+									Modal.confirm({
+										content: "Are you sure?",
+										async onOk() {
+											await revokeAct({
+												id: record.id,
+											});
+											await queryDealListAct();
+											notification.info({
+												message: "revoke done!",
+											});
+										},
+									});
+								}}
+							>
+								revoke
 							</a>
 							{record.is_draft &&
 								record.is_submitted &&

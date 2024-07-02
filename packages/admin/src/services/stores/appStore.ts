@@ -1,10 +1,10 @@
 import { ROUTE_ID } from "@/config/routerConfig";
-import { ItemType } from "antd/es/menu/hooks/useItems";
 import { ModuleEvent, WatchAPI } from "natur";
 import { ITP } from "natur-immer";
 import type { Location } from "react-router-dom";
 import { routerHelper } from "../helper";
 import { RouterStoreState } from "./routerStore/routerStore.model";
+import { ItemType } from "antd/es/menu/interface";
 
 interface TabItem {
 	label: string;
@@ -87,7 +87,6 @@ const appStore = {
 			};
 		},
 		setTableItemsAct(tabItems) {
-			
 			return {
 				tabItems,
 			};

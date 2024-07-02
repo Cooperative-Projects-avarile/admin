@@ -33,6 +33,9 @@ const thunks = createThunks(names.dealStore, {
 	rejectAct: async (params: { id: number; reject_reason: string }) => {
 		await httpApi.rejectApi(params);
 	},
+	revokeAct: async (params: { id: number }) => {
+		await httpApi.revokeApi(params);
+	},
 	// 请求deal列表
 	queryDealListAct: async (params: QueryActParams, api) => {
 		dp("dealStore", "setLoading", true);
