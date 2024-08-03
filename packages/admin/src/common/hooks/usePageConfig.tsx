@@ -1,8 +1,8 @@
-import { MyColumnType } from "@/common/model/fieldsHooks";
 import { useMemo } from "react";
+import { MyColumnType } from "../utils/getField";
 
 const usePageConfig = <T,>(
-	pageConfigCreater: () => MyColumnType<T>[],
+	pageConfigCreater: () => (MyColumnType<T> | false)[],
 	dep: any[],
 ): {
 	config: MyColumnType<T>[];
@@ -10,19 +10,23 @@ const usePageConfig = <T,>(
 	formList: MyColumnType<T>[];
 	searchList: MyColumnType<T>[];
 } => {
-	const config = useMemo(pageConfigCreater, dep);
+	const config = useMemo(() => {
+		return pageConfigCreater().filter((item) => {
+			return item;
+		});
+	}, dep) as MyColumnType<T>[];
 	const columns = useMemo(() => {
 		return config.filter((item) => {
 			const { fieldConfig = {} } = item;
 			const {
 				formOptions = {},
-				isHidenInTable,
+				isHideInTable: isHideInTable,
 				scope = ["modal", "search", "table"],
 			} = fieldConfig;
 			const { name } = formOptions;
 			return (
 				(typeof name == "string" || !name) &&
-				!isHidenInTable &&
+				!isHideInTable &&
 				scope?.includes("table")
 			);
 		});
@@ -41,12 +45,11 @@ const usePageConfig = <T,>(
 			return fieldConfig && scope?.includes("search");
 		});
 	}, dep);
-
 	return {
 		config,
 		columns,
 		formList,
-		searchList
+		searchList,
 	};
 };
 
