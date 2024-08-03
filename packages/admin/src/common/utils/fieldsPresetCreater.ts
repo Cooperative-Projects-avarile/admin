@@ -1,4 +1,38 @@
-import { MyColumnType } from "./getField";
+import { normalizeNum } from ".";
+import { MyColumnType, MyInputType, ScopeType } from "../model/fieldsHooks";
+
+export const getInputNumerFormItemConfig = <T>(
+	name: string,
+	options?: {
+		inputType?: MyInputType;
+		formName?: string[];
+		isRequire?: boolean;
+		scope?: ScopeType[];
+	},
+): MyColumnType<T> => {
+	const { scope } = options || {};
+	return {
+		title: name,
+		dataIndex: name,
+		key: name,
+		fieldConfig: {
+			scope,
+			formOptions: {
+				rules: [
+					{
+						required: true,
+					},
+					{
+						type: "number",
+					},
+				],
+				label: name,
+				name: name,
+				normalize: normalizeNum,
+			},
+		},
+	};
+};
 
 export const fieldCreater = <T>(
 	name: string,
@@ -7,7 +41,7 @@ export const fieldCreater = <T>(
 	let { fieldConfig } = options;
 	if (!fieldConfig || Object.values(fieldConfig).length === 0) {
 		fieldConfig = {
-			type: "Input",
+			inputType: "Input",
 			isSearch: true,
 			formOptions: {
 				rules: [
@@ -35,19 +69,5 @@ export const fieldCreater = <T>(
 		dataIndex: name,
 		key: name,
 		fieldConfig,
-	};
-};
-
-export const itemCreater = <T>(
-	dataIndex: keyof T,
-	props: MyColumnType<T> = {},
-) => {
-	const { fieldConfig = {}, ...rest } = props;
-	return {
-		title: dataIndex,
-		dataIndex: dataIndex,
-		key: dataIndex,
-		fieldConfig,
-		...rest,
 	};
 };

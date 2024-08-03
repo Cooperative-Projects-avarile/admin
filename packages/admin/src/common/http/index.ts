@@ -2,9 +2,8 @@ import { overrideHttpType } from "./overrideHttpType";
 import { HttpError } from "./HttpError";
 import axios from "axios";
 import { message } from "antd";
-import { ROUTE_ID } from "src/router";
-import { dpChain, routerHelper } from "src/service";
-import { storageHelper } from "../utils";
+import { routerHelper } from "@/services/helper";
+import { ROUTE_ID } from "@/config/routerConfig";
 
 const _http = axios.create({
 	timeout: 1000 * 30,
@@ -30,7 +29,7 @@ _http.interceptors.response.use(
 		const { status, data } = response;
 		if (Number(status) === 401) {
 			message.info(data.message);
-			routerHelper.jumpTo(ROUTE_ID.Login);
+			routerHelper.jumpTo(ROUTE_ID.loginPage);
 			throw new HttpError(data.message, Number(err.code));
 		} else {
 			message.info(data.message || "network error");
@@ -40,17 +39,3 @@ _http.interceptors.response.use(
 );
 
 export const http = overrideHttpType(_http);
-export const http2 = _http;
-
-_http.fetch = ((config, options) => {
-	if (options?.showLoading) {
-		storageHelper.setItem("IS_PLUGIN_INSTALLING", 1);
-		dpChain("appStore").setIsLoading(true);
-	}
-	return _http.request(config).finally(() => {
-		if (options?.showLoading) {
-			dpChain("appStore").setIsLoading(false);
-			storageHelper.setItem("IS_PLUGIN_INSTALLING", 0);
-		}
-	});
-}) as typeof _http.fetch;

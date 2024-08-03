@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-const useAsyncEffect = (effect: () => any, deps?: React.DependencyList) => {
-	useEffect(() => {
-		(async () => {
-			await effect();
-		})();
-	}, deps);
+const useAsyncEffcet = (
+  effect: () => any,
+  deps?: React.DependencyList
+) => {
+  useEffect(() => {
+    (async () => {
+      await effect();
+    })();
+  },deps);
 };
 
-export default useAsyncEffect;
+export default useAsyncEffcet;
