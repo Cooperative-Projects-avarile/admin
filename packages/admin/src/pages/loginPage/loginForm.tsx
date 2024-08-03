@@ -1,24 +1,22 @@
-import { useGreatAsync, useInject } from "@/common/hooks";
-import { ROUTE_ID } from "@/config/routerConfig";
-import { routerHelper } from "@/services";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input, Typography, message } from "antd";
+import { Fragment } from "react";
+import { useFlat } from "src/service";
 
+/**
+ * 被注释掉的是滑块拼图验证功能 暂时保留
+ * @returns
+ */
 const LoginForm = () => {
-	const [userInfoStore] = useInject("userInfoStore");
-	const {
-		actions: { login },
-	} = userInfoStore;
-	const { run: loginG } = useGreatAsync(login, {
-		auto: false,
-		single: true,
-	});
-	const onFinish = async (values: any) => {
-		// 开发环境使用默认账号密码
-		await loginG({
-			userName: values.name,
+	const [form] = Form.useForm();
+	const { loginAct } = useFlat("authStore");
+
+	const onFinish = async (values: { name: string; password: string }) => {
+		loginAct({
+			username: values.name,
 			password: values.password,
+		}).catch(() => {
+			return message.error("error");
 		});
-		routerHelper.jumpTo(ROUTE_ID.helloPage);
 	};
 
 	const onFinishFailed = (errorInfo: any) => {
@@ -26,45 +24,90 @@ const LoginForm = () => {
 	};
 
 	return (
-		<Form
-			name="basic"
-			labelCol={{ span: 8 }}
-			wrapperCol={{ span: 16 }}
-			initialValues={{ remember: true }}
-			onFinish={onFinish}
-			onFinishFailed={onFinishFailed}
-			autoComplete="off"
-		>
-			<Form.Item
-				label="用户名"
-				name="name"
-				rules={[{ required: true, message: "请输入！" }]}
+		<Fragment>
+			<Form
+				form={form}
+				name="basic"
+				labelCol={{ span: 8 }}
+				initialValues={{ remember: true }}
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
+				autoComplete="off"
 			>
-				<Input placeholder={"用户名是admin"} />
-			</Form.Item>
+				<Form.Item
+					label=""
+					name="name"
+					rules={[
+						{
+							required: true,
+							message: "用户名不能为空！",
+						},
+						{
+							max: 100,
+							message: "用户名不得多于100个字符",
+						},
+					]}
+				>
+					<Input
+						style={{
+							height: "53px",
+						}}
+						variant="filled"
+						placeholder={"请输入用户名(测试账号：admin)"}
+					/>
+				</Form.Item>
 
-			<Form.Item
-				label="密码"
-				name="password"
-				rules={[{ required: true, message: "请输入！" }]}
-			>
-				<Input.Password placeholder={"密码是123"} />
-			</Form.Item>
-
-			<Form.Item
-				name="remember"
-				valuePropName="checked"
-				wrapperCol={{ offset: 8, span: 16 }}
-			>
-				<Checkbox>记住我</Checkbox>
-			</Form.Item>
-
-			<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-				<Button type="primary" htmlType="submit">
-					登陆
-				</Button>
-			</Form.Item>
-		</Form>
+				<Form.Item
+					label=""
+					name="password"
+					rules={[
+						{
+							required: true,
+							message: "密码不能为空！",
+						},
+						{
+							max: 19,
+							message: "密码长度不能多于19个字符",
+						},
+					]}
+				>
+					<Input.Password
+						variant="filled"
+						style={{
+							height: "53px",
+						}}
+						placeholder={"请输入密码(测试密码：123)"}
+					/>
+				</Form.Item>
+				<div
+					style={{
+						textAlign: "right",
+					}}
+				>
+					<Typography.Link
+						style={{
+							textAlign: "right",
+						}}
+					>
+						Forgot password?
+					</Typography.Link>
+				</div>
+				<Form.Item
+					style={{
+						marginTop: "30px",
+					}}
+					wrapperCol={{ span: 24 }}
+				>
+					<Button
+						type="primary"
+						htmlType="submit"
+						style={{ height: "48px", width: "100%" }}
+					>
+						Login
+					</Button>
+				</Form.Item>
+			</Form>
+		</Fragment>
 	);
 };
 
