@@ -43,11 +43,15 @@ const thunks = createThunks(names.categoryStore, {
 		await httpApi.updateApi(pickBy(params));
 	},
 	queryListAct: async (params, api) => {
-		const list = await httpApi.queryApi({
+		const { data } = await httpApi.queryApi({
 			page: api.getState().categoryStore.pageData.pageNum || 1,
 			...pickBy(params),
 		});
-		dp("categoryStore", "setCategoryList", { list, total: list.length });
+		const { content } = data || {};
+		dp("categoryStore", "setCategoryList", {
+			list: content,
+			total: content.length,
+		});
 	},
 });
 export default thunks;

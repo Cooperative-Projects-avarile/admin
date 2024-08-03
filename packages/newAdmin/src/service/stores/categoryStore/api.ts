@@ -32,7 +32,7 @@ function updateApi(data: any) {
 
 // 查
 function queryApi(data: any) {
-	return http2.request<any, Category[]>({
+	return http.request<{ content: Category[] }>({
 		url: baseUrl + "query",
 		method: "POST",
 		data,

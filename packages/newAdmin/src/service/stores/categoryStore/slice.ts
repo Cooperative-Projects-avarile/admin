@@ -37,6 +37,7 @@ const slice = createSliceCustom({
 			state,
 			{ payload }: PayloadAction<{ list: Category[]; total: number }>,
 		) {
+			debugger;
 			state.pageData = {
 				...state.pageData,
 				total: payload.total,

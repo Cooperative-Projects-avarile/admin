@@ -72,7 +72,7 @@ export default defineConfig({
 				rewrite: (path) => path.replace(/^\/res/, ""),
 			},
 			"/api": {
-				target: "https://admin.scaling.com.au",
+				target: "https://test.scaling.com.au",
 				// target: "http://localhost:4002",
 				changeOrigin: true, // 允许跨域
 			},
