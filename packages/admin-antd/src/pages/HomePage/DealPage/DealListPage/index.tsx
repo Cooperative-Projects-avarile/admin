@@ -1,15 +1,15 @@
 import { Table } from "antd";
-import { useEffect } from "react";
-import { useColumnsConfig } from "src/common/hooks/useColumnsConfig";
+import { memo, useEffect } from "react";
 import { useFlat } from "src/service";
+import ModalForm from "./components/modalForm/modalForm";
 import SearchForm from "./components/searchForm/searchForm";
 import styles from "./style.module.scss";
 import useConfig from "./useConfig";
+import { useColumnsConfig } from "src/common/hooks/useColumnsConfig";
 
-const DealApprovalPage = () => {
-	const { approvalPageData, setApprovalPageData, loading } =
-		useFlat("dealStore");
-	const { pageNum, pageSize, total, dataList } = approvalPageData;
+const DealPage = () => {
+	const { loading, pageData, setPageData } = useFlat("dealStore");
+	const { pageNum, pageSize, total, dataList } = pageData;
 	const config = useConfig();
 	const columns = useColumnsConfig(config);
 	useEffect(() => {
@@ -17,19 +17,23 @@ const DealApprovalPage = () => {
 	}, []);
 
 	const handlePageChange = async (pageNum = 1, pageSize: number) => {
-		setApprovalPageData({
+		setPageData({
 			pageNum,
 			pageSize,
 		});
 	};
+
 	return (
 		<div className={styles.content}>
-			搜索栏目
 			<SearchForm></SearchForm>
+			{/* modal */}
+			<ModalForm />
 			{/* 表格 */}
 			<Table
 				loading={loading}
-				rowKey={"id"}
+				rowKey={(record) => {
+					return record.id;
+				}}
 				pagination={{
 					pageSize,
 					current: pageNum,
@@ -48,4 +52,4 @@ const DealApprovalPage = () => {
 	);
 };
 
-export default DealApprovalPage;
+export default memo(DealPage);

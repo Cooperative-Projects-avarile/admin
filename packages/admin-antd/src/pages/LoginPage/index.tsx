@@ -18,16 +18,12 @@ const LoginPage = () => {
 						flex: 1,
 					}}
 				>
-					<RiveAni
-						options={{
-							// This is optional.Provides additional layout control.
-							layout: new Layout({
-								fit: Fit.Cover, // Change to: rive.Fit.Contain, or Cover
-							}),
-							autoplay: true,
-							automaticallyHandleEvents: true,
+					<img
+						style={{
+							width: "100%",
 						}}
-						url="/beach_icon.riv"
+						src="/loginCover.png"
+						alt="loginCover.png"
 					/>
 				</div>
 			)}

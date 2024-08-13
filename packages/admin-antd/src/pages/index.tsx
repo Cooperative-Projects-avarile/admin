@@ -8,12 +8,12 @@ const LoginPage = lazy(() => import("./LoginPage"));
 const HelloPage = lazy(() => import("./HomePage/HelloPage"));
 //storeDevPage
 const StoreDevPage = isProd
-    ? null
-    : lazy(() => import("./HomePage/DevPage/StoreDevPage"));
+	? null
+	: lazy(() => import("./HomePage/DevPage/StoreDevPage"));
 // 页面管理
 const PageDevPage = isProd
-    ? null
-    : lazy(() => import("./HomePage/DevPage/PageDevPage"));
+	? null
+	: lazy(() => import("./HomePage/DevPage/PageDevPage"));
 ////notFundPage
 const NotFundPage = lazy(() => import("./HomePage/NotFundPage"));
 const ErrorPage = lazy(() => import("./HomePage/NotFundPage"));
@@ -23,7 +23,7 @@ const PluginsPage = lazy(() => import("./HomePage/PluginsPage"));
 
 //PluginListPage
 const PluginListPage = lazy(
-    () => import("./HomePage/PluginsPage/PluginListPage")
+	() => import("./HomePage/PluginsPage/PluginListPage"),
 );
 const LoadingPage = lazy(() => import("./HomePage/LoadingPage"));
 
@@ -37,18 +37,18 @@ const DealRankPage = lazy(() => import("./HomePage/DealPage/DealRankPage"));
 //MODERATE_AUTO_PAGE_LAZY_IMPORT:END
 export type PageKey = keyof typeof pageList;
 export const pageList = {
-    ...pluginsPages,
-    HomePage,
-    LoginPage,
-    HelloPage,
-    PageDevPage,
-    StoreDevPage,
-    NotFundPage,
-    PluginsPage,
-    PluginListPage,
-    ErrorPage,
-    LoadingPage,
-    DealPage,
+	...pluginsPages,
+	HomePage,
+	LoginPage,
+	HelloPage,
+	PageDevPage,
+	StoreDevPage,
+	NotFundPage,
+	PluginsPage,
+	PluginListPage,
+	ErrorPage,
+	LoadingPage,
+	DealPage,
 	DealListPage,
 	DealApprovalPage,
 	DealRankPage,

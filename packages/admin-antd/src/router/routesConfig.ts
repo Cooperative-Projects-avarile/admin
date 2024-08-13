@@ -29,7 +29,7 @@ export const ROUTE_CONFIG_MAP: {
 		actionPermissions: ["ADD", "EDIT"],
 		keepAlive: true,
 		isNoAuth: true,
-		index: true,
+		isMenu: false,
 	},
 	Dev: {
 		id: "Dev",
@@ -96,13 +96,14 @@ export const ROUTE_CONFIG_MAP: {
 		isNoAuth: true,
 		isTab: false,
 	},
-    Deal: {
+	Deal: {
 		id: "Deal",
 		component: "DealPage",
 		meta: {
 			title: "DealPage",
 		},
 		isNoAuth: true,
+		index: true,
 	},
 	DealApproval: {
 		id: "DealApproval",
@@ -121,6 +122,7 @@ export const ROUTE_CONFIG_MAP: {
 		},
 		isNoAuth: true,
 		keepAlive: true,
+		index: true,
 	},
 	DealRank: {
 		id: "DealRank",
