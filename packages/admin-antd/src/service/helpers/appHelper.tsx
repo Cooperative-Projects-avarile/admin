@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode, type JSX } from "react";
 import { UUID, cloneDeep } from "src/common/utils";
 import i18n from "src/i18n";
 import { pageList } from "src/pages";
 import { ROUTE_CONFIG_MAP, ROUTE_ID, ROUTE_NAME, RouteItem } from "src/router";
 import { globalVar, menuIconMap, type MenuIconType } from "src/static";
-import { MenuItem } from "../stores/appStore/model";
-import { MenuPermissionItem } from "../stores/authStore/model";
-import { RoutesConfigMap } from "../stores/routerStore/model";
+import { type MenuItem } from "../stores/appStore/model";
+import { type MenuPermissionItem } from "../stores/authStore/model";
+import { type RoutesConfigMap } from "../stores/routerStore/model";
 import HelperBase from "./_helperBase";
 
 export class AppHelper extends HelperBase {
@@ -37,7 +37,7 @@ export class AppHelper extends HelperBase {
 		// 创建客户端权限配置的菜单信息
 		if (Object.values(routesMap).length) {
 			const children = routesTree!.find((item) => {
-				return item!?.id === ROUTE_ID.Home;
+				return item!?.id === ROUTE_ID.HomePage;
 			})?.children;
 			if (children?.length) {
 				this.createMenuDataLoop(children, result, perimissionList);
@@ -205,7 +205,12 @@ export class AppHelper extends HelperBase {
 			depends,
 			index,
 			parentId,
-		} = this.routerHelper.getRoutItemConfigByPath(pathName);
+		} = this.routerHelper.getRoutItemConfigByPath(pathName) || {};
+		if (!currentId) {
+			return this.dpChain("appStore").deleteTabHistoryAct({
+				pathName,
+			});
+		}
 
 		// 如果存在上层依赖（即上层没有，本身就不存在）的路由，并且还不是index，那么就返回上层的index页面
 		if (depends && !index) {
@@ -280,7 +285,7 @@ export class AppHelper extends HelperBase {
 		const { isTab = true, depends } =
 			this.routerHelper.getRoutItemConfigByPath(pathName) || {};
 		if (!isTab && depends?.length) {
-			const targetIndex = tabItems.findIndex((item) => {
+			const targetItem = tabItems.find((item) => {
 				const parentIndexRouteId =
 					this.routerHelper.getIndexRoute(depends[0])?.id ||
 					depends[0];
@@ -291,7 +296,7 @@ export class AppHelper extends HelperBase {
 						.toLowerCase()
 				);
 			});
-			return targetIndex != -1;
+			return targetItem?.location?.pathname == pathName;
 		} else {
 			const targetIndex = tabItems.findIndex((item) => {
 				return item.key.toLowerCase() == pathName.toLowerCase();

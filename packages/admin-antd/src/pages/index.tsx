@@ -1,30 +1,15 @@
 import { pageList as pluginsPages } from "plugins/config/pages";
 import { lazy } from "react";
 
-const isProd = process.env.NODE_ENV == "production";
 // MODERATE_AUTO_PAGE_LAZY_IMPORT:START
 const HomePage = lazy(() => import("./HomePage"));
 const LoginPage = lazy(() => import("./LoginPage"));
-const HelloPage = lazy(() => import("./HomePage/HelloPage"));
-//storeDevPage
-const StoreDevPage = isProd
-	? null
-	: lazy(() => import("./HomePage/DevPage/StoreDevPage"));
-// 页面管理
-const PageDevPage = isProd
-	? null
-	: lazy(() => import("./HomePage/DevPage/PageDevPage"));
+const HelloPage = lazy(() => import("./HomePage/DealPage/DealEditPage"));
 ////notFundPage
 const NotFundPage = lazy(() => import("./HomePage/NotFundPage"));
 const ErrorPage = lazy(() => import("./HomePage/NotFundPage"));
 
-//PluginsPage
-const PluginsPage = lazy(() => import("./HomePage/PluginsPage"));
-
-//PluginListPage
-const PluginListPage = lazy(
-	() => import("./HomePage/PluginsPage/PluginListPage"),
-);
+//menuPage
 const LoadingPage = lazy(() => import("./HomePage/LoadingPage"));
 
 const DealPage = lazy(() => import("./HomePage/DealPage"));
@@ -33,7 +18,15 @@ const DealApprovalPage = lazy(
 	() => import("./HomePage/DealPage/DealApprovalPage"),
 );
 const DealRankPage = lazy(() => import("./HomePage/DealPage/DealRankPage"));
+const DealEditPage = lazy(() => import("./HomePage/DealPage/DealEditPage"));
 
+const CategoryPage = lazy(() => import("./HomePage/CategoryPage"));
+const CategoryListPage = lazy(
+	() => import("./HomePage/CategoryPage/CategoryListPage"),
+);
+
+const SubsPage = lazy(() => import("./HomePage/SubsPage"));
+const SubsListPage = lazy(() => import("./HomePage/SubsPage/SubsListPage"));
 //MODERATE_AUTO_PAGE_LAZY_IMPORT:END
 export type PageKey = keyof typeof pageList;
 export const pageList = {
@@ -41,15 +34,16 @@ export const pageList = {
 	HomePage,
 	LoginPage,
 	HelloPage,
-	PageDevPage,
-	StoreDevPage,
 	NotFundPage,
-	PluginsPage,
-	PluginListPage,
 	ErrorPage,
 	LoadingPage,
 	DealPage,
 	DealListPage,
 	DealApprovalPage,
 	DealRankPage,
+	DealEditPage,
+	CategoryPage,
+	CategoryListPage,
+	SubsPage,
+	SubsListPage,
 };

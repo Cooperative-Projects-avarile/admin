@@ -1,7 +1,7 @@
-import RiveLoading from "plugins/moderate-plugin-rive/common/components/riveLoading";
+import { ThemeProvider } from "@/mui/theme/theme-provider";
+import "nprogress/nprogress.css";
 import { Routes } from "react-router-dom";
 import { routerHelper } from "src/service";
-import { OptionsDrawer, OptionsFloatBtn } from "./components";
 import { useFlat } from "./service";
 
 const App = () => {
@@ -9,27 +9,20 @@ const App = () => {
 		isCollapsedMenu: "IN",
 		isLoading: "IN",
 	});
+
 	const { routesTree } = useFlat("routerStore", {
 		routesTree: "IN",
 	});
 
 	return (
-		<>
+		<ThemeProvider>
 			<Routes>
 				{routesTree.map((item) => {
 					return routerHelper.toRenderRouteLoop(item);
 				})}
 			</Routes>
-			<>
-				<OptionsFloatBtn />
-				<OptionsDrawer />
-			</>
-			{isLoading && (
-				<div className="loading g-glossy">
-					<RiveLoading />
-				</div>
-			)}
-		</>
+			{isLoading && <div className="loading g-glossy"></div>}
+		</ThemeProvider>
 	);
 };
 

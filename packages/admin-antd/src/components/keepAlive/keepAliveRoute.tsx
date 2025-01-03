@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { ROUTE_ID_KEY } from "src/router";
 
 export type KeepAliveComponentProps = React.PropsWithChildren<{
-	parentDomRef: RefObject<HTMLElement>;
+	parentDomRef: RefObject<HTMLElement | null>;
 	activeKey: ROUTE_ID_KEY;
 	pageKey: ROUTE_ID_KEY;
 }>;
@@ -11,6 +11,7 @@ export type KeepAliveComponentProps = React.PropsWithChildren<{
 function keepAliveRoute(props: KeepAliveComponentProps) {
 	const { parentDomRef, activeKey, children, pageKey } = props;
 	const isActive = activeKey == pageKey;
+	;
 	const aliveDom = useMemo(() => {
 		const aliveDom = document.createElement("div");
 		aliveDom.setAttribute("id", "alive");
@@ -36,7 +37,6 @@ function keepAliveRoute(props: KeepAliveComponentProps) {
 				containerDiv?.removeChild(aliveDom);
 		}
 	}, [isActive]);
-
 	return isAliveRef.current
 		? createPortal(children, aliveDom, pageKey)
 		: null;

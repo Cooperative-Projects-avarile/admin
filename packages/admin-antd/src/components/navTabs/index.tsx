@@ -20,7 +20,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Dropdown, MenuProps, Tabs, theme } from "antd";
 import React, { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { useLocationListen } from "src/common/hooks";
 import { cloneDeep } from "src/common/utils";
 import { ROUTE_ID, ROUTE_ID_KEY } from "src/router";
@@ -117,7 +116,7 @@ const DraggableTabNode = ({
 	);
 };
 
-const NavTabs: React.FC = () => {
+const NavTabs = () => {
 	const { t } = useTranslation();
 	const {
 		setTabItems,
@@ -127,9 +126,9 @@ const NavTabs: React.FC = () => {
 		language,
 		setRefreshKey,
 	} = useFlat("appStore");
-	const currentTabRef = useRef<string>();
+	const currentTabRef = useRef<string | undefined>("");
 	const [tabClassName, setTabClassName] = useState("");
-	const currentDragRef = useRef<string>();
+	const currentDragRef = useRef<string | undefined>("");
 	const sensor = useSensor(PointerSensor, {
 		activationConstraint: { distance: 10 },
 	});
@@ -150,36 +149,43 @@ const NavTabs: React.FC = () => {
 				meta,
 				isTab = true,
 				depends,
+				parentId,
 				component,
 				index,
 			} = routeConfigItem || {};
 			if (!component) return;
 
 			const parentConfigItem = routerHelper.getRoutItemConfigById(
-				depends!?.[0],
+				parentId!,
 			);
 			if (!isTab) {
 				if (!depends?.length) return;
 				const indexRoute = routerHelper.getIndexRouteByPath(
 					parentConfigItem.path!,
 				);
-				let targetIndex = tabItemsTemp.findIndex((item) => {
-					return item.key === indexRoute.path;
-				});
+				if (indexRoute) {
+					let targetIndex = tabItemsTemp.findIndex((item) => {
+						return item.key === indexRoute.path;
+					});
 
-				tabItemsTemp[targetIndex] = {
-					...tabItemsTemp[targetIndex],
-					location,
-					label:
-						routerHelper.getRouteTitleByKey(id as ROUTE_ID_KEY) ||
-						"",
-				};
-				setActiveTabKey(indexRoute.path!);
+					tabItemsTemp[targetIndex] = {
+						...tabItemsTemp[targetIndex],
+						location,
+						label:
+							routerHelper.getRouteTitleByKey(
+								id as ROUTE_ID_KEY,
+							) || "",
+					};
+					setActiveTabKey(indexRoute.path!);
+				}
 			} else {
-				const label =
-					depends?.length && index
-						? parentConfigItem?.meta?.title
-						: meta?.title;
+				let label = meta?.title;
+				if (index && !meta?.title) {
+					label = parentConfigItem.meta?.title;
+				}
+				if (routerHelper.getIndexRouteByPath(location.pathname)) {
+					return;
+				}
 				if (
 					!tabItemsTemp.some((item) => {
 						return (
@@ -187,7 +193,7 @@ const NavTabs: React.FC = () => {
 							location.pathname.toLocaleLowerCase()
 						);
 					}) &&
-					meta?.title
+					label
 				) {
 					// 判断一下，如果自己父节点是否存在，如果存在，就在其旁边创建tab
 					let insertIndex = tabItemsTemp.length;
@@ -225,7 +231,6 @@ const NavTabs: React.FC = () => {
 			}
 
 			let temp = tabItemsTemp.map((item) => {
-				item.label = t(item.label);
 				return item;
 			});
 			setTabItems(temp);
@@ -267,52 +272,10 @@ const NavTabs: React.FC = () => {
 	const items: MenuProps["items"] = useMemo(() => {
 		return [
 			{
-				label: (
-					<a
-					// onClick={(e) => {
-					//     e.preventDefault();
-
-					// }}
-					>
-						{t("common:Refesh")}
-					</a>
-				),
+				label: <a>{t("common:Refesh")}</a>,
 				key: "0",
 				icon: <ReloadOutlined />,
 			},
-			// {
-			// 	label: <a>Favourite</a>,
-			// 	key: "1",
-			// 	icon: <HeartOutlined />,
-			// },
-			// {
-			//     label: (
-			//         <a
-			//             onClick={() => {
-			//                 appHelper.addWinbox({
-			//                     content: appHelper.getKeepAliveComponentById({
-			//                         id: (currentTabRef.current as string)
-			//                             .split("/")
-			//                             .slice(-1)[0],
-			//                     }),
-			//                     pos: {
-			//                         x: 500,
-			//                         y: 200,
-			//                     },
-			//                     title: currentTabRef.current,
-			//                     type: "page",
-			//                 });
-			//                 appHelper.closeTabByPath({
-			//                     pathName: currentTabRef.current as string,
-			//                 });
-			//             }}
-			//         >
-			//             t('Float')
-			//         </a>
-			//     ),
-			//     icon: <BlockOutlined />,
-			//     key: "3",
-			// },
 			{
 				label: (
 					<a
@@ -359,7 +322,6 @@ const NavTabs: React.FC = () => {
 			});
 		}
 	};
-	const navi = useNavigate();
 	return (
 		<Tabs
 			className={tabClassName}
@@ -375,6 +337,7 @@ const NavTabs: React.FC = () => {
 			items={tabItems.map((item) => {
 				return {
 					...item,
+					label: t(item.label),
 					key: item.key,
 				};
 			})}
@@ -385,14 +348,15 @@ const NavTabs: React.FC = () => {
 				let target = tabItems.find((item) => {
 					return item.key === e;
 				});
+
 				if (target) {
-					navi(
-						target.location?.pathname +
+					routerHelper.jumpToByPath(
+						target!?.location?.pathname +
 							(target.location?.search || "") +
 							(target.location?.hash || ""),
 					);
 				} else {
-					navi(e);
+					routerHelper.jumpToByPath(e);
 				}
 			}}
 			renderTabBar={(tabBarProps, DefaultTabBar) => (
@@ -454,7 +418,7 @@ const NavTabs: React.FC = () => {
 														key == location.pathname
 													) {
 														routerHelper.jumpTo(
-															ROUTE_ID.Loading,
+															ROUTE_ID.LoadingPage,
 														);
 													}
 

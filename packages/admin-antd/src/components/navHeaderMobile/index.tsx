@@ -139,8 +139,7 @@ const NavHeaderMobile = () => {
                     shape="circle"
                     onClick={() => {
                         Modal.confirm({
-                            title: "确定么？",
-                            content: "更新权限之后，需要重新登陆",
+                            title: t("common:sure"),
                             onOk: () => {
                                 storageHelper.clear();
                                 window.location.href = "/";

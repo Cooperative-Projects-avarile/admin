@@ -1,6 +1,6 @@
-import { http } from "src/common/http";
-import { Category } from "./model";
-
+import { http } from "@/common/http";
+import { ICategory } from "@/types/model";
+import { Category } from "./slice";
 const baseUrl = "/api/category/";
 
 // 增
@@ -32,18 +32,31 @@ function updateApi(data: any) {
 
 // 查
 function queryApi(data: any) {
-	return http.request<{ content: Category[] }>({
+	return http.request<any, Category[]>({
 		url: baseUrl + "query",
 		method: "POST",
 		data,
 	});
 }
+function categoryFindAllApi() {
+	return http.request<{
+		content: {
+			allChildCategory: ICategory[];
+			allParentCategory: ICategory[];
+			allPrimeCategory: ICategory[];
+		};
+	}>({
+		url: "/api/category/find/all",
+		method: "POST",
+	});
+}
 
-const devApi = {
+const api = {
+	categoryFindAllApi,
 	addApi,
 	deleteApi,
 	updateApi,
 	queryApi,
 };
 
-export default devApi;
+export default api;

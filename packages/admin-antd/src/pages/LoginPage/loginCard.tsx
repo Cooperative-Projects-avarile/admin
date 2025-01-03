@@ -16,7 +16,7 @@ const LoginCard = (props: { children: ReactNode }) => {
 			className={styles.loginCard}
 			style={{
 				padding: isMobile ? "0px 36px" : "0px 80px",
-				width: isMobile ? "100%" : "360px",
+				width: isMobile ? "100%" : "560px",
 				background: colorBgBase,
 			}}
 		>

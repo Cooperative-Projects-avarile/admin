@@ -1,9 +1,7 @@
-import { Fit, Layout } from "@rive-app/react-canvas";
-import { RiveAni } from "plugins/moderate-plugin-rive/common/components/riveAni";
+import { useIsMobile } from "src/common/hooks";
 import LoginCard from "./loginCard";
 import LoginForm from "./loginForm";
 import styles from "./loginPage.module.scss";
-import { useIsMobile } from "src/common/hooks";
 
 const LoginPage = () => {
 	const isMobile = useIsMobile();
@@ -21,6 +19,8 @@ const LoginPage = () => {
 					<img
 						style={{
 							width: "100%",
+							height: "100%",
+							objectFit: "cover",
 						}}
 						src="/loginCover.png"
 						alt="loginCover.png"

@@ -1,9 +1,10 @@
-import { theme as antdTheme, Typography } from "antd";
+import { theme as antdTheme } from "antd";
 import { useFlat } from "src/service";
 const NameInfo = () => {
 	const { isCollapsedMenu, settingData } = useFlat("appStore");
 	const antdThemeToken = antdTheme.useToken();
-	const { projectName } = settingData;
+	const { projectName, logo } = settingData;
+	;
 	return (
 		<div
 			style={{
@@ -18,23 +19,18 @@ const NameInfo = () => {
 				left: isCollapsedMenu ? "0px" : "-15px",
 			}}
 		>
-			<img
-				style={{
-					width: "36px",
-					height: "36px",
-					marginRight: "5px",
-				}}
-				src={"/favicon-32x32.png"}
-			></img>
-			<div
-				style={{
-					fontSize: "30px",
-					marginLeft: "12px",
-					fontWeight: "bold",
-				}}
-			>
-				{"Admin"}
-			</div>
+			{logo && (
+				<img
+					style={{
+						width: "36px",
+						height: "36px",
+						marginRight: "5px",
+						marginTop: "5px",
+					}}
+					src={logo}
+				></img>
+			)}
+			{isCollapsedMenu ? "" : projectName}
 		</div>
 	);
 };

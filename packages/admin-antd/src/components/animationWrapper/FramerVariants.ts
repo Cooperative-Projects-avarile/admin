@@ -8,7 +8,8 @@ const RouteTransition: Transition = {
 
 const RouteFadeTransition: Transition = {
 	type: "spring",
-	duration: 1.6,
+	delay: 0.2,
+	duration: 1,
 };
 
 function getTransition(mode: RouterAni) {

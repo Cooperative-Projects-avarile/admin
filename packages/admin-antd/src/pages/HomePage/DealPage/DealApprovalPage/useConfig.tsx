@@ -17,8 +17,12 @@ import {
 } from "src/service/stores/dealStore/model";
 const RejectReasonModal = ({
 	resolver,
+	info,
+	name,
 }: {
 	resolver: { form: FormInstance };
+	info: string;
+	name: string;
 }) => {
 	const [form] = Form.useForm<{ reject_reason: string }>();
 
@@ -27,8 +31,8 @@ const RejectReasonModal = ({
 	return (
 		<Form form={form}>
 			<Form.Item
-				label="reject_reason"
-				name="reject_reason"
+				label={info}
+				name={name}
 				rules={[{ required: true }]}
 				initialValue={""}
 			>
@@ -46,7 +50,7 @@ const useConfig = () => {
 		recordData,
 		formVersion,
 		approvalPageData,
-		queryApprovalDealListAct,
+		queryLiveDealListAct,
 	} = useFlat("dealStore");
 	const { dataList } = approvalPageData;
 	const { queryListAct, pageData } = useFlat("categoryStore");
@@ -73,6 +77,21 @@ const useConfig = () => {
 						label: "user_id",
 						name: "user_id",
 					},
+				},
+			},
+			{
+				title: "live",
+				dataIndex: "live",
+				key: "live",
+				fieldConfig: {
+					scope: ["table"],
+				},
+				render(a) {
+					if (a) {
+						return "true";
+					} else {
+						return "false";
+					}
 				},
 			},
 			{
@@ -253,13 +272,34 @@ const useConfig = () => {
 								!record.is_approved && (
 									<a
 										onClick={async () => {
-											await approveAct({
-												id: record.id,
-												title: record.title,
-											});
-											await queryApprovalDealListAct();
-											notification.info({
-												message: "success!",
+											//@ts-ignore
+											let resolver = { form: null } as {
+												form: FormInstance;
+											};
+											Modal.confirm({
+												title: "approve reason",
+												content: (
+													<RejectReasonModal
+														info="approve"
+														name="approve_reason"
+														resolver={resolver}
+													/>
+												),
+												icon: null,
+												async onOk() {
+													await approveAct({
+														id: record.id,
+														title: record.title,
+														content:
+															resolver.form.getFieldValue(
+																"approve_reason",
+															),
+													});
+													await queryLiveDealListAct();
+													notification.info({
+														message: "success!",
+													});
+												},
 											});
 										}}
 									>
@@ -280,6 +320,8 @@ const useConfig = () => {
 												title: "reject reason",
 												content: (
 													<RejectReasonModal
+														info={"reject"}
+														name={"reject_reason"}
 														resolver={resolver}
 													/>
 												),
@@ -296,7 +338,7 @@ const useConfig = () => {
 													};
 
 													await rejectAct(x);
-													await queryApprovalDealListAct();
+													await queryLiveDealListAct();
 												},
 											});
 										}}

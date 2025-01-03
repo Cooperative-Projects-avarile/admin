@@ -1,7 +1,7 @@
 import { PayloadAction } from "redux-eazy";
 import { cloneDeep } from "src/common/utils";
 import { ROUTE_CONFIG_MAP, ROUTE_ID_KEY, RouteItem } from "src/router";
-import { createSlice, routerHelper } from "src/service";
+import { createSlice, routerHelper } from "src/service/setup";
 import { RoutesConfigMap, StoreState } from "./model";
 
 const initialState = (): StoreState => {

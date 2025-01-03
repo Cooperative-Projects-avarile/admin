@@ -9,8 +9,8 @@ import {
 	notification,
 } from "antd";
 import { useEffect, useMemo } from "react";
-import { MyColumnType, fieldCreater } from "src/common/utils";
-import { useFlat } from "src/service";
+import { MyColumnType, fieldCreater, updateHash } from "src/common/utils";
+import { dpChain, routerHelper, useFlat } from "src/service";
 import {
 	DealEntity,
 	DealType,
@@ -228,7 +228,7 @@ const useConfig = (form?: FormInstance) => {
 		];
 	}
 	if (recordData?.type == DealType.PARTNERSHIPS) {
-		debugger;
+		;
 		askData = [
 			{
 				dataIndex: "ask.partnerships.partners",
@@ -1162,10 +1162,11 @@ const useConfig = (form?: FormInstance) => {
 						<Space size="middle">
 							<a
 								onClick={async () => {
-									setIsAddModalShow({
-										isShowAddModal: true,
-										recordData: record,
-									});
+									routerHelper.jumpToByPath(
+										routerHelper.getRoutePathByKey(
+											"DealEdit",
+										) + `#id=${record.id}&step=${1}`,
+									);
 								}}
 							>
 								edit

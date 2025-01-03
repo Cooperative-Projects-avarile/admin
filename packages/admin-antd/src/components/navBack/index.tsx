@@ -1,6 +1,7 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { ComponentType } from "react";
+import { useTranslation } from "react-i18next";
 import { appHelper, routerHelper } from "src/service";
 
 export interface NavBackProps {
@@ -9,15 +10,11 @@ export interface NavBackProps {
 }
 
 const NavBack = (props: NavBackProps) => {
+    const { t } = useTranslation("common");
     const {
         handleClick,
         render = () => {
-            return (
-                <>
-                    <LeftOutlined />
-                    Back
-                </>
-            );
+            return <Button icon={<LeftOutlined />}>{t("back")}</Button>;
         },
     } = props;
     const Comp = render;

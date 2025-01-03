@@ -21,7 +21,7 @@ import { TextAreaProps } from "antd/es/input/TextArea";
 import { ColumnType } from "antd/es/table";
 import MultipleFieldObj from "src/components/fields/multipleFieldObj";
 import MultipleFieldOne from "src/components/fields/multipleFieldOne";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, type JSX } from "react";
 
 export type ScopeType = "table" | "modal" | "search";
 export type FieldType =
@@ -45,7 +45,7 @@ export type FieldConfigOptions = (
 export type CustomFieldRender<T> = (
 	item: FieldConfig<T>,
 	formIns: FormInstance<T>,
-) => React.ReactElement;
+) => React.ReactElement<any>;
 
 export interface FieldConfig<T = any> {
 	label?: string;
@@ -93,8 +93,14 @@ export const Field = <T,>({
 		options,
 		inputAttrConfig = {},
 		formOptions,
+		watch,
 	} = fieldConfig;
-
+	const watchState = Form.useWatch((values) => values, formIns);
+	const oldRecord = useRef<T | undefined>(undefined);
+	useEffect(() => {
+		watch?.(watchState, oldRecord.current!);
+		oldRecord.current = formIns?.getFieldsValue();
+	}, [watchState]);
 	let FieldItem;
 	if (render) {
 		return render(fieldConfig, formIns);

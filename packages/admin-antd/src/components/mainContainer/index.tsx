@@ -1,10 +1,10 @@
-import { useCurrentRoute } from "src/common/hooks";
-import NavBack from "../navBack";
+// import { useCurrentRoute } from "src/common/hooks";
+// import NavBack from "../navBack";
 
 const MainContainer = ({ children }: React.PropsWithChildren) => {
-    const currentRouteData = useCurrentRoute();
-    const { depends, index } = currentRouteData;
-    const isShowNavBack = depends?.length! > 0 && !index;
+    // const currentRouteData = useCurrentRoute();
+    // const { depends, index, isTab = true } = currentRouteData;
+    // const isShowNavBack = !isTab && depends?.length! > 0 && !index;
     return (
         <div
             style={{
@@ -13,7 +13,7 @@ const MainContainer = ({ children }: React.PropsWithChildren) => {
                 height: "100%",
             }}
         >
-            {isShowNavBack && <NavBack />}
+            {/* {isShowNavBack && <NavBack />} */}
             {children}
         </div>
     );

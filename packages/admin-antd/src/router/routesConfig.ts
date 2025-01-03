@@ -4,8 +4,8 @@ import { ROUTE_ID_KEY, RouteItem } from "./types";
 export const ROUTE_CONFIG_MAP: {
 	[key in ROUTE_ID_KEY]: RouteItem;
 } = {
-	Home: {
-		id: "Home",
+	HomePage: {
+		id: "HomePage",
 		meta: { title: "common:HomePageTile" },
 		component: "HomePage",
 		actionPermissions: ["ADD", "EDIT"],
@@ -13,48 +13,15 @@ export const ROUTE_CONFIG_MAP: {
 		keepAlive: true,
 		isTab: false,
 	},
-	Login: {
-		id: "Login",
+	LoginPage: {
+		id: "LoginPage",
 		component: "LoginPage",
 		isNoAuth: true,
 		path: "/",
 	},
-	Hello: {
-		id: "Hello",
-		meta: {
-			title: "common:HelloPageTile",
-			icon: "FundProjectionScreenOutlined",
-		},
-		component: "HelloPage",
-		actionPermissions: ["ADD", "EDIT"],
-		keepAlive: true,
-		isNoAuth: true,
-		isMenu: false,
-	},
-	Dev: {
-		id: "Dev",
-		meta: {
-			title: "common:DevPageTitle",
-			icon: "LaptopOutlined",
-		},
-		actionPermissions: ["ADD", "EDIT"],
-		isPublish: false,
-	},
-	PageDev: {
-		id: "PageDev",
-		meta: { title: "common:PageDevPageTitle" },
-		component: "PageDevPage",
-		actionPermissions: ["ADD", "EDIT"],
-	},
-	StoreDev: {
-		id: "StoreDev",
-		meta: { title: "common:StoreDevPageTitle" },
-		component: "StoreDevPage",
-		actionPermissions: ["ADD", "EDIT"],
-		isNoAuth: false,
-	},
-	NotFund: {
-		id: "NotFund",
+
+	NotFundPage: {
+		id: "NotFundPage",
 		meta: { title: "common:NotFundPageTitle" },
 		component: "NotFundPage",
 		isNoAuth: true,
@@ -62,8 +29,8 @@ export const ROUTE_CONFIG_MAP: {
 		path: "*",
 		isTab: false,
 	},
-	Error: {
-		id: "Error",
+	ErrorPage: {
+		id: "ErrorPage",
 		meta: { title: "common:ErrorPageTitle" },
 		component: "ErrorPage",
 		isNoAuth: true,
@@ -71,23 +38,8 @@ export const ROUTE_CONFIG_MAP: {
 		path: "*",
 		isTab: false,
 	},
-	Plugins: {
-		id: "Plugins",
-		meta: {
-			title: "common:PluginsPageTitle",
-			icon: "ProductOutlined",
-		},
-		component: "PluginsPage",
-	},
-	PluginList: {
-		id: "PluginList",
-		component: "PluginListPage",
-		isNoAuth: true,
-		isMenu: false,
-		index: true,
-	},
-	Loading: {
-		id: "Loading",
+	LoadingPage: {
+		id: "LoadingPage",
 		component: "LoadingPage",
 		meta: {
 			title: "LoadingPage",
@@ -96,11 +48,12 @@ export const ROUTE_CONFIG_MAP: {
 		isNoAuth: true,
 		isTab: false,
 	},
+
 	Deal: {
 		id: "Deal",
 		component: "DealPage",
 		meta: {
-			title: "DealPage",
+			title: "Deal",
 		},
 		isNoAuth: true,
 		index: true,
@@ -109,7 +62,7 @@ export const ROUTE_CONFIG_MAP: {
 		id: "DealApproval",
 		component: "DealApprovalPage",
 		meta: {
-			title: "DealApprovalPage",
+			title: "Deal Approval",
 		},
 		isNoAuth: true,
 		keepAlive: true,
@@ -118,7 +71,7 @@ export const ROUTE_CONFIG_MAP: {
 		id: "DealList",
 		component: "DealListPage",
 		meta: {
-			title: "DealListPage",
+			title: "Deal List",
 		},
 		isNoAuth: true,
 		keepAlive: true,
@@ -128,9 +81,62 @@ export const ROUTE_CONFIG_MAP: {
 		id: "DealRank",
 		component: "DealRankPage",
 		meta: {
-			title: "DealRankPage",
+			title: "Deal Rank",
 		},
 		keepAlive: true,
+		isNoAuth: true,
+	},
+	DealEdit: {
+		id: "DealEdit",
+		meta: {
+			title: "Deal edit",
+			icon: "FundProjectionScreenOutlined",
+		},
+		depends: ["DealList"],
+		isMenu: false,
+		component: "DealEditPage",
+		keepAlive: false,
+	},
+	CategoryPage: {
+		id: "CategoryPage",
+		meta: {
+			title: "Category",
+			icon: "FundProjectionScreenOutlined",
+		},
+		component: "CategoryPage",
+		keepAlive: false,
+		isNoAuth: true,
+	},
+	CategoryListPage: {
+		id: "CategoryListPage",
+		meta: {
+			title: "Category List",
+			icon: "FundProjectionScreenOutlined",
+		},
+		depends: ["CategoryPage"],
+		component: "CategoryListPage",
+		keepAlive: false,
+		isNoAuth: true,
+	},
+	SubsPage: {
+		id: "SubsPage",
+		meta: {
+			title: "Subscription",
+			icon: "FundProjectionScreenOutlined",
+		},
+		component: "SubsPage",
+		keepAlive: false,
+		isNoAuth: true,
+	},
+	SubsListPage: {
+		id: "SubsListPage",
+		meta: {
+			title: "Subscription List",
+			icon: "FundProjectionScreenOutlined",
+		},
+		depends: ["CategoryPage"],
+		component: "SubsListPage",
+		keepAlive: false,
 		isNoAuth: true,
 	},
 	...PLUGIN_ROUTE_CONFIG_MAP,

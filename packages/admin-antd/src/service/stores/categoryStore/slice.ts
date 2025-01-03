@@ -1,9 +1,53 @@
-import { PayloadAction } from "redux-eazy";
-import { createSlice } from "src/service/setup";
-import { Category, PageData, StoreState } from "./model";
+/* Core */
+import { type PayloadAction } from "redux-eazy";
 
-const initialState = (): StoreState => {
+/* Instruments */
+
+import { createSlice } from "src/service/setup";
+import thunks from "./thunks";
+import { ICategory } from "@/types/model";
+
+/* Types */
+export interface SliceState extends StoreStateBase {
+	allChildCategory: ICategory[];
+	allPrimeCategory: ICategory[];
+	allParentCategory: ICategory[];
+	loading: boolean;
+	setIsAddModalShow: boolean;
+}
+
+export interface PageData {
+	dataList: Category[];
+	pageSize: number;
+	pageNum: number;
+	total: number;
+}
+export interface Category {
+	created_at: Date;
+	deleted_at: Date;
+	description: string;
+	id: number;
+	name: string;
+	parent_id: number;
+	prime_id: number;
+	updated_at: Date;
+}
+export interface StoreStateBase {
+	pageData: PageData;
+	isShowAddModal: boolean;
+	isUpdate: boolean;
+	currentData: unknown;
+	loading: boolean;
+	isDetail: boolean;
+	formVersion: string;
+}
+const initialState = (): SliceState => {
 	return {
+		allChildCategory: [],
+		allPrimeCategory: [],
+		allParentCategory: [],
+		loading: false,
+		setIsAddModalShow: false,
 		pageData: {
 			dataList: [],
 			pageSize: 12,
@@ -13,16 +57,30 @@ const initialState = (): StoreState => {
 		isShowAddModal: false,
 		isUpdate: false,
 		currentData: null,
-		loading: false,
 		isDetail: false,
 		formVersion: "",
 	};
 };
 
-const slice = createSlice({
-	name: 'categoryStore',
+const categorySlice = createSlice({
+	name: "categoryStore",
 	stateInit: initialState,
 	reducers: {
+		setIsAddModalShow(state, action: PayloadAction<boolean>) {
+			state.isShowAddModal = action.payload;
+		},
+		setAllPrimeCategory: (state, action: PayloadAction<ICategory[]>) => {
+			const { payload } = action;
+			state.allPrimeCategory = payload;
+		},
+		setAllChildCategory: (state, action: PayloadAction<ICategory[]>) => {
+			const { payload } = action;
+			state.allChildCategory = payload;
+		},
+		setAllParentCategory: (state, action: PayloadAction<ICategory[]>) => {
+			const { payload } = action;
+			state.allParentCategory = payload;
+		},
 		setIsDetailAct(state, { payload }: PayloadAction<boolean>) {
 			state.isDetail = payload;
 		},
@@ -36,7 +94,7 @@ const slice = createSlice({
 			state,
 			{ payload }: PayloadAction<{ list: Category[]; total: number }>,
 		) {
-			debugger;
+			;
 			state.pageData = {
 				...state.pageData,
 				total: payload.total,
@@ -47,6 +105,21 @@ const slice = createSlice({
 			state.pageData = { ...state.pageData, ...payload };
 		},
 	},
+
+	extraReducers: (builder) => {
+		Object.values(thunks).forEach((thk) => {
+			builder
+				.addCase(thk.pending, (state) => {
+					state.loading = true;
+				})
+				.addCase(thk.fulfilled, (state) => {
+					state.loading = false;
+				})
+				.addCase(thk.rejected, (state) => {
+					state.loading = false;
+				});
+		});
+	},
 });
 
-export default slice;
+export default categorySlice;

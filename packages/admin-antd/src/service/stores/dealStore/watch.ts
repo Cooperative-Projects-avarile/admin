@@ -5,7 +5,7 @@ const watch = () => {
 	startAppListening({
 		type: getActionType("dealStore").setApprovalPageData,
 		effect: async () => {
-			dp("dealStore", "queryApprovalDealListAct");
+			dp("dealStore", "queryLiveDealListAct");
 		},
 	});
 	startAppListening({

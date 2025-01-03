@@ -1,6 +1,6 @@
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, type JSX } from "react";
 import { Route } from "react-router-dom";
-import { includeOne, upFirstcharacter } from "src/common/utils";
+import { throttle, includeOne, upFirstcharacter } from "src/common/utils";
 import { pageList } from "src/pages";
 import { historyInstance } from "src/providers/routerProvider/historyIns";
 import {
@@ -13,6 +13,7 @@ import {
 } from "src/router";
 import type { TreeSelectItem } from "../stores/appStore/model";
 import HelperBase from "./_helperBase";
+import { ProgressFallback } from "src/components";
 
 const bindHistoryEvent = function (type: "pushState" | "replaceState") {
 	const historyEvent = history[type];
@@ -62,7 +63,7 @@ export class RouterHelper extends HelperBase {
 			if (!(id in routesConfigMap)) {
 				return;
 			}
-			const { depends, path: pathE } = routesConfigMap[id];
+			const { depends, path: pathE, segment = "" } = routesConfigMap[id];
 			// 如果有权限或者是必须显示的，或者是管理员
 			if (
 				!routesPermissions ||
@@ -71,7 +72,7 @@ export class RouterHelper extends HelperBase {
 				routesConfigMap[id].isNoAuth
 			) {
 				const { component, ...rest } = routesConfigMap[id];
-				const path = prefix + "/" + id;
+				const path = prefix + "/" + id + (segment ? "/" + segment : "");
 				routesConfigMap[id].parentId = parentId;
 				routesConfigMap[id].id = id;
 				routesConfigMap[id].path = pathE
@@ -125,29 +126,29 @@ export class RouterHelper extends HelperBase {
 		};
 	} => {
 		let homeChildren = ROUTE_STRUCT_CONFIG.find(
-			(item) => item.id === ROUTE_ID.Home,
+			(item) => item.id === ROUTE_ID.HomePage,
 		)!.children!;
 
 		// 获取客户端显示的路由作为基础，再去融合后端动态配置权限菜单关联的路由
 		let routesTreeData = [...this.createClientRoutesConfig()];
 		let targetId = routesTreeData.findIndex((item) => {
-			return item.id === ROUTE_ID.Home;
+			return item.id === ROUTE_ID.HomePage;
 		});
 		routesTreeData[targetId] = Object.assign(
-			{ path: "/" + ROUTE_ID.Home },
+			{ path: "/" + ROUTE_ID.HomePage },
 			routesTreeData[targetId],
 			{
 				children: this.createRouteConfigLoop({
 					children: [],
 					routesStructData: homeChildren,
-					prefix: "/" + ROUTE_ID[ROUTE_ID.Home],
+					prefix: "/" + ROUTE_ID[ROUTE_ID.HomePage],
 					routesConfigMap,
 					routesPermissions,
-					parentId: ROUTE_ID.Home,
+					parentId: ROUTE_ID.HomePage,
 				}),
 			},
 		);
-		routesConfigMap.Home = routesTreeData[targetId];
+		routesConfigMap.HomePage = routesTreeData[targetId];
 		routesTreeData =
 			routesTreeData.filter((item) => {
 				return ROUTE_STRUCT_CONFIG.some((item2) => {
@@ -175,7 +176,7 @@ export class RouterHelper extends HelperBase {
 				// 排除部分组件：发布环境上无需存在的路由组件
 				const Comp = pageList[component] || Fragment;
 				element = (
-					<Suspense>
+					<Suspense fallback={<ProgressFallback />}>
 						<Comp />
 					</Suspense>
 				);
@@ -196,7 +197,10 @@ export class RouterHelper extends HelperBase {
 	// 每次登陆只会触发一次
 
 	getRoutePathByKey(key: ROUTE_ID_KEY) {
-		let path = this.routerStore.routesMap?.[key]?.path;
+		let path = this.routerStore.routesMap?.[key]?.path!?.replace(
+			/\/:.+$/,
+			"",
+		);
 		return path || "/" + key;
 	}
 
@@ -239,18 +243,17 @@ export class RouterHelper extends HelperBase {
 		return routeConfigItem;
 	}
 	getIndexRouteByPath(path: string) {
-		const routerId = this.getRouteIdByPath(path);
-		const routeConfigItem = this.getRoutItemConfigById(routerId);
+		const routeConfigItem = this.getRoutItemConfigByPath(path);
 		// 如果存在子路由，判断一波是否存在index的路由，存在则返回该index路由
 		if (routeConfigItem?.children) {
 			const indexRouteConfig = routeConfigItem.children.find((item) => {
 				return item.index;
 			});
-			if (indexRouteConfig?.id) {
-				return this.getRoutItemConfigById(indexRouteConfig?.id);
+			if (indexRouteConfig) {
+				return indexRouteConfig;
 			}
 		}
-		return routeConfigItem;
+		return null;
 	}
 
 	getHistory() {
@@ -294,56 +297,67 @@ export class RouterHelper extends HelperBase {
 		historyInstance.back();
 	}
 
-	jumpTo(
-		id: ROUTE_ID_KEY,
-		options?: {
-			type?: "replace" | "push";
-			state?: any;
-			search?: Record<PropertyKey, any>;
-		},
-	) {
-		const { type = "push", state, search } = options || {};
-		const path = this.getRoutePathByKey(id);
-		if (!path) {
-			historyInstance!?.push("notFund", state);
-			throw new Error("路由不存在");
-		}
-		let searchStr = "";
-		if (search) {
-			let arr = [];
-			for (let i in search) {
-				arr.push(`${i}=${search[i]}`);
+	jumpTo = throttle(
+		(
+			id: ROUTE_ID_KEY,
+			options?: {
+				type?: "replace" | "push";
+				state?: any;
+				search?: Record<PropertyKey, any>;
+				params?: string;
+			},
+		) => {
+			const { type = "push", state, search, params = "" } = options || {};
+			const path = this.getRoutePathByKey(id);
+			if (!path) {
+				historyInstance!?.push("notFund", state);
+				throw new Error("路由不存在");
 			}
-			searchStr = "?" + arr.join("&");
-		}
-		let targetPath = `${path}${searchStr}`;
-		if (type === "push") {
-			historyInstance!?.push(targetPath, state);
-		} else {
-			historyInstance!?.replace(targetPath, state);
-		}
-	}
+			let searchStr = "";
+			if (search) {
+				let arr = [];
+				for (let i in search) {
+					arr.push(`${i}=${search[i]}`);
+				}
+				searchStr = "?" + arr.join("&");
+			}
+			let targetPath =
+				`${path}${searchStr}` + (params ? "/" + params : "");
+			if (type === "push") {
+				historyInstance!?.push(targetPath, state);
+			} else {
+				historyInstance!?.replace(targetPath, state);
+			}
+		},
+		200,
+	);
 
 	getRouteIdByPath(path: string): ROUTE_ID_KEY {
 		return Object.values(this.routerStore.routesMap).find((item) => {
+			if (item.segment) {
+				return item.path?.includes(path.replace(/\/[^\/]+$/, ""));
+			}
 			return item.path == path;
 		})?.id!;
 	}
 
-	jumpToByPath(
-		path: string,
-		options?: {
-			type: "replace" | "push";
-			state?: any;
+	jumpToByPath = throttle(
+		(
+			path: string,
+			options?: {
+				type: "replace" | "push";
+				state?: any;
+			},
+		) => {
+			const { type = "push", state } = options || {};
+			if (type === "push") {
+				historyInstance!?.push(path, state);
+			} else {
+				historyInstance!?.replace(path, state);
+			}
 		},
-	) {
-		const { type = "push", state } = options || {};
-		if (type === "push") {
-			historyInstance!?.push(path, state);
-		} else {
-			historyInstance!?.replace(path, state);
-		}
-	}
+		200,
+	);
 
 	// 生成一个柱状选项根据路由tree
 	generateTreeSelectDataByRoutesTree() {

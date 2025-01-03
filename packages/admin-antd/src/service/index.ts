@@ -8,12 +8,11 @@ import {
 } from "redux-eazy";
 import {
     appHelper,
+    routerHelper,
     authHelper,
     devHelper,
-    routerHelper,
     ruleHelper,
-} from "./helpers";
-import "./setup";
+} from "./setup";
 import { stores } from "./stores";
 import { type ReduxState } from "./setup";
 
@@ -58,7 +57,7 @@ export const getStore = <
                     : T[0]
             ];
         } else {
-            let c = reduxStore.getState()[storeName[0]];
+            const c = reduxStore.getState()[storeName[0]];
             return c as ReduxState[T extends keyof typeof stores ? T : T[0]];
         }
     } else {
@@ -67,7 +66,6 @@ export const getStore = <
         ];
     }
 };
-export * from "./helpers";
 export * from "./setup";
 
 export const serviceManager = {

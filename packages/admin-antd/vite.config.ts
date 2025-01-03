@@ -3,9 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import viteCompression from "vite-plugin-compression";
-// import { bootstrap } from "global-agent";
-// process.env.GLOBAL_AGENT_HTTP_PROXY = "http://127.0.0.1:8118"; // 代理地址:端口
-// bootstrap();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,10 +31,34 @@ export default defineConfig({
 	},
 	server: {
 		port: 8032,
+		host: "0.0.0.0",
 		proxy: {
+			"/gitee": {
+				target: "https://gitee.com",
+				changeOrigin: true, // 允许跨域
+				rewrite: (path) => path.replace(/^\/gitee/, ""),
+			},
+			"/pdfWorkerCdn": {
+				target: "https://cdnjs.cloudflare.com",
+				changeOrigin: true, // 允许跨域
+				rewrite: (path) => path.replace(/^\/pdfWorkerCdn/, ""),
+			},
+			"/res": {
+				target: "https://qiniu.moderate.run",
+				changeOrigin: true, // 允许跨域
+				rewrite: (path) => path.replace(/^\/res/, ""),
+			},
 			"/api": {
-				target: "https://test.scaling.com.au",
-				// target: "http://localhost:4002",
+				target: "http://localhost:8681",
+				changeOrigin: true, // 允许跨域
+			},
+			"/devApi": {
+				target: "http://localhost:8681",
+				changeOrigin: true, // 允许跨域
+				rewrite: (path) => path.replace(/^\/devApi/, ""),
+			},
+			"/admin-api": {
+				target: "http://172.24.153.225:48080",
 				changeOrigin: true, // 允许跨域
 			},
 		},

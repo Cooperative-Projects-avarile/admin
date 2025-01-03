@@ -21,3 +21,7 @@ export { isEqual } from "./isEqual"; // 深比较
 export { cloneDeep } from "./cloneDeep"; // 深拷贝
 export { pickBy } from "./pickBy"; // 常用给对象去空属性
 export { merge } from "./merge"; // 融合对象类型
+export { throttle } from "./throttle";
+export { debounce } from "./debounce";
+export * from "./updateHash";
+export * from "./useHashParams";

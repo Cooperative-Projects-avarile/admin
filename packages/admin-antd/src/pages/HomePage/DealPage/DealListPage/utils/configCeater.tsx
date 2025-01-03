@@ -1,5 +1,5 @@
 import { Form, Modal, Typography } from "antd";
-import PdfPreview from "plugins/moderate-plugin-pdf/common/components/pdfPreview";
+// import PdfPreview from "plugins/moderate-plugin-pdf/common/components/pdfPreview";
 import { MyColumnType } from "src/common/utils";
 import { DealEntity } from "src/service/stores/dealStore/model";
 
@@ -15,16 +15,12 @@ export const getAttachments = (list: string[], name: string[]) => {
 					return (
 						<a
 							onClick={() => {
-								let url = item.replace(
-									"https://d2k5mqgnyo4nix.cloudfront.net",
-									"/doc",
-								);
 								Modal.confirm({
 									width: "950px",
 									style: {
 										position: "relative",
 									},
-									content: <PdfPreview pdfUrl={url} />,
+									// content: <PdfPreview pdfUrl={url} />,
 								});
 							}}
 						>

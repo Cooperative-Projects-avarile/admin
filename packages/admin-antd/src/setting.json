@@ -1,8 +1,8 @@
 {
-  "projectName": "UserCenter",
-  "logo": "logo.png",
+  "projectName": "Scalling",
+  "logo": "/logo.png",
   "icon": "",
-  "paletteSet": { "light": "dland", "dark": "dland" },
+  "paletteSet": { "light": "Scalling", "dark": "Scalling" },
   "layoutSet": { "light": "Wind", "dark": "Wind" },
   "routerAni": "fade",
   "color": "light",

@@ -2,22 +2,21 @@ import { PLUGIN_ROUTE_NAME } from "plugins/config/router/name";
 import { enumToObject } from "src/common/utils";
 
 export enum NAME {
-    Home,
-    Login,
-    Hello,
-    Dev,
-    PageDev,
-    StoreDev,
-    NotFund,
-    Error,
-    Loading,
-    Plugins,
-    PluginList,
-    // Deal
-    Deal,
+	HomePage,
+	LoginPage,
+	NotFundPage,
+	ErrorPage,
+	LoadingPage,
+	// Deal
+	Deal,
 	DealList,
 	DealApproval,
 	DealRank,
+	DealEdit,
+	CategoryPage,
+	CategoryListPage,
+	SubsPage,
+	SubsListPage,
 }
 
 export const ROUTE_NAME = { ...NAME, ...PLUGIN_ROUTE_NAME };

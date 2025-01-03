@@ -1,11 +1,22 @@
 /* Instruments */
-import { pickBy } from "lodash-es";
-import { UUID } from "src/common/utils";
-import { dp } from "src/service";
 import { createThunks } from "src/service/setup";
-import httpApi from "./api";
 
-const thunks = createThunks('categoryStore', {
+import httpApi from "./api";
+import { dp } from "src/service";
+import { pickBy } from "lodash-es";
+import { UUID } from "@/common/utils";
+
+const thunks = createThunks("categoryStore", {
+	categoryFindAllAct: async () => {
+		const {
+			data: { content },
+		} = await httpApi.categoryFindAllApi();
+		const { allPrimeCategory, allChildCategory, allParentCategory } =
+			content;
+		dp("categoryStore", "setAllChildCategory", allChildCategory);
+		dp("categoryStore", "setAllParentCategory", allParentCategory);
+		dp("categoryStore", "setAllPrimeCategory", allPrimeCategory);
+	},
 	refreshFormVersionAct: () => {
 		return {
 			formVersion: UUID(),
@@ -42,15 +53,15 @@ const thunks = createThunks('categoryStore', {
 		await httpApi.updateApi(pickBy(params));
 	},
 	queryListAct: async (params, api) => {
-		const { data } = await httpApi.queryApi({
+		const data = await httpApi.queryApi({
 			page: api.getState().categoryStore.pageData.pageNum || 1,
 			...pickBy(params),
 		});
-		const { content } = data || {};
 		dp("categoryStore", "setCategoryList", {
-			list: content,
-			total: content.length,
+			list: data,
+			total: data.length,
 		});
 	},
 });
+
 export default thunks;

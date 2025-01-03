@@ -1,7 +1,7 @@
 import { PayloadAction } from "redux-eazy";
 import { cloneDeep } from "src/common/utils";
 import storageHelper from "src/common/utils/storageHelper";
-import { appHelper, createSlice } from "src/service";
+import { appHelper, createSlice } from "src/service/setup";
 import settingData from "src/setting.json";
 import {
 	MenuItem,
@@ -16,7 +16,7 @@ import {
 const initialState = (): StoreState => {
 	const menuData = appHelper.createMenuData();
 	const settingDataPreset = {
-		projectName: "Dland Admin",
+		projectName: "Scalling Admin",
 		logo: "/logoBig.png",
 		icon: "/logo.png",
 		paletteSet: { light: "Default", dark: "Default" },
@@ -44,7 +44,7 @@ const initialState = (): StoreState => {
 		mdContent: "",
 		winBoxList: [],
 		settingData: settingDataPreset,
-		language: storageHelper.getItem("LANGUAGE") || "en",
+		language: storageHelper.getItem("LANGUAGE") || "zh",
 		winPosTemp: {
 			x: 0,
 			y: 0,
@@ -139,8 +139,8 @@ const appSlice = createSlice({
 				id: string | number;
 			}>,
 		) {
-			let temp = cloneDeep(state.winBoxList);
-			let targetId = temp.findIndex((item) => {
+			const temp = cloneDeep(state.winBoxList);
+			const targetId = temp.findIndex((item) => {
 				return item.id == id;
 			});
 			if (targetId != -1) {

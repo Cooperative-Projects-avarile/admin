@@ -2,14 +2,14 @@ import { pluginProviders } from "plugins/config/providers";
 import RouterProvider from "./routerProvider";
 import AuthProvider from "./authProvider";
 import ServiceProvider from "./serviceProvider";
-import ThemeProvider from "./themeProvider";
+import { NotifyProvider } from "@/mui/components";
 
 const providerArr = [
-    ServiceProvider,
-    RouterProvider,
-    AuthProvider,
-    ThemeProvider,
-    ...pluginProviders,
+	ServiceProvider,
+	RouterProvider,
+	AuthProvider,
+	NotifyProvider,
+	...pluginProviders,
 ];
 
 export default providerArr;

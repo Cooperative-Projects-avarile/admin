@@ -1,7 +1,7 @@
 import { Space, Switch } from "antd";
 import { useEffect, useMemo } from "react";
 import { MyColumnType, fieldCreater } from "src/common/utils";
-import { useFlat } from "src/service";
+import { routerHelper, useFlat } from "src/service";
 import {
 	DealEntity,
 	Status,
@@ -214,10 +214,11 @@ const useConfig = () => {
 						<Space size="middle">
 							<a
 								onClick={async () => {
-									setIsAddModalShow({
-										isShowAddModal: true,
-										recordData: record,
-									});
+									routerHelper.jumpToByPath(
+										routerHelper.getRoutePathByKey(
+											"DealEdit",
+										) + `#id=${record.id}&step=${1}`,
+									);
 								}}
 							>
 								edit

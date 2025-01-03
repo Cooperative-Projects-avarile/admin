@@ -3,6 +3,6 @@ import { WinBoxProvider } from "plugins/moderate-plugin-winbox/providers/winBoxP
 //>>>PROVIDER_INPORT_SIGN<<<//
 
 export const pluginProviders = [
-  WinBoxProvider,
-  //>>>PROVIDER_SIGN<<<//
+	WinBoxProvider,
+	//>>>PROVIDER_SIGN<<<//
 ];
