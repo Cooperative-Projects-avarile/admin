@@ -22,16 +22,6 @@ const useConfig = (_?: FormInstance) => {
 			fieldCreater("name", {
 				fieldConfig: {},
 			}),
-			fieldCreater("parent_id", {
-				fieldConfig: {
-					scope: ["table"],
-				},
-			}),
-			fieldCreater("prime_id", {
-				fieldConfig: {
-					scope: ["table"],
-				},
-			}),
 			fieldCreater("description", {
 				fieldConfig: {},
 			}),
@@ -47,10 +37,10 @@ const useConfig = (_?: FormInstance) => {
 								}}
 								onClick={() => {
 									dpChain("categoryStore").setCurrentData(
-										record,
+										record
 									);
 									dpChain("categoryStore").setIsAddModalShow(
-										true,
+										true
 									);
 								}}
 							>
@@ -60,10 +50,11 @@ const useConfig = (_?: FormInstance) => {
 								onClick={() => {
 									Modal.confirm({
 										title: "Are you sure?",
-										onOk: () => {
+										onOk: async () => {
 											dpChain("categoryStore").deleteAct({
 												id: record.id,
 											});
+											queryListAct();
 										},
 									});
 								}}

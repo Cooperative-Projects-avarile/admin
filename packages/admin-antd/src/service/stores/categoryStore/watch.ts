@@ -1,4 +1,3 @@
-import { startAppListening } from "src/service/setup";
 
 const watch = () => {};
 

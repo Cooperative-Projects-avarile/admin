@@ -3,9 +3,8 @@ import { type PayloadAction } from "redux-eazy";
 
 /* Instruments */
 
-import { createSlice } from "src/service/setup";
-import thunks from "./thunks";
 import { ICategory } from "@/types/model";
+import { createSlice } from "src/service/setup";
 
 /* Types */
 export interface SliceState extends StoreStateBase {
@@ -92,9 +91,8 @@ const categorySlice = createSlice({
 		},
 		setCategoryList(
 			state,
-			{ payload }: PayloadAction<{ list: Category[]; total: number }>,
+			{ payload }: PayloadAction<{ list: Category[]; total: number }>
 		) {
-			;
 			state.pageData = {
 				...state.pageData,
 				total: payload.total,
@@ -104,21 +102,6 @@ const categorySlice = createSlice({
 		setPageData(state, { payload }: PayloadAction<Partial<PageData>>) {
 			state.pageData = { ...state.pageData, ...payload };
 		},
-	},
-
-	extraReducers: (builder) => {
-		Object.values(thunks).forEach((thk) => {
-			builder
-				.addCase(thk.pending, (state) => {
-					state.loading = true;
-				})
-				.addCase(thk.fulfilled, (state) => {
-					state.loading = false;
-				})
-				.addCase(thk.rejected, (state) => {
-					state.loading = false;
-				});
-		});
 	},
 });
 
